@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdVanta — الإعلان بالذكاء الاصطناعي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fcfaff;
+            background-image: 
+                radial-gradient(circle at 5% 30%, rgba(255, 107, 74, 0.03) 0%, transparent 35%),
+                radial-gradient(circle at 95% 70%, rgba(0, 102, 255, 0.03) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(255,107,74,0.01) 0px, rgba(255,107,74,0.01) 2px, transparent 2px, transparent 8px);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            animation: floatIn 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(25px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 320px;
+            height: auto;
+            transition: all 0.6s cubic-bezier(0.2, 0.85, 0.4, 1);
+            filter: drop-shadow(0 12px 28px rgba(0, 102, 255, 0.22));
+            animation: logoGlow 3s infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 12px 28px rgba(0, 102, 255, 0.22)); }
+            100% { filter: drop-shadow(0 20px 40px rgba(255, 107, 74, 0.35)); }
+        }
+
+        .logo:hover {
+            transform: scale(1.07) rotate(-1.2deg);
+            filter: drop-shadow(0 28px 48px rgba(255, 107, 74, 0.45));
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "✦";
+            font-size: 2.2rem;
+            color: rgba(255, 107, 74, 0.2);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulseStar 2.4s infinite ease-in-out;
+        }
+
+        @keyframes pulseStar {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(0.9); }
+            50% { opacity: 0.7; transform: translateX(-50%) scale(1.2); }
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #1a1e2b;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title .to-ad {
+            background: linear-gradient(135deg, #0a2540, #1a3a5f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .hero-title .to-ad::before {
+            content: "←";
+            font-size: 2.4rem;
+            background: none;
+            -webkit-text-fill-color: #ff6b4a;
+            position: absolute;
+            left: -40px;
+            top: -8px;
+            animation: slideArrow 1.8s infinite alternate;
+            opacity: 0.9;
+        }
+
+        @keyframes slideArrow {
+            0% { left: -40px; opacity: 0.6; }
+            100% { left: -50px; opacity: 1; }
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(145deg, #0066ff, #ff5e3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            animation: gentleWave 3s infinite ease-in-out;
+        }
+
+        @keyframes gentleWave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .hero-title .highlight::after {
+            content: "✨";
+            font-size: 2.2rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+            position: absolute;
+            top: -22px;
+            right: -32px;
+            animation: sparkleRotate 2.4s infinite alternate;
+        }
+
+        @keyframes sparkleRotate {
+            0% { opacity: 0.5; transform: rotate(0deg) scale(0.9); }
+            100% { opacity: 1; transform: rotate(15deg) scale(1.2); }
+        }
+
+        .hero-sub {
+            margin-top: 1.2rem;
+            font-size: 1.4rem;
+            color: #3a4055;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            font-weight: 550;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.8rem;
+            border-radius: 70px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,107,74,0.2);
+        }
+
+        .hero-sub i {
+            font-style: normal;
+            background: linear-gradient(145deg, #fff0ed, #ffeae5);
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            color: #ff5e3a;
+            font-weight: 650;
+            font-size: 1.05rem;
+            border: 1px solid #ffd7cc;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s;
+        }
+
+        .hero-sub i:hover {
+            background: #ff6b4a;
+            color: white;
+            border-color: #ff6b4a;
+        }
+
+        .hero-description {
+            margin-top: 1.6rem;
+            font-size: 1.2rem;
+            color: #2d3142;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 450;
+            line-height: 1.7;
+            background: rgba(255,255,255,0.5);
+            padding: 0.8rem 2rem;
+            border-radius: 80px;
+            backdrop-filter: blur(8px);
+            display: inline-block;
+            border: 1px solid rgba(255,107,74,0.15);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+            animation: softPulse 4s infinite;
+        }
+
+        @keyframes softPulse {
+            0%, 100% { box-shadow: 0 4px 14px rgba(255,107,74,0.05); }
+            50% { box-shadow: 0 8px 24px rgba(255,107,74,0.12); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 2.6rem;
+            border: 1px solid rgba(255, 107, 74, 0.25);
+            background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.98));
+            box-shadow: 0 25px 45px -18px rgba(0,0,0,0.05), 0 0 0 1px rgba(255,107,74,0.1);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            box-shadow: 0 35px 60px -18px rgba(255,107,74,0.2), 0 0 0 1px rgba(255,107,74,0.25);
+            transform: translateY(-4px);
+        }
+
+        .row {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1 1 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 650;
+            color: #2f3349;
+            letter-spacing: 0.3px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+            background: white;
+            border: 1.5px solid #edf2f7;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            color: #1a1e2b;
+            margin-bottom: 1.6rem;
+            appearance: none;
+            transition: 0.25s;
+            font-weight: 500;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%23ff6b4a" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>');
+            background-repeat: no-repeat;
+            background-position: left 1rem center;
+            background-size: 16px;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff6b4a;
+            box-shadow: 0 0 0 5px rgba(255,107,74,0.1);
+            background-color: white;
+        }
+
+        textarea {
+            background-image: none;
+            padding: 1.3rem;
+            height: 160px;
+            resize: vertical;
+            border-radius: 32px;
+            background: #fffcfb;
+        }
+
+        textarea::placeholder {
+            color: #6b7280;
+            font-size: 1.05rem;
+            font-weight: 430;
+            opacity: 0.85;
+            letter-spacing: 0.2px;
+        }
+
+        .upload-area {
+            background: rgba(255, 250, 248, 0.8);
+            border-radius: 36px;
+            padding: 1.4rem 2rem;
+            margin: 0.8rem 0 2rem 0;
+            border: 1.8px dashed #ffb7a5;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .upload-btn {
+            background: white;
+            border: 1.8px solid #ff6b4a;
+            color: #ff6b4a;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-weight: 650;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .upload-btn:hover {
+            background: #ff6b4a;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .uploaded-media {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .media-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #ff6b4a;
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-item .remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1.3rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-plan, .btn-build {
+            flex: 1;
+            padding: 1.1rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 750;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: 0.25s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-plan {
+            background: white;
+            color: #1e1e2f;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .btn-plan:hover {
+            border-color: #ff6b4a;
+            background: #fffaf8;
+            transform: translateY(-2px);
+        }
+
+        .btn-build {
+            background: #ff6b4a;
+            color: white;
+            box-shadow: 0 10px 22px rgba(255, 107, 74, 0.28);
+        }
+
+        .btn-build:hover {
+            background: #ff541f;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 28px rgba(255, 87, 34, 0.35);
+        }
+
+        .plan-container {
+            margin-top: 2.5rem;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #fff9f7, #fffdfc);
+            border: 1.5px solid rgba(255,107,74,0.25);
+            padding: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(255,107,74,0.15);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #0066ff, #ff6b4a, #0066ff);
+            background-size: 200% 100%;
+            animation: gradientMove 3s infinite linear;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(145deg, #0066ff20, #ff6b4a20);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .plan-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #0066ff, #ff5e3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .plan-content {
+            line-height: 1.9;
+            color: #2d3142;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+        }
+
+        .plan-content strong {
+            color: #ff6b4a;
+            font-size: 1.1rem;
+            display: block;
+            margin-top: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .video-container {
+            margin-top: 2rem;
+            border-radius: 32px;
+            background: #0a0c12;
+            padding: 1.5rem;
+            display: none;
+            border: 1px solid #ff6b4a40;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            gap: 1rem;
+        }
+
+        .video-attribution {
+            margin-top: 0.8rem;
+            color: #a0a6b5;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .video-attribution a {
+            color: #ff6b4a;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .footer-links a:hover {
+            color: #ff6b4a;
+        }
+
+        .footer-copyright {
+            color: #8f95a3;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            color: #a0a6b5;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-wrapper">
+            <img src="logo.png.png" alt="AdVanta" class="logo">
+        </div>
+
+        <div class="hero">
+            <div class="hero-title">
+                <span class="to-ad">إلى إعلان</span>
+                <span class="highlight">حوِّل فكرتك</span>
+            </div>
+            <div class="hero-sub">
+                <span>🤖 بالذكاء الاصطناعي</span>
+                <i>⚡ في دقائق</i>
+                <i>🎬 احترافي</i>
+            </div>
+            <div class="hero-description">
+                ✨ اختر الإعدادات، اكتب فكرتك، ودع الذكاء الاصطناعي يصنع فيديو ينبض بالحياة.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <label>📌 نوع الإعلان</label>
+                    <select id="adType">
+                        <option value="مطعم">مطعم</option>
+                        <option value="متجر إلكتروني">متجر إلكتروني</option>
+                        <option value="تطبيق جوال">تطبيق جوال</option>
+                        <option value="عقار">عقار</option>
+                        <option value="منتج">منتج</option>
+                        <option value="خدمة">خدمة</option>
+                        <option value="حدث">حدث</option>
+                        <option value="علامة تجارية">علامة تجارية</option>
+                        <option value="سياحة">سياحة</option>
+                        <option value="تعليم">تعليم</option>
+                        <option value="صحة">صحة</option>
+                        <option value="أزياء">أزياء</option>
+                        <option value="أخرى">أخرى</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>📱 المنصة</label>
+                    <select id="platform">
+                        <option value="Instagram">Instagram</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Snapchat">Snapchat</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="X">X</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>⏱️ المدة (ثانية)</label>
+                    <select id="duration">
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                        <option value="60">60</option>
+                        <option value="90">90</option>
+                        <option value="120">120</option>
+                        <option value="مخصص">مخصص</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>📐 الأبعاد</label>
+                    <select id="aspectRatio">
+                        <option value="9:16">9:16 (Reels, TikTok, Stories)</option>
+                        <option value="16:9">16:9 (YouTube)</option>
+                        <option value="1:1">1:1 (مربع)</option>
+                        <option value="4:5">4:5 (بورتريه)</option>
+                        <option value="2:3">2:3 (سناب شات)</option>
+                        <option value="21:9">21:9 (سينمائي)</option>
+                        <option value="3:4">3:4 (لينكد إن)</option>
+                        <option value="9:21">9:21 (إعلان طويل)</option>
+                        <option value="1.91:1">1.91:1 (فيسبوك)</option>
+                        <option value="4:3">4:3</option>
+                        <option value="مخصص">مخصص</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>🌐 اللغة</label>
+                    <select id="language">
+                        <option value="العربية">العربية 🇸🇦</option>
+                        <option value="English">English 🇺🇸</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>🎬 تنسيق خاص</label>
+                    <select id="format">
+                        <option value="عادي">عادي</option>
+                        <option value="Reel">Reel</option>
+                        <option value="Story">Story</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Spotlight">Spotlight</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="upload-area">
+                <span style="font-weight: 650; color: #1e1e2f;">📁 وسائطك</span>
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <label for="upload-images" class="upload-btn">🖼️ صور</label>
+                    <input type="file" id="upload-images" accept="image/*" multiple style="display: none;">
+                    <label for="upload-videos" class="upload-btn">🎥 فيديوهات</label>
+                    <input type="file" id="upload-videos" accept="video/*" multiple style="display: none;">
+                    <span style="color: #6b7280; font-size: 0.95rem;">رفع وسائطك = الفيديو منها فقط</span>
+                </div>
+                <div id="uploadedMediaContainer" class="uploaded-media"></div>
+            </div>
+
+            <label>✍️ اكتب فكرة إعلانك</label>
+            <textarea id="ad-description" placeholder="اكتب فكرة إعلانك هنا… حرّر أفكارك، صِف المشهد، أخبرنا عن الجمهور، الأجواء، العرض…"></textarea>
+
+            <div class="actions">
+                <button class="btn-plan" id="planBtn">📋 Plan</button>
+                <button class="btn-build" id="buildBtn">🎬 Build</button>
+            </div>
+
+            <div id="planContainer" class="plan-container">
+                <div class="plan-header">
+                    <div class="plan-icon">📋</div>
+                    <div class="plan-title">خطة AdVanta الذكية</div>
+                </div>
+                <div id="planContent" class="plan-content"></div>
+            </div>
+
+            <div id="videoContainer" class="video-container">
+                <div class="video-wrapper" id="videoWrapper">
+                    <div class="video-loading" id="videoLoading">
+                        <div style="width: 50px; height: 50px; border: 3px solid #ff6b4a30; border-top-color: #ff6b4a; border-radius: 50%; animation: spin 1s infinite;"></div>
+                        <span>⏳ جلب فيديو مناسب...</span>
+                    </div>
+                    <video id="realVideo" controls style="display: none; width: 100%; height: 100%;">
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-attribution" id="videoAttribution"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="privacy.html">📄 سياسة الخصوصية</a>
+                <a href="terms.html">⚖️ شروط الاستخدام</a>
+                <span style="color: #6b7280;">© 2026 AdVanta</span>
+            </div>
+            <div class="footer-copyright">
+                جميع الحقوق محفوظة
+            </div>
+            <div class="footer-tagline">
+                منصة عربية بالكامل لتوليد الإعلانات بالذكاء الاصطناعي
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== التهيئة والمتغيرات العامة ====================
+        const PEXELS_API_KEY = 'pvlNHQuQLoIc70N5oYsQpnrolfKjJgI7K48AdibR63VuzZ63aXhR4XjP';
+        
+        // مخزن الوسائط المرفوعة
+        let uploadedFiles = {
+            images: [],
+            videos: []
+        };
+
+        // قاموس الترجمة عربي ← إنجليزي
+        const keywordTranslations = {
+            'مطعم': 'restaurant food dining',
+            'برغر': 'burger fastfood',
+            'بيتزا': 'pizza italian food',
+            'قهوة': 'coffee cafe',
+            'كافيه': 'cafe coffee shop',
+            'مقهى': 'coffee shop',
+            'حلويات': 'dessert sweets',
+            'آيس كريم': 'ice cream',
+            'صالة رياضة': 'gym workout fitness',
+            'جيم': 'gym exercise',
+            'رياضة': 'sports athletic',
+            'تمارين': 'workout exercise',
+            'لياقة': 'fitness gym',
+            'سياحة': 'travel tourism vacation',
+            'سفر': 'travel trip',
+            'فندق': 'hotel resort',
+            'شاطئ': 'beach ocean',
+            'بحر': 'sea ocean',
+            'طبيعة': 'nature landscape',
+            'جبال': 'mountains hiking',
+            'تكنولوجيا': 'technology tech',
+            'برمجة': 'coding programming',
+            'تطبيق': 'app mobile',
+            'شركة': 'business office',
+            'أعمال': 'business corporate',
+            'سيارات': 'cars automotive',
+            'عقار': 'real estate property',
+            'منزل': 'house home',
+            'ديكور': 'interior design',
+            'أزياء': 'fashion clothing',
+            'ملابس': 'clothes fashion',
+            'محلات': 'store shopping',
+            'تعليم': 'education learning',
+            'مدرسة': 'school',
+            'جامعة': 'university college',
+            'صحة': 'health medical',
+            'مستشفى': 'hospital',
+            'دواء': 'medicine pharmacy',
+            'حدث': 'event',
+            'حفل': 'party celebration',
+            'زفاف': 'wedding',
+            'حيوانات': 'animals pets',
+            'قطط': 'cats',
+            'كلاب': 'dogs'
+        };
+
+        // ==================== إدارة رفع الوسائط ====================
+        function handleFileUpload(files, type) {
+            const container = document.getElementById('uploadedMediaContainer');
+            
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.className = 'media-item';
+                    
+                    if (type === 'image') {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        mediaItem.appendChild(img);
+                        uploadedFiles.images.push({
+                            url: e.target.result,
+                            name: file.name,
+                            type: 'image'
+                        });
+                    } else {
+                        const video = document.createElement('video');
+                        video.src = e.target.result;
+                        video.muted = true;
+                        mediaItem.appendChild(video);
+                        uploadedFiles.videos.push({
+                            url: e.target.result,
+                            name: file.name,
+                            type: 'video'
+                        });
+                    }
+                    
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove';
+                    removeBtn.innerHTML = '✕';
+                    removeBtn.onclick = function() {
+                        mediaItem.remove();
+                        if (type === 'image') {
+                            uploadedFiles.images = uploadedFiles.images.filter(f => f.url !== e.target.result);
+                        } else {
+                            uploadedFiles.videos = uploadedFiles.videos.filter(f => f.url !== e.target.result);
+                        }
+                    };
+                    
+                    mediaItem.appendChild(removeBtn);
+                    container.appendChild(mediaItem);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ==================== ترجمة النص للإنجليزي ====================
+        function translateToEnglish(text) {
+            text = text.toLowerCase();
+            let keywords = [];
+            
+            for (let [arabic, english] of Object.entries(keywordTranslations)) {
+                if (text.includes(arabic)) {
+                    keywords.push(english);
+                }
+            }
+            
+            if (keywords.length > 0) {
+                return keywords.join(' ');
+            }
+            
+            const words = text.split(' ').slice(0, 3).join(' ');
+            return words || 'business';
+        }
+
+        // ==================== جلب فيديوهات من Pexels ====================
+        async function fetchPexelsVideos(query) {
+            try {
+                const response = await fetch(
+                    `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=20&orientation=landscape`,
+                    {
+                        headers: { 'Authorization': PEXELS_API_KEY }
+                    }
+                );
+                const data = await response.json();
+                return data.videos || [];
+            } catch (error) {
+                console.error('Pexels error:', error);
+                return [];
+            }
+        }
+
+        // ==================== جمع إعدادات المستخدم ====================
+        function getUserSettings() {
+            return {
+                adType: document.getElementById('adType').value,
+                platform: document.getElementById('platform').value,
+                duration: document.getElementById('duration').value,
+                aspectRatio: document.getElementById('aspectRatio').value,
+                language: document.getElementById('language').value,
+                format: document.getElementById('format').value,
+                description: document.getElementById('ad-description').value.trim()
+            };
+        }
+
+        // ==================== أحداث رفع الملفات ====================
+        document.getElementById('upload-images').addEventListener('change', function(e) {
+            handleFileUpload(e.target.files, 'image');
+        });
+
+        document.getElementById('upload-videos').addEventListener('change', function(e) {
+            handleFileUpload(e.target.files, 'video');
+        });
+
+        document.querySelectorAll('.upload-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const inputId = this.htmlFor;
+                if (inputId) document.getElementById(inputId).click();
+            });
+        });
+
+        // ==================== تهيئة الصفحة ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            const planBtn = document.getElementById('planBtn');
+            const buildBtn = document.getElementById('buildBtn');
+            const planContainer = document.getElementById('planContainer');
+            const planContent = document.getElementById('planContent');
+            const videoContainer = document.getElementById('videoContainer');
+            const realVideo = document.getElementById('realVideo');
+            const videoLoading = document.getElementById('videoLoading');
+            const videoAttribution = document.getElementById('videoAttribution');
+            
+            const GEMINI_API_KEY = 'AIzaSyCUY8TAcznceqlyBC_rsbDwFrHGjMm_H_g';
+
+            // ==================== زر PLAN الشامل ====================
+            planBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                const settings = getUserSettings();
+                if (!settings.description) {
+                    alert('✍️ اكتب وصف الإعلان أولاً');
+                    return;
+                }
+                
+                videoContainer.style.display = 'none';
+                planContainer.style.display = 'block';
+                planContent.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
+                        <div style="width: 30px; height: 30px; border: 3px solid #ff6b4a30; border-top-color: #ff6b4a; border-radius: 50%; animation: spin 1s infinite;"></div>
+                        <span style="color: #ff6b4a; font-weight: 600;">جاري تحليل فكرتك مع كل الإعدادات...</span>
+                    </div>
+                `;
+                
+                try {
+                    const prompt = `أنت AdVanta، خبير إعلانات الفيديو.
+
+إعدادات الإعلان:
+- نوع الإعلان: ${settings.adType}
+- المنصة: ${settings.platform}
+- المدة: ${settings.duration} ثانية
+- الأبعاد: ${settings.aspectRatio}
+- اللغة: ${settings.language}
+- التنسيق: ${settings.format}
+
+وصف العميل: "${settings.description}"
+
+المطلوب:
+1. اكتب خطة إعلانية احترافية مخصصة لهذه الإعدادات بالضبط
+2. حدد الكلمات المفتاحية باللغة الإنجليزية للبحث عن فيديوهات (keywords)
+3. اكتب الخطة بالصيغة التالية:
+
+🎯 HOOK:
+[جملة جذب انتباه قصيرة]
+
+📌 الفكرة الرئيسية:
+[جملة واحدة تلخص الإعلان]
+
+🎬 المشاهد:
+1️⃣ [وصف المشهد الأول] • [نص الشاشة]
+2️⃣ [وصف المشهد الثاني] • [نص الشاشة]
+3️⃣ [وصف المشهد الثالث] • [نص الشاشة]
+
+⏱️ التسلسل الزمني:
+[مدة كل مشهد]
+
+📢 CTA:
+[جملة الدعوة لاتخاذ إجراء]
+
+🔑 KEYWORDS:
+[3-5 كلمات مفتاحية بالإنجليزية للبحث في Pexels]
+
+⚠️ ملاحظة مهمة: ابدأ الرد مباشرةً بالخطة بدون مقدمات.`;
+                    
+                    const response = await fetch(
+                        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{
+                                    parts: [{ text: prompt }]
+                                }]
+                            })
+                        }
+                    );
+                    
+                    const data = await response.json();
+                    let text = data.candidates[0].content.parts[0].text;
+                    
+                    // حفظ الكلمات المفتاحية في localStorage للاستخدام في Build
+                    const keywordsMatch = text.match(/🔑 KEYWORDS:\s*(.+)/i);
+                    if (keywordsMatch) {
+                        localStorage.setItem('advanta_keywords', keywordsMatch[1].trim());
+                    }
+                    
+                    text = text.replace(/\n/g, '<br>');
+                    text = text.replace(/(🎯 HOOK:|📌 الفكرة الرئيسية:|🎬 المشاهد:|⏱️ التسلسل الزمني:|📢 CTA:|🔑 KEYWORDS:)/g, '<strong style="color: #ff6b4a; font-size: 1.1rem; display: block; margin-top: 1.2rem;">$1</strong>');
+                    text = text.replace(/(1️⃣|2️⃣|3️⃣|4️⃣|5️⃣)/g, '<span style="background: #0066ff10; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; margin-left: 0.3rem;">$1</span>');
+                    
+                    planContent.innerHTML = text;
+                    
+                } catch (error) {
+                    planContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #ff6b4a;">
+                            ❌ حدث خطأ في الاتصال بالذكاء الاصطناعي<br>
+                            <span style="color: #6b7280; font-size: 0.9rem;">يرجى المحاولة مرة أخرى</span>
+                        </div>
+                    `;
+                    console.error(error);
+                }
+            });
+
+            // ==================== زر BUILD الذكي ====================
+            buildBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                const settings = getUserSettings();
+                if (!settings.description) {
+                    alert('✍️ اكتب وصف الإعلان أولاً');
+                    return;
+                }
+                
+                planContainer.style.display = 'none';
+                videoContainer.style.display = 'block';
+                realVideo.style.display = 'none';
+                videoLoading.style.display = 'flex';
+                videoLoading.innerHTML = `
+                    <div style="width: 50px; height: 50px; border: 3px solid #ff6b4a30; border-top-color: #ff6b4a; border-radius: 50%; animation: spin 1s infinite;"></div>
+                    <span>⏳ جلب فيديو مطابق لخطتك...</span>
+                `;
+                
+                try {
+                    // 1️⃣ إذا المستخدم رفع فيديوهات → نستخدمها فقط
+                    if (uploadedFiles.videos.length > 0) {
+                        const userVideo = uploadedFiles.videos[0];
+                        realVideo.querySelector('source').src = userVideo.url;
+                        realVideo.load();
+                        videoLoading.style.display = 'none';
+                        realVideo.style.display = 'block';
+                        realVideo.play().catch(e => console.log('Auto-play prevented'));
+                        videoAttribution.innerHTML = `🎬 فيديو من رفعك • ${userVideo.name}`;
+                    }
+                    // 2️⃣ إذا المستخدم رفع صور → نستخدم الصور (هنعمل معرض صور)
+                    else if (uploadedFiles.images.length > 0) {
+                        videoLoading.innerHTML = `
+                            <div style="text-align: center; padding: 2rem;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🖼️</div>
+                                <div style="color: white; font-weight: 600;">تم رفع ${uploadedFiles.images.length} صورة</div>
+                                <div style="color: #a0a6b5; margin-top: 0.5rem;">سيتم تحويلها إلى فيديو قريباً</div>
+                                <span style="background: #ff6b4a; color: white; padding: 0.3rem 1.2rem; border-radius: 30px; display: inline-block; margin-top: 1rem; font-size: 0.8rem;">Build Demo</span>
+                            </div>
+                        `;
+                    }
+                    // 3️⃣ إذا ما رفع شي → نستخدم Pexels مع keywords من Plan
+                    else {
+                        // جلب الكلمات المفتاحية من localStorage أو ترجمة الوصف
+                        let searchQuery = localStorage.getItem('advanta_keywords');
+                        if (!searchQuery) {
+                            searchQuery = translateToEnglish(settings.description);
+                        }
+                        
+                        const videos = await fetchPexelsVideos(searchQuery);
+                        
+                        if (videos.length > 0) {
+                            const shortVideos = videos.filter(v => v.duration <= 35);
+                            const videosToUse = shortVideos.length > 0 ? shortVideos : videos;
+                            const randomVideo = videosToUse[Math.floor(Math.random() * videosToUse.length)];
+                            const videoFile = randomVideo.video_files.find(f => f.quality === 'hd' && f.width <= 1920) || 
+                                            randomVideo.video_files.find(f => f.quality === 'sd') || 
+                                            randomVideo.video_files[0];
+                            
+                            realVideo.querySelector('source').src = videoFile.link;
+                            realVideo.load();
+                            videoLoading.style.display = 'none';
+                            realVideo.style.display = 'block';
+                            realVideo.play().catch(e => console.log('Auto-play prevented'));
+                            videoAttribution.innerHTML = `🎬 فيديو: "${searchQuery}" من <a href="${randomVideo.url}" target="_blank">Pexels</a> • ${randomVideo.user.name || 'مصور'}`;
+                        } else {
+                            throw new Error('No videos found');
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.error('Build error:', error);
+                    videoLoading.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                            <div style="color: white; font-weight: 600;">فيديو تجريبي</div>
+                            <div style="color: #a0a6b5; margin-top: 0.5rem;">نعمل على جلب فيديوهات حقيقية</div>
+                            <span style="background: #ff6b4a; color: white; padding: 0.3rem 1.2rem; border-radius: 30px; display: inline-block; margin-top: 1rem; font-size: 0.8rem;">Build Demo</span>
+                        </div>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
