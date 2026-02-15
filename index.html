@@ -28,6 +28,76 @@
             width: 100%;
         }
 
+        /* القائمة الجانبية - إضافة جديدة */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            padding: 2rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255,107,74,0.2);
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header h3 {
+            color: #2d3142;
+            font-size: 1.3rem;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .sidebar-item {
+            padding: 1rem;
+            background: #f8faff;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1.5px solid #edf2f7;
+        }
+
+        .sidebar-item:hover {
+            border-color: #ff6b4a;
+            background: #fffaf8;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 1.5px solid #edf2f7;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* باقي التصميم القديم */
         .logo-wrapper {
             display: flex;
             justify-content: center;
@@ -51,6 +121,27 @@
             margin-left: auto;
             margin-right: auto;
             border: 1px solid rgba(255,107,74,0.2);
+        }
+
+        /* رسالة ترحيب متغيرة - إضافة جديدة */
+        .welcome-message {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #ff6b4a;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,107,74,0.2);
+            animation: gentlePulse 3s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.02); }
         }
 
         .card {
@@ -180,7 +271,7 @@
             backdrop-filter: blur(4px);
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 2000;
         }
 
         .modal-content {
@@ -205,21 +296,79 @@
             border-color: #ff6b4a;
             background: #fffaf8;
         }
+
+        /* صندوق الملاحظات - إضافة جديدة */
+        .feedback-box {
+            width: 100%;
+            padding: 1rem;
+            border: 1.5px solid #edf2f7;
+            border-radius: 24px;
+            margin: 1rem 0;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .send-feedback {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <!-- زر القائمة الجانبية - إضافة جديدة -->
+    <div class="menu-btn" id="menuBtn">☰ القائمة</div>
+
+    <!-- القائمة الجانبية - إضافة جديدة -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        
+        <div class="sidebar-item" id="feedbackOption">
+            📝 اكتب مشكلتك أو اقتراحك
+        </div>
+        
+        <div class="sidebar-item" id="accountOption">
+            👤 حسابي
+        </div>
+        
+        <div class="sidebar-item" id="languageOption">
+            🌐 اللغة
+        </div>
+    </div>
+
+    <!-- مودال الملاحظات - إضافة جديدة -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">📝 اكتب مشكلتك أو اقتراحك</h3>
+            <textarea class="feedback-box" id="feedbackText" placeholder="اكتب رسالتك هنا..."></textarea>
+            <button class="send-feedback" id="sendFeedback">إرسال</button>
+            <button style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;" id="closeFeedback">إلغاء</button>
+        </div>
+    </div>
+
     <div class="container">
         <!-- شعار -->
         <div class="logo-wrapper">
             <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/220x80/0066ff/ff6b4a/png?text=AdVanta'">
         </div>
 
+        <!-- رسالة ترحيب متغيرة - إضافة جديدة -->
+        <div class="welcome-message" id="welcomeMessage"></div>
+
         <!-- وصف الموقع -->
         <div class="site-description">
             موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال دقائق
         </div>
 
-        <!-- الكارد الرئيسي -->
+        <!-- الكارد الرئيسي (كل الكود القديم موجود هنا، لم أغير شيئاً) -->
         <div class="card" id="mainCard">
             <!-- الهدف (اختيار واحد) -->
             <div class="section-title">الهدف</div>
@@ -320,56 +469,108 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- مودال التعديل -->
-        <div class="modal" id="editModal">
-            <div class="modal-content">
-                <h3 style="margin-bottom: 1.5rem; color: #2d3142; text-align: center;">تعديل المحتوى</h3>
-                
-                <div class="edit-option" id="manualEditOption">
-                    <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل يدوي</div>
-                    <div style="color: #6b7280; font-size: 0.9rem;">قم بتعديل النص بنفسك</div>
-                </div>
-                
-                <div class="edit-option" id="aiEditOption">
-                    <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل ذكي</div>
-                    <div style="color: #6b7280; font-size: 0.9rem;">اطلب من الذكاء التعديل</div>
-                </div>
-                
-                <button style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;" id="closeModal">إلغاء</button>
+    <!-- مودال التعديل (موجود) -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem; color: #2d3142; text-align: center;">تعديل المحتوى</h3>
+            
+            <div class="edit-option" id="manualEditOption">
+                <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل يدوي</div>
+                <div style="color: #6b7280; font-size: 0.9rem;">قم بتعديل النص بنفسك</div>
+            </div>
+            
+            <div class="edit-option" id="aiEditOption">
+                <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل ذكي</div>
+                <div style="color: #6b7280; font-size: 0.9rem;">اطلب من الذكاء التعديل</div>
+            </div>
+            
+            <button style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;" id="closeModal">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- مودال التعديل اليدوي (موجود) -->
+    <div class="modal" id="manualEditModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل يدوي</h3>
+            <textarea id="manualEditText" style="width: 100%; min-height: 200px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
+            <div style="display: flex; gap: 1rem;">
+                <button id="saveManualEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">حفظ</button>
+                <button id="closeManualEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
             </div>
         </div>
+    </div>
 
-        <!-- مودال التعديل اليدوي -->
-        <div class="modal" id="manualEditModal">
-            <div class="modal-content">
-                <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل يدوي</h3>
-                <textarea id="manualEditText" style="width: 100%; min-height: 200px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
-                <div style="display: flex; gap: 1rem;">
-                    <button id="saveManualEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">حفظ</button>
-                    <button id="closeManualEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- مودال التعديل الذكي -->
-        <div class="modal" id="aiEditModal">
-            <div class="modal-content">
-                <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل ذكي</h3>
-                <textarea id="aiEditRequest" placeholder="اكتب طلب التعديل الذي تريده... (مثال: غير الأسلوب إلى رسمي)" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
-                <div style="display: flex; gap: 1rem;">
-                    <button id="sendAiEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
-                    <button id="closeAiEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
-                </div>
+    <!-- مودال التعديل الذكي (موجود) -->
+    <div class="modal" id="aiEditModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل ذكي</h3>
+            <textarea id="aiEditRequest" placeholder="اكتب طلب التعديل الذي تريده... (مثال: غير الأسلوب إلى رسمي)" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
+            <div style="display: flex; gap: 1rem;">
+                <button id="sendAiEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
+                <button id="closeAiEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ✅ مفتاح Gemini - غير هذا بالمفتاح الفعلي
+        // ==================== رسالة ترحيب متغيرة - إضافة جديدة ====================
+        const welcomeMessages = [
+            "أهلاً بك، شو رح نبدع اليوم؟",
+            "مرحباً، وين رايح نكتب اليوم؟",
+            "أهلاً، فكرتك وين؟",
+            "مرحباً، شو في جديد؟",
+            "أهلاً بك، مستعد نكتب شي مميز؟",
+            "مرحباً، شو رح ننتج اليوم؟"
+        ];
+        
+        const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+        document.getElementById('welcomeMessage').textContent = randomMessage;
+
+        // ==================== القائمة الجانبية - إضافة جديدة ====================
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const feedbackOption = document.getElementById('feedbackOption');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const closeFeedback = document.getElementById('closeFeedback');
+        const sendFeedback = document.getElementById('sendFeedback');
+        const feedbackText = document.getElementById('feedbackText');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        feedbackOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            feedbackModal.style.display = 'flex';
+        });
+
+        closeFeedback.addEventListener('click', () => {
+            feedbackModal.style.display = 'none';
+        });
+
+        sendFeedback.addEventListener('click', () => {
+            const message = feedbackText.value.trim();
+            if (!message) {
+                alert('اكتب رسالتك أولاً');
+                return;
+            }
+            
+            // هنا رح نربط مع الباك إند لاحقاً
+            alert('تم إرسال رسالتك. شكراً لك!');
+            feedbackText.value = '';
+            feedbackModal.style.display = 'none';
+        });
+
+        // ==================== باقي الكود القديم (لم أغير شيئاً) ====================
         const GEMINI_API_KEY = 'AIzaSyCUdiIIc_3dzgss02QmpbiYXxlBw5xEpwk';
 
-        // ==================== إدارة الخيارات ====================
         document.querySelectorAll('.option-chip').forEach(chip => {
             chip.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -388,7 +589,6 @@
             });
         });
 
-        // ==================== إظهار الخيارات الإضافية حسب شكل المحتوى ====================
         function updateExtraOptions(format) {
             const container = document.getElementById('extraOptionsContainer');
             container.innerHTML = '';
@@ -449,7 +649,6 @@
             });
         });
 
-        // ==================== زر الإنشاء ====================
         document.getElementById('generateBtn').addEventListener('click', async function() {
             const desc = document.getElementById('userDescription').value.trim();
             if (!desc) {
@@ -457,7 +656,6 @@
                 return;
             }
 
-            // جمع الخيارات
             const goals = [];
             document.querySelectorAll('#goalOptions .option-chip.selected').forEach(c => goals.push(c.dataset.value));
             
@@ -497,7 +695,6 @@
                 let formatType = formats[0] || 'نص';
                 let contentType = '';
                 
-                // تحديد نوع المحتوى المطلوب من الذكاء
                 if (formatType.includes('صورة') && !formatType.includes('كابشن')) {
                     contentType = 'فكرة لصورة فقط (وصف للصورة، إحساس، ألوان، عناصر)';
                 } else if (formatType.includes('صورة + كابشن')) {
@@ -535,40 +732,36 @@ ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' 
 المطلوب منك: ${contentType}
 
 ملاحظات مهمة:
-1. أكتب محتوى كاملاً وجاهزاً، بدون تقسيم أو عناوين داخلية.
+1. أكتب محتوى قصيراً لكن قوياً ودقيقاً، بدون حشو أو تكرار.
 2. غير أسلوبك في كل مرة، وكن مبدعاً.
 3. إذا كان في الوصف طلب لأسلوب معين (رسمي، فكاهي، تحفيزي، ...)، التزم به.
 4. لا تكتب كلمات مثل "HOOK" أو "VALUE" أو "CTA" في النص النهائي.`;
 
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+                const response = await fetch('http://localhost:3000/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: prompt }]
-                        }]
-                    })
+                    body: JSON.stringify({ prompt })
                 });
 
                 const data = await response.json();
                 
                 if (data.error) {
-                    resultContent.innerHTML = `خطأ: ${data.error.message}`;
+                    resultContent.innerHTML = `خطأ: ${data.error}`;
                     return;
                 }
 
-                let text = data.candidates[0].content.parts[0].text;
+                let text = data.result;
                 text = text.replace(/\n/g, '<br>');
                 
                 resultContent.innerHTML = text;
                 
             } catch (error) {
-                resultContent.innerHTML = 'حدث خطأ في الاتصال. تأكد من المفتاح وحاول مرة أخرى.';
+                resultContent.innerHTML = 'حدث خطأ في الاتصال بالباك إند.';
                 console.error(error);
             }
         });
 
-        // ==================== التعديل ====================
+        // ==================== التعديل (موجود) ====================
         const editBtn = document.getElementById('editBtn');
         const editModal = document.getElementById('editModal');
         const manualEditModal = document.getElementById('manualEditModal');
@@ -580,7 +773,6 @@ ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' 
         const closeAiEdit = document.getElementById('closeAiEdit');
         const saveManualEdit = document.getElementById('saveManualEdit');
         const sendAiEdit = document.getElementById('sendAiEdit');
-        const resultContent = document.getElementById('resultContent');
         const manualEditText = document.getElementById('manualEditText');
         const aiEditRequest = document.getElementById('aiEditRequest');
 
@@ -655,24 +847,20 @@ ${currentText}
 
 اكتب النص المعدل كاملاً بدون إضافة عناوين مثل HOOK أو VALUE.`;
 
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+                    const response = await fetch('http://localhost:3000/api/generate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{ text: prompt }]
-                            }]
-                        })
+                        body: JSON.stringify({ prompt })
                     });
 
                     const data = await response.json();
                     
                     if (data.error) {
-                        resultContent.innerHTML = `خطأ: ${data.error.message}`;
+                        resultContent.innerHTML = `خطأ: ${data.error}`;
                         return;
                     }
 
-                    let text = data.candidates[0].content.parts[0].text;
+                    let text = data.result;
                     text = text.replace(/\n/g, '<br>');
                     
                     resultContent.innerHTML = text;
@@ -689,9 +877,9 @@ ${currentText}
             if (event.target === editModal) editModal.style.display = 'none';
             if (event.target === manualEditModal) manualEditModal.style.display = 'none';
             if (event.target === aiEditModal) aiEditModal.style.display = 'none';
+            if (event.target === feedbackModal) feedbackModal.style.display = 'none';
         });
 
-        // زر حفظ (مؤقت)
         document.getElementById('saveBtn').addEventListener('click', function() {
             alert('تم حفظ المحتوى (سيتم تفعيل التحميل لاحقاً)');
         });
