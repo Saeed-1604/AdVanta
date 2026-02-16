@@ -667,7 +667,7 @@
 
             try {
                 const { error } = await supabase
-                    .from('feedback')
+                    .from('feelback')
                     .insert([{ message: msg }]);
 
                 if (error) throw error;

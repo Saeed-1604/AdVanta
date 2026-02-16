@@ -334,7 +334,7 @@
 
             try {
                 const { data, error: supabaseError } = await supabase
-                    .from('feedback')
+                    .from('feelback')
                     .select('*')
                     .order('created_at', { ascending: false });
 
@@ -425,7 +425,7 @@
 
             try {
                 const { error } = await supabase
-                    .from('feedback')
+                    .from('feelback')
                     .delete()
                     .eq('id', id);
 
