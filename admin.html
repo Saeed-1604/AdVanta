@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdVanta | لوحة المالك</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            background: #fcfaff;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #1e1e2f;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,107,74,0.1);
+        }
+
+        .stat-card h3 {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6b4a;
+        }
+
+        .messages-table {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,107,74,0.1);
+        }
+
+        .messages-table h2 {
+            margin-bottom: 1.5rem;
+            color: #1e1e2f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: right;
+            padding: 1rem;
+            background: #f8faff;
+            color: #2d3142;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #edf2f7;
+            color: #4a4e62;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .delete-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #6b7280;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👤 لوحة تحكم المالك</h1>
+
+        <!-- الإحصائيات -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>إجمالي المستخدمين</h3>
+                <div class="number" id="totalUsers">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>إجمالي الطلبات</h3>
+                <div class="number" id="totalRequests">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>رسائل الملاحظات</h3>
+                <div class="number" id="totalMessages">-</div>
+            </div>
+        </div>
+
+        <!-- جدول الرسائل -->
+        <div class="messages-table">
+            <h2>📋 رسائل المستخدمين</h2>
+            <table id="messagesTable">
+                <thead>
+                    <tr>
+                        <th>التاريخ</th>
+                        <th>الرسالة</th>
+                        <th>الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="messagesBody">
+                    <tr>
+                        <td colspan="3" style="text-align: center; color: #9ca3af;">لا توجد رسائل بعد</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="index.html" class="back-link">← العودة إلى الموقع</a>
+    </div>
+
+    <script>
+        // رسائل تجريبية (لحين الربط مع Supabase)
+        const sampleMessages = [
+            { date: '2026-02-15', message: 'الموقع رائع، لكن أتمنى إضافة خيار للغة الإنجليزية' },
+            { date: '2026-02-14', message: 'زر التعديل الذكي لا يعمل معي' },
+            { date: '2026-02-13', message: 'أقترح إضافة المزيد من خيارات الجمهور' }
+        ];
+
+        function loadMessages() {
+            const tbody = document.getElementById('messagesBody');
+            tbody.innerHTML = '';
+
+            if (sampleMessages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">لا توجد رسائل بعد</td></tr>';
+                return;
+            }
+
+            sampleMessages.forEach(msg => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${msg.date}</td>
+                    <td>${msg.message}</td>
+                    <td><button class="delete-btn" onclick="alert('حذف: ${msg.message}')">حذف</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // تحديث الإحصائيات
+        document.getElementById('totalUsers').textContent = '15';
+        document.getElementById('totalRequests').textContent = '247';
+        document.getElementById('totalMessages').textContent = sampleMessages.length;
+
+        loadMessages();
+    </script>
+</body>
+</html>
