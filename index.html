@@ -28,12 +28,11 @@
             width: 100%;
         }
 
-        /* القائمة الجانبية - إضافة جديدة */
         .sidebar {
             position: fixed;
             top: 0;
-            right: -300px;
-            width: 300px;
+            right: -350px;
+            width: 350px;
             height: 100vh;
             background: white;
             box-shadow: -5px 0 20px rgba(0,0,0,0.1);
@@ -42,6 +41,7 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
             border-left: 1px solid rgba(255,107,74,0.2);
+            overflow-y: auto;
         }
 
         .sidebar.open {
@@ -97,7 +97,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* باقي التصميم القديم */
         .logo-wrapper {
             display: flex;
             justify-content: center;
@@ -123,7 +122,6 @@
             border: 1px solid rgba(255,107,74,0.2);
         }
 
-        /* رسالة ترحيب متغيرة - إضافة جديدة */
         .welcome-message {
             text-align: center;
             font-size: 1.1rem;
@@ -201,6 +199,20 @@
             min-height: 120px;
         }
 
+        .file-upload-area {
+            border: 2px dashed #ffb7a5;
+            border-radius: 24px;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+            cursor: pointer;
+            background: #fffaf8;
+        }
+
+        .file-upload-area:hover {
+            background: #fff0ed;
+        }
+
         .generate-btn {
             background: #ff6b4a;
             color: white;
@@ -241,6 +253,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -263,6 +276,29 @@
             color: white;
         }
 
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .share-snapchat { background: #FFFC00; color: black; }
+        .share-tiktok { background: #000000; color: white; }
+        .share-instagram { background: #d62976; color: white; }
+        .share-facebook { background: #1877f2; color: white; }
+
         .modal {
             display: none;
             position: fixed;
@@ -280,51 +316,50 @@
             padding: 2rem;
             max-width: 500px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
-        .edit-option {
+        .saved-item {
             background: #f8faff;
             border: 1.5px solid #edf2f7;
-            border-radius: 30px;
-            padding: 1rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .edit-option:hover {
-            border-color: #ff6b4a;
-            background: #fffaf8;
-        }
-
-        /* صندوق الملاحظات - إضافة جديدة */
-        .feedback-box {
-            width: 100%;
-            padding: 1rem;
-            border: 1.5px solid #edf2f7;
             border-radius: 24px;
-            margin: 1rem 0;
-            resize: vertical;
-            min-height: 100px;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .send-feedback {
-            background: #ff6b4a;
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 40px;
+        .saved-item .desc {
             font-weight: 600;
+            color: #2d3142;
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-item .content {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .saved-item-actions button {
+            flex: 1;
+            padding: 0.4rem;
+            border-radius: 20px;
+            border: none;
             cursor: pointer;
-            width: 100%;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
-    <!-- زر القائمة الجانبية - إضافة جديدة -->
+    <!-- زر القائمة الجانبية -->
     <div class="menu-btn" id="menuBtn">☰ القائمة</div>
 
-    <!-- القائمة الجانبية - إضافة جديدة -->
+    <!-- القائمة الجانبية -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h3>القائمة</h3>
@@ -335,22 +370,31 @@
             📝 اكتب مشكلتك أو اقتراحك
         </div>
         
+        <div class="sidebar-item" id="savedOption">
+            📁 محفوظاتي
+        </div>
+        
         <div class="sidebar-item" id="accountOption">
             👤 حسابي
         </div>
-        
-        <div class="sidebar-item" id="languageOption">
-            🌐 اللغة
-        </div>
     </div>
 
-    <!-- مودال الملاحظات - إضافة جديدة -->
+    <!-- مودال الملاحظات -->
     <div class="modal" id="feedbackModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">📝 اكتب مشكلتك أو اقتراحك</h3>
-            <textarea class="feedback-box" id="feedbackText" placeholder="اكتب رسالتك هنا..."></textarea>
-            <button class="send-feedback" id="sendFeedback">إرسال</button>
-            <button style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;" id="closeFeedback">إلغاء</button>
+            <textarea id="feedbackText" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;" placeholder="اكتب رسالتك هنا..."></textarea>
+            <button id="sendFeedback" style="width: 100%; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
+            <button id="closeFeedback" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- مودال المحفوظات -->
+    <div class="modal" id="savedModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">📁 المحفوظات</h3>
+            <div id="savedItemsContainer"></div>
+            <button id="closeSaved" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إغلاق</button>
         </div>
     </div>
 
@@ -360,7 +404,7 @@
             <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/220x80/0066ff/ff6b4a/png?text=AdVanta'">
         </div>
 
-        <!-- رسالة ترحيب متغيرة - إضافة جديدة -->
+        <!-- رسالة ترحيب متغيرة -->
         <div class="welcome-message" id="welcomeMessage"></div>
 
         <!-- وصف الموقع -->
@@ -368,9 +412,9 @@
             موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال دقائق
         </div>
 
-        <!-- الكارد الرئيسي (كل الكود القديم موجود هنا، لم أغير شيئاً) -->
+        <!-- الكارد الرئيسي -->
         <div class="card" id="mainCard">
-            <!-- الهدف (اختيار واحد) -->
+            <!-- الهدف -->
             <div class="section-title">الهدف</div>
             <div class="options-grid" id="goalOptions" data-single="true">
                 <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true">وعي بعلامة تجارية</div>
@@ -384,7 +428,7 @@
                 <div class="option-chip" data-value="هدف شخصي" data-single="true">هدف شخصي</div>
             </div>
 
-            <!-- الجمهور (اختيار متعدد) -->
+            <!-- الجمهور -->
             <div class="section-title">الجمهور المستهدف</div>
             <div class="options-grid" id="audienceOptions">
                 <div class="option-chip" data-value="آباء">آباء</div>
@@ -408,7 +452,7 @@
                 <div class="option-chip" data-value="غير ذلك">غير ذلك</div>
             </div>
 
-            <!-- العمر (اختيار متعدد) -->
+            <!-- العمر -->
             <div class="section-title">الفئة العمرية</div>
             <div class="options-grid" id="ageOptions">
                 <div class="option-chip" data-value="0-12">0 – 12</div>
@@ -420,7 +464,7 @@
                 <div class="option-chip" data-value="60+">60+</div>
             </div>
 
-            <!-- المنصة (اختيار واحد) -->
+            <!-- المنصة -->
             <div class="section-title">المنصة</div>
             <div class="options-grid" id="platformOptions" data-single="true">
                 <div class="option-chip" data-value="فيسبوك" data-single="true">فيسبوك</div>
@@ -429,7 +473,7 @@
                 <div class="option-chip" data-value="سناب شات" data-single="true">سناب شات</div>
             </div>
 
-            <!-- شكل المحتوى (اختيار واحد) -->
+            <!-- شكل المحتوى -->
             <div class="section-title">شكل المحتوى</div>
             <div class="options-grid" id="formatOptions" data-single="true">
                 <div class="option-chip" data-value="فكرة صورة" data-single="true">فكرة صورة</div>
@@ -443,7 +487,7 @@
                 <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true">فكرة ستوري + نص</div>
             </div>
 
-            <!-- نوع المحتوى (اختيار واحد) -->
+            <!-- نوع المحتوى -->
             <div class="section-title">نوع المحتوى</div>
             <div class="options-grid" id="contentTypeOptions" data-single="true">
                 <div class="option-chip" data-value="محتوى احترافي" data-single="true">محتوى احترافي</div>
@@ -451,8 +495,14 @@
                 <div class="option-chip" data-value="محتوى موظفين" data-single="true">محتوى موظفين</div>
             </div>
 
-            <!-- خيارات إضافية (تظهر حسب شكل المحتوى) -->
+            <!-- خيارات إضافية -->
             <div id="extraOptionsContainer"></div>
+
+            <!-- رفع ملف -->
+            <div class="file-upload-area" id="fileUploadArea">
+                📄 اضغط لرفع ملف (PDF, Word, TXT) - حتى 15 صفحة
+                <input type="file" id="fileInput" accept=".pdf,.docx,.txt" style="display: none;">
+            </div>
 
             <!-- وصف المستخدم -->
             <textarea id="userDescription" placeholder="اكتب فكرتك هنا... (مثلاً: منشور عن منتج جديد للعناية بالبشرة)"></textarea>
@@ -463,6 +513,15 @@
             <!-- نتيجة -->
             <div class="result-container" id="resultContainer">
                 <div class="result-content" id="resultContent"></div>
+                
+                <!-- أزرار المشاركة -->
+                <div class="share-buttons" id="shareButtons" style="display: none;">
+                    <button class="share-btn share-snapchat" onclick="share('snapchat')">سناب شات</button>
+                    <button class="share-btn share-tiktok" onclick="share('tiktok')">تيك توك</button>
+                    <button class="share-btn share-instagram" onclick="share('instagram')">إنستغرام</button>
+                    <button class="share-btn share-facebook" onclick="share('facebook')">فيسبوك</button>
+                </div>
+
                 <div class="result-actions">
                     <button class="action-btn edit-btn" id="editBtn">تعديل</button>
                     <button class="action-btn save-btn" id="saveBtn">حفظ</button>
@@ -471,51 +530,48 @@
         </div>
     </div>
 
-    <!-- مودال التعديل (موجود) -->
+    <!-- مودال التعديل -->
     <div class="modal" id="editModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem; color: #2d3142; text-align: center;">تعديل المحتوى</h3>
-            
+            <h3 style="margin-bottom: 1.5rem;">تعديل المحتوى</h3>
             <div class="edit-option" id="manualEditOption">
-                <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل يدوي</div>
-                <div style="color: #6b7280; font-size: 0.9rem;">قم بتعديل النص بنفسك</div>
+                <div style="font-weight: 700;">تعديل يدوي</div>
+                <div style="color: #6b7280; font-size: 0.9rem;">عدل النص بنفسك</div>
             </div>
-            
             <div class="edit-option" id="aiEditOption">
-                <div style="font-weight: 700; margin-bottom: 0.3rem;">تعديل ذكي</div>
+                <div style="font-weight: 700;">تعديل ذكي</div>
                 <div style="color: #6b7280; font-size: 0.9rem;">اطلب من الذكاء التعديل</div>
             </div>
-            
-            <button style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;" id="closeModal">إلغاء</button>
+            <button id="closeModal" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
         </div>
     </div>
 
-    <!-- مودال التعديل اليدوي (موجود) -->
+    <!-- مودال التعديل اليدوي -->
     <div class="modal" id="manualEditModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل يدوي</h3>
+            <h3 style="margin-bottom: 1.5rem;">تعديل يدوي</h3>
             <textarea id="manualEditText" style="width: 100%; min-height: 200px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
             <div style="display: flex; gap: 1rem;">
-                <button id="saveManualEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">حفظ</button>
-                <button id="closeManualEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
+                <button id="saveManualEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px;">حفظ</button>
+                <button id="closeManualEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px;">إلغاء</button>
             </div>
         </div>
     </div>
 
-    <!-- مودال التعديل الذكي (موجود) -->
+    <!-- مودال التعديل الذكي -->
     <div class="modal" id="aiEditModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem; color: #2d3142;">تعديل ذكي</h3>
-            <textarea id="aiEditRequest" placeholder="اكتب طلب التعديل الذي تريده... (مثال: غير الأسلوب إلى رسمي)" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
+            <h3 style="margin-bottom: 1.5rem;">تعديل ذكي</h3>
+            <textarea id="aiEditRequest" placeholder="اكتب طلب التعديل..." style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
             <div style="display: flex; gap: 1rem;">
-                <button id="sendAiEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
-                <button id="closeAiEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
+                <button id="sendAiEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px;">إرسال</button>
+                <button id="closeAiEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px;">إلغاء</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== رسالة ترحيب متغيرة - إضافة جديدة ====================
+        // ==================== رسالة ترحيب متغيرة ====================
         const welcomeMessages = [
             "أهلاً بك، شو رح نبدع اليوم؟",
             "مرحباً، وين رايح نكتب اليوم؟",
@@ -524,62 +580,76 @@
             "أهلاً بك، مستعد نكتب شي مميز؟",
             "مرحباً، شو رح ننتج اليوم؟"
         ];
-        
-        const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-        document.getElementById('welcomeMessage').textContent = randomMessage;
+        document.getElementById('welcomeMessage').textContent = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
 
-        // ==================== القائمة الجانبية - إضافة جديدة ====================
+        // ==================== المتغيرات العامة ====================
+        let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
+        let currentDescription = '';
+        let currentContent = '';
+
+        // ==================== القائمة الجانبية ====================
         const menuBtn = document.getElementById('menuBtn');
         const sidebar = document.getElementById('sidebar');
         const closeSidebar = document.getElementById('closeSidebar');
         const feedbackOption = document.getElementById('feedbackOption');
+        const savedOption = document.getElementById('savedOption');
         const feedbackModal = document.getElementById('feedbackModal');
+        const savedModal = document.getElementById('savedModal');
         const closeFeedback = document.getElementById('closeFeedback');
+        const closeSaved = document.getElementById('closeSaved');
         const sendFeedback = document.getElementById('sendFeedback');
         const feedbackText = document.getElementById('feedbackText');
 
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.add('open');
-        });
-
-        closeSidebar.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-        });
+        menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
+        closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
 
         feedbackOption.addEventListener('click', () => {
             sidebar.classList.remove('open');
             feedbackModal.style.display = 'flex';
         });
 
-        closeFeedback.addEventListener('click', () => {
-            feedbackModal.style.display = 'none';
+        savedOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            displaySavedItems();
+            savedModal.style.display = 'flex';
         });
 
+        closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+        closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
+
         sendFeedback.addEventListener('click', () => {
-            const message = feedbackText.value.trim();
-            if (!message) {
-                alert('اكتب رسالتك أولاً');
-                return;
-            }
-            
-            // هنا رح نربط مع الباك إند لاحقاً
+            const msg = feedbackText.value.trim();
+            if (!msg) { alert('اكتب رسالتك أولاً'); return; }
             alert('تم إرسال رسالتك. شكراً لك!');
             feedbackText.value = '';
             feedbackModal.style.display = 'none';
         });
 
-       
+        // ==================== رفع الملفات ====================
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        let uploadedFileContent = '';
+
+        fileUploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const text = await file.text();
+            uploadedFileContent = text.slice(0, 3000); // حد 15 صفحة تقريبي
+            alert('✅ تم رفع الملف. يمكنك استخدامه في الوصف.');
+        });
+
+        // ==================== إدارة الخيارات ====================
         document.querySelectorAll('.option-chip').forEach(chip => {
             chip.addEventListener('click', function(e) {
                 e.stopPropagation();
-                
                 const parent = this.parentElement;
                 const isSingle = parent.dataset.single === 'true' || this.dataset.single === 'true';
                 
                 if (isSingle) {
-                    parent.querySelectorAll('.option-chip').forEach(c => {
-                        c.classList.remove('selected');
-                    });
+                    parent.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
                 } else {
                     this.classList.toggle('selected');
@@ -592,48 +662,23 @@
             container.innerHTML = '';
             
             let html = '';
-            
             const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
             const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
             
             if (hasCaption) {
-                html += `
-                    <div class="section-title">عدد أسطر الكابشن</div>
-                    <div class="options-grid" id="captionLines" data-single="true">
-                        <div class="option-chip" data-value="1" data-single="true">1</div>
-                        <div class="option-chip" data-value="2" data-single="true">2</div>
-                        <div class="option-chip" data-value="3" data-single="true">3</div>
-                        <div class="option-chip" data-value="4" data-single="true">4</div>
-                        <div class="option-chip" data-value="5" data-single="true">5</div>
-                    </div>
-                `;
+                html += `<div class="section-title">عدد أسطر الكابشن</div><div class="options-grid" id="captionLines" data-single="true">` +
+                    [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
             }
-            
             if (hasDuration) {
-                html += `
-                    <div class="section-title">طول السكريبت (ثانية)</div>
-                    <div class="options-grid" id="videoDuration" data-single="true">
-                        <div class="option-chip" data-value="10" data-single="true">10</div>
-                        <div class="option-chip" data-value="15" data-single="true">15</div>
-                        <div class="option-chip" data-value="20" data-single="true">20</div>
-                        <div class="option-chip" data-value="25" data-single="true">25</div>
-                        <div class="option-chip" data-value="30" data-single="true">30</div>
-                        <div class="option-chip" data-value="40" data-single="true">40</div>
-                        <div class="option-chip" data-value="50" data-single="true">50</div>
-                        <div class="option-chip" data-value="60" data-single="true">60</div>
-                    </div>
-                `;
+                html += `<div class="section-title">طول السكريبت (ثانية)</div><div class="options-grid" id="videoDuration" data-single="true">` +
+                    [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
             }
-            
             if (html) {
                 container.innerHTML = html;
                 container.querySelectorAll('.option-chip').forEach(chip => {
                     chip.addEventListener('click', function(e) {
                         e.stopPropagation();
-                        const parent = this.parentElement;
-                        parent.querySelectorAll('.option-chip').forEach(c => {
-                            c.classList.remove('selected');
-                        });
+                        this.parentElement.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
                         this.classList.add('selected');
                     });
                 });
@@ -641,99 +686,61 @@
         }
 
         document.querySelectorAll('#formatOptions .option-chip').forEach(chip => {
-            chip.addEventListener('click', function() {
-                const selectedFormat = this.dataset.value;
-                updateExtraOptions(selectedFormat);
-            });
+            chip.addEventListener('click', () => updateExtraOptions(chip.dataset.value));
         });
 
+        // ==================== زر الإنشاء ====================
         document.getElementById('generateBtn').addEventListener('click', async function() {
-            const desc = document.getElementById('userDescription').value.trim();
-            if (!desc) {
-                alert('اكتب فكرتك أولاً');
-                return;
-            }
+            const desc = document.getElementById('userDescription').value.trim() + '\n' + uploadedFileContent;
+            if (!desc.trim()) { alert('اكتب فكرتك أولاً'); return; }
 
-            const goals = [];
-            document.querySelectorAll('#goalOptions .option-chip.selected').forEach(c => goals.push(c.dataset.value));
+            const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.dataset.value);
+            const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.dataset.value);
+            const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.dataset.value);
+            const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.dataset.value);
+            const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.dataset.value);
+            const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.dataset.value);
             
-            const audiences = [];
-            document.querySelectorAll('#audienceOptions .option-chip.selected').forEach(c => audiences.push(c.dataset.value));
-            
-            const ages = [];
-            document.querySelectorAll('#ageOptions .option-chip.selected').forEach(c => ages.push(c.dataset.value));
-            
-            const platforms = [];
-            document.querySelectorAll('#platformOptions .option-chip.selected').forEach(c => platforms.push(c.dataset.value));
-            
-            const formats = [];
-            document.querySelectorAll('#formatOptions .option-chip.selected').forEach(c => formats.push(c.dataset.value));
-            
-            const contentTypes = [];
-            document.querySelectorAll('#contentTypeOptions .option-chip.selected').forEach(c => contentTypes.push(c.dataset.value));
-            
-            let captionLines = '';
-            let videoDuration = '';
-            
-            if (document.getElementById('captionLines')) {
-                document.querySelectorAll('#captionLines .option-chip.selected').forEach(c => captionLines = c.dataset.value);
-            }
-            
-            if (document.getElementById('videoDuration')) {
-                document.querySelectorAll('#videoDuration .option-chip.selected').forEach(c => videoDuration = c.dataset.value);
-            }
+            let captionLines = document.querySelector('#captionLines .option-chip.selected')?.dataset.value || '';
+            let videoDuration = document.querySelector('#videoDuration .option-chip.selected')?.dataset.value || '';
 
             const resultContainer = document.getElementById('resultContainer');
             const resultContent = document.getElementById('resultContent');
+            const shareButtons = document.getElementById('shareButtons');
             
             resultContainer.style.display = 'block';
+            shareButtons.style.display = 'flex';
             resultContent.innerHTML = 'جاري كتابة المحتوى...';
 
             try {
                 let formatType = formats[0] || 'نص';
                 let contentType = '';
                 
-                if (formatType.includes('صورة') && !formatType.includes('كابشن')) {
-                    contentType = 'فكرة لصورة فقط (وصف للصورة، إحساس، ألوان، عناصر)';
-                } else if (formatType.includes('صورة + كابشن')) {
-                    contentType = 'وصف للصورة + نص الكابشن المناسب';
-                } else if (formatType === 'نص') {
-                    contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
-                } else if (formatType.includes('سكريبت ريل') && !formatType.includes('كابشن')) {
-                    contentType = 'سيناريو مفصل لريل: مشاهد، توقيت، نصوص، حركة';
-                } else if (formatType.includes('سكريبت ريل + كابشن')) {
-                    contentType = 'سيناريو ريل مفصل + كابشن منفصل';
-                } else if (formatType.includes('فيديو') && !formatType.includes('كابشن')) {
-                    contentType = 'فكرة عامة للفيديو (مشاهد رئيسية، فكرة إخراج)';
-                } else if (formatType.includes('فيديو + كابشن')) {
-                    contentType = 'فكرة فيديو + كابشن مناسب';
-                } else if (formatType.includes('ستوري') && !formatType.includes('نص')) {
-                    contentType = 'فكرة متسلسلة قصيرة للستوري';
-                } else if (formatType.includes('ستوري + نص')) {
-                    contentType = 'فكرة ستوري + نص كل مشهد';
-                }
+                if (formatType.includes('صورة') && !formatType.includes('كابشن')) contentType = 'فكرة لصورة فقط (وصف للصورة)';
+                else if (formatType.includes('صورة + كابشن')) contentType = 'وصف للصورة + نص الكابشن';
+                else if (formatType === 'نص') contentType = 'نص متكامل (مقال، منشور)';
+                else if (formatType.includes('سكريبت ريل') && !formatType.includes('كابشن')) contentType = 'سيناريو مفصل لريل';
+                else if (formatType.includes('سكريبت ريل + كابشن')) contentType = 'سيناريو ريل + كابشن';
+                else if (formatType.includes('فيديو') && !formatType.includes('كابشن')) contentType = 'فكرة عامة للفيديو';
+                else if (formatType.includes('فيديو + كابشن')) contentType = 'فكرة فيديو + كابشن';
+                else if (formatType.includes('ستوري') && !formatType.includes('نص')) contentType = 'فكرة ستوري';
+                else if (formatType.includes('ستوري + نص')) contentType = 'فكرة ستوري + نص';
 
-                const prompt = `أنت كاتب محتوى محترف متخصص في التسويق الرقمي. أكتب محتوى واحداً فقط بناءً على المعلومات التالية:
-
-معلومات المستخدم:
-- الهدف: ${goals.join('، ') || 'غير محدد'}
-- الجمهور المستهدف: ${audiences.join('، ') || 'عام'}
-- الفئة العمرية: ${ages.join('، ') || 'كل الأعمار'}
-- المنصة: ${platforms.join('، ') || 'غير محدد'}
-- شكل المحتوى: ${formatType}
-- نوع المحتوى: ${contentTypes.join('، ') || 'احترافي'}
+                const prompt = `أنت كاتب محتوى محترف. أكتب محتوى واحداً فقط بناءً على:
+الهدف: ${goals.join('، ') || 'غير محدد'}
+الجمهور: ${audiences.join('، ') || 'عام'}
+العمر: ${ages.join('، ') || 'كل الأعمار'}
+المنصة: ${platforms.join('، ') || 'غير محدد'}
+شكل المحتوى: ${formatType}
+نوع المحتوى: ${contentTypes.join('، ') || 'احترافي'}
 ${captionLines ? '- عدد أسطر الكابشن: ' + captionLines : ''}
 ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' : ''}
+${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFileContent : ''}
 
 وصف المستخدم: "${desc}"
 
-المطلوب منك: ${contentType}
-
-ملاحظات مهمة:
-1. أكتب محتوى قصيراً لكن قوياً ودقيقاً، بدون حشو أو تكرار.
-2. غير أسلوبك في كل مرة، وكن مبدعاً.
-3. إذا كان في الوصف طلب لأسلوب معين (رسمي، فكاهي، تحفيزي، ...)، التزم به.
-4. لا تكتب كلمات مثل "HOOK" أو "VALUE" أو "CTA" في النص النهائي.`;
+المطلوب: ${contentType}
+اكتب محتوى قصيراً قوياً بدون عناوين داخلية.`;
 
                 const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
                     method: 'POST',
@@ -742,24 +749,89 @@ ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' 
                 });
 
                 const data = await response.json();
-                
-                if (data.error) {
-                    resultContent.innerHTML = `خطأ: ${data.error}`;
-                    return;
-                }
+                if (data.error) { resultContent.innerHTML = `خطأ: ${data.error}`; return; }
 
-                let text = data.result;
-                text = text.replace(/\n/g, '<br>');
-                
+                let text = data.result.replace(/\n/g, '<br>');
                 resultContent.innerHTML = text;
+                currentDescription = desc;
+                currentContent = data.result;
                 
             } catch (error) {
-                resultContent.innerHTML = 'حدث خطأ في الاتصال بالباك إند.';
+                resultContent.innerHTML = 'حدث خطأ في الاتصال.';
                 console.error(error);
             }
         });
 
-        // ==================== التعديل (موجود) ====================
+        // ==================== مشاركة ====================
+        window.share = function(platform) {
+            const text = currentContent || document.getElementById('resultContent').innerText;
+            const url = encodeURIComponent(window.location.href);
+            const encodedText = encodeURIComponent(text);
+            
+            const links = {
+                snapchat: `https://www.snapchat.com/scan?attachmentUrl=${url}`,
+                tiktok: `https://www.tiktok.com/upload?reference=${url}`,
+                instagram: `https://www.instagram.com/create/story?text=${encodedText}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodedText}`
+            };
+            window.open(links[platform], '_blank');
+        };
+
+        // ==================== حفظ ====================
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            if (!currentDescription || !currentContent) {
+                alert('لا يوجد محتوى للحفظ');
+                return;
+            }
+            savedItems.unshift({
+                id: Date.now(),
+                description: currentDescription.substring(0, 100) + '...',
+                fullDescription: currentDescription,
+                content: currentContent,
+                date: new Date().toLocaleDateString('ar-EG')
+            });
+            localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
+            alert('✅ تم الحفظ');
+        });
+
+        function displaySavedItems() {
+            const container = document.getElementById('savedItemsContainer');
+            if (savedItems.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #9ca3af;">لا توجد محفوظات بعد</p>';
+                return;
+            }
+            container.innerHTML = savedItems.map(item => `
+                <div class="saved-item">
+                    <div class="desc">📌 ${item.description}</div>
+                    <div class="content">${item.content.substring(0, 100)}...</div>
+                    <div class="saved-item-actions">
+                        <button onclick="loadSavedItem(${item.id})">استعادة</button>
+                        <button onclick="deleteSavedItem(${item.id})">حذف</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.loadSavedItem = function(id) {
+            const item = savedItems.find(i => i.id === id);
+            if (item) {
+                document.getElementById('userDescription').value = item.fullDescription;
+                document.getElementById('resultContent').innerHTML = item.content.replace(/\n/g, '<br>');
+                document.getElementById('resultContainer').style.display = 'block';
+                document.getElementById('shareButtons').style.display = 'flex';
+                currentDescription = item.fullDescription;
+                currentContent = item.content;
+                savedModal.style.display = 'none';
+            }
+        };
+
+        window.deleteSavedItem = function(id) {
+            savedItems = savedItems.filter(i => i.id !== id);
+            localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
+            displaySavedItems();
+        };
+
+        // ==================== تعديل ====================
         const editBtn = document.getElementById('editBtn');
         const editModal = document.getElementById('editModal');
         const manualEditModal = document.getElementById('manualEditModal');
@@ -774,112 +846,54 @@ ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' 
         const manualEditText = document.getElementById('manualEditText');
         const aiEditRequest = document.getElementById('aiEditRequest');
 
-        if (editBtn) {
-            editBtn.addEventListener('click', function() {
-                editModal.style.display = 'flex';
-            });
-        }
+        editBtn.addEventListener('click', () => editModal.style.display = 'flex');
+        closeModal.addEventListener('click', () => editModal.style.display = 'none');
 
-        if (closeModal) {
-            closeModal.addEventListener('click', function() {
-                editModal.style.display = 'none';
-            });
-        }
-
-        if (manualEditOption) {
-            manualEditOption.addEventListener('click', function() {
-                editModal.style.display = 'none';
-                if (resultContent) {
-                    manualEditText.value = resultContent.innerText;
-                }
-                manualEditModal.style.display = 'flex';
-            });
-        }
-
-        if (closeManualEdit) {
-            closeManualEdit.addEventListener('click', function() {
-                manualEditModal.style.display = 'none';
-            });
-        }
-
-        if (saveManualEdit) {
-            saveManualEdit.addEventListener('click', function() {
-                if (resultContent) {
-                    resultContent.innerHTML = manualEditText.value.replace(/\n/g, '<br>');
-                }
-                manualEditModal.style.display = 'none';
-            });
-        }
-
-        if (aiEditOption) {
-            aiEditOption.addEventListener('click', function() {
-                editModal.style.display = 'none';
-                aiEditModal.style.display = 'flex';
-            });
-        }
-
-        if (closeAiEdit) {
-            closeAiEdit.addEventListener('click', function() {
-                aiEditModal.style.display = 'none';
-            });
-        }
-
-        if (sendAiEdit) {
-            sendAiEdit.addEventListener('click', async function() {
-                const request = aiEditRequest.value.trim();
-                if (!request) {
-                    alert('اكتب طلب التعديل أولاً');
-                    return;
-                }
-
-                const currentText = resultContent ? resultContent.innerText : '';
-                
-                aiEditModal.style.display = 'none';
-                resultContent.innerHTML = 'جاري تطبيق التعديل الذكي...';
-
-                try {
-                    const prompt = `قم بتعديل النص التالي بناءً على الطلب: "${request}"
-
-النص الأصلي:
-${currentText}
-
-اكتب النص المعدل كاملاً بدون إضافة عناوين مثل HOOK أو VALUE.`;
-
-                    const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ prompt })
-                    });
-
-                    const data = await response.json();
-                    
-                    if (data.error) {
-                        resultContent.innerHTML = `خطأ: ${data.error}`;
-                        return;
-                    }
-
-                    let text = data.result;
-                    text = text.replace(/\n/g, '<br>');
-                    
-                    resultContent.innerHTML = text;
-                    aiEditRequest.value = '';
-                    
-                } catch (error) {
-                    resultContent.innerHTML = 'حدث خطأ في الاتصال. حاول مرة أخرى.';
-                    console.error(error);
-                }
-            });
-        }
-
-        window.addEventListener('click', function(event) {
-            if (event.target === editModal) editModal.style.display = 'none';
-            if (event.target === manualEditModal) manualEditModal.style.display = 'none';
-            if (event.target === aiEditModal) aiEditModal.style.display = 'none';
-            if (event.target === feedbackModal) feedbackModal.style.display = 'none';
+        manualEditOption.addEventListener('click', () => {
+            editModal.style.display = 'none';
+            manualEditText.value = document.getElementById('resultContent').innerText;
+            manualEditModal.style.display = 'flex';
         });
 
-        document.getElementById('saveBtn').addEventListener('click', function() {
-            alert('تم حفظ المحتوى (سيتم تفعيل التحميل لاحقاً)');
+        closeManualEdit.addEventListener('click', () => manualEditModal.style.display = 'none');
+
+        saveManualEdit.addEventListener('click', () => {
+            document.getElementById('resultContent').innerHTML = manualEditText.value.replace(/\n/g, '<br>');
+            manualEditModal.style.display = 'none';
+        });
+
+        aiEditOption.addEventListener('click', () => {
+            editModal.style.display = 'none';
+            aiEditModal.style.display = 'flex';
+        });
+
+        closeAiEdit.addEventListener('click', () => aiEditModal.style.display = 'none');
+
+        sendAiEdit.addEventListener('click', async () => {
+            const request = aiEditRequest.value.trim();
+            if (!request) { alert('اكتب طلب التعديل'); return; }
+
+            const currentText = document.getElementById('resultContent').innerText;
+            aiEditModal.style.display = 'none';
+            document.getElementById('resultContent').innerHTML = 'جاري التعديل...';
+
+            try {
+                const prompt = `عدل النص التالي بناءً على الطلب: "${request}"\n\nالنص:\n${currentText}`;
+                const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                document.getElementById('resultContent').innerHTML = data.result.replace(/\n/g, '<br>');
+                aiEditRequest.value = '';
+            } catch (e) {
+                document.getElementById('resultContent').innerHTML = 'خطأ في التعديل';
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
         });
     </script>
 </body>
