@@ -108,32 +108,29 @@
             color: #6b7280;
             text-decoration: none;
         }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #9ca3af;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>👤 لوحة تحكم المالك</h1>
 
-        <!-- الإحصائيات -->
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>إجمالي المستخدمين</h3>
-                <div class="number" id="totalUsers">-</div>
-            </div>
-            <div class="stat-card">
-                <h3>إجمالي الطلبات</h3>
-                <div class="number" id="totalRequests">-</div>
-            </div>
-            <div class="stat-card">
-                <h3>رسائل الملاحظات</h3>
+                <h3>إجمالي الرسائل</h3>
                 <div class="number" id="totalMessages">-</div>
             </div>
         </div>
 
-        <!-- جدول الرسائل -->
         <div class="messages-table">
             <h2>📋 رسائل المستخدمين</h2>
-            <table id="messagesTable">
+            <div id="messagesLoading" class="loading">جاري تحميل الرسائل...</div>
+            <table id="messagesTable" style="display: none;">
                 <thead>
                     <tr>
                         <th>التاريخ</th>
@@ -141,49 +138,75 @@
                         <th>الإجراء</th>
                     </tr>
                 </thead>
-                <tbody id="messagesBody">
-                    <tr>
-                        <td colspan="3" style="text-align: center; color: #9ca3af;">لا توجد رسائل بعد</td>
-                    </tr>
-                </tbody>
+                <tbody id="messagesBody"></tbody>
             </table>
         </div>
 
         <a href="index.html" class="back-link">← العودة إلى الموقع</a>
     </div>
 
-    <script>
-        // رسائل تجريبية (لحين الربط مع Supabase)
-        const sampleMessages = [
-            { date: '2026-02-15', message: 'الموقع رائع، لكن أتمنى إضافة خيار للغة الإنجليزية' },
-            { date: '2026-02-14', message: 'زر التعديل الذكي لا يعمل معي' },
-            { date: '2026-02-13', message: 'أقترح إضافة المزيد من خيارات الجمهور' }
-        ];
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-        function loadMessages() {
+        const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw';  
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        async function loadMessages() {
+            const loading = document.getElementById('messagesLoading');
+            const table = document.getElementById('messagesTable');
             const tbody = document.getElementById('messagesBody');
-            tbody.innerHTML = '';
+            const totalEl = document.getElementById('totalMessages');
 
-            if (sampleMessages.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">لا توجد رسائل بعد</td></tr>';
-                return;
+            try {
+                const { data, error } = await supabase
+                    .from('feedback')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                totalEl.textContent = data.length;
+                loading.style.display = 'none';
+                table.style.display = 'table';
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">لا توجد رسائل بعد</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(msg => `
+                    <tr>
+                        <td>${new Date(msg.created_at).toLocaleDateString('ar-EG')}</td>
+                        <td>${msg.message}</td>
+                        <td><button class="delete-btn" onclick="deleteMessage('${msg.id}')">حذف</button></td>
+                    </tr>
+                `).join('');
+
+            } catch (e) {
+                loading.textContent = 'حدث خطأ في تحميل الرسائل';
+                console.error(e);
             }
-
-            sampleMessages.forEach(msg => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${msg.date}</td>
-                    <td>${msg.message}</td>
-                    <td><button class="delete-btn" onclick="alert('حذف: ${msg.message}')">حذف</button></td>
-                `;
-                tbody.appendChild(row);
-            });
         }
 
-        // تحديث الإحصائيات
-        document.getElementById('totalUsers').textContent = '15';
-        document.getElementById('totalRequests').textContent = '247';
-        document.getElementById('totalMessages').textContent = sampleMessages.length;
+        window.deleteMessage = async function(id) {
+            if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+
+            try {
+                const { error } = await supabase
+                    .from('feedback')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                loadMessages(); // إعادة تحميل الجدول
+
+            } catch (e) {
+                alert('حدث خطأ في الحذف');
+                console.error(e);
+            }
+        };
 
         loadMessages();
     </script>

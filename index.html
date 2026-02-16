@@ -354,7 +354,6 @@
             font-size: 0.8rem;
         }
 
-        /* رسالة حفظ فخمة */
         .toast {
             position: fixed;
             top: 30px;
@@ -402,36 +401,23 @@
     </style>
 </head>
 <body>
-    <!-- رسالة حفظ منبثقة -->
     <div class="toast" id="toastMessage">
         <span class="toast-icon">✓</span>
         <span id="toastText">تم الحفظ بنجاح</span>
     </div>
 
-    <!-- زر القائمة الجانبية -->
     <div class="menu-btn" id="menuBtn">☰ القائمة</div>
 
-    <!-- القائمة الجانبية -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h3>القائمة</h3>
             <button class="close-sidebar" id="closeSidebar">✕</button>
         </div>
-        
-        <div class="sidebar-item" id="feedbackOption">
-            📝 اكتب مشكلتك أو اقتراحك
-        </div>
-        
-        <div class="sidebar-item" id="savedOption">
-            📁 محفوظاتي
-        </div>
-        
-        <div class="sidebar-item" id="accountOption">
-            👤 حسابي
-        </div>
+        <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
+        <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
+        <div class="sidebar-item" id="accountOption">👤 حسابي</div>
     </div>
 
-    <!-- مودال الملاحظات -->
     <div class="modal" id="feedbackModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">📝 اكتب مشكلتك أو اقتراحك</h3>
@@ -441,7 +427,6 @@
         </div>
     </div>
 
-    <!-- مودال المحفوظات -->
     <div class="modal" id="savedModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">📁 المحفوظات</h3>
@@ -451,22 +436,18 @@
     </div>
 
     <div class="container">
-        <!-- شعار -->
         <div class="logo-wrapper">
             <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/220x80/0066ff/ff6b4a/png?text=AdVanta'">
         </div>
 
-        <!-- رسالة ترحيب متغيرة -->
         <div class="welcome-message" id="welcomeMessage"></div>
 
-        <!-- وصف الموقع -->
         <div class="site-description">
             موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال دقائق
         </div>
 
-        <!-- الكارد الرئيسي -->
         <div class="card" id="mainCard">
-            <!-- الهدف -->
+            <!-- كل الخيارات هنا (نفس ما كانت) -->
             <div class="section-title">الهدف</div>
             <div class="options-grid" id="goalOptions" data-single="true">
                 <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true">وعي بعلامة تجارية</div>
@@ -480,7 +461,6 @@
                 <div class="option-chip" data-value="هدف شخصي" data-single="true">هدف شخصي</div>
             </div>
 
-            <!-- الجمهور -->
             <div class="section-title">الجمهور المستهدف</div>
             <div class="options-grid" id="audienceOptions">
                 <div class="option-chip" data-value="آباء">آباء</div>
@@ -504,7 +484,6 @@
                 <div class="option-chip" data-value="غير ذلك">غير ذلك</div>
             </div>
 
-            <!-- العمر -->
             <div class="section-title">الفئة العمرية</div>
             <div class="options-grid" id="ageOptions">
                 <div class="option-chip" data-value="0-12">0 – 12</div>
@@ -516,7 +495,6 @@
                 <div class="option-chip" data-value="60+">60+</div>
             </div>
 
-            <!-- المنصة -->
             <div class="section-title">المنصة</div>
             <div class="options-grid" id="platformOptions" data-single="true">
                 <div class="option-chip" data-value="فيسبوك" data-single="true">فيسبوك</div>
@@ -525,7 +503,6 @@
                 <div class="option-chip" data-value="سناب شات" data-single="true">سناب شات</div>
             </div>
 
-            <!-- شكل المحتوى -->
             <div class="section-title">شكل المحتوى</div>
             <div class="options-grid" id="formatOptions" data-single="true">
                 <div class="option-chip" data-value="فكرة صورة" data-single="true">فكرة صورة</div>
@@ -539,7 +516,6 @@
                 <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true">فكرة ستوري + نص</div>
             </div>
 
-            <!-- نوع المحتوى -->
             <div class="section-title">نوع المحتوى</div>
             <div class="options-grid" id="contentTypeOptions" data-single="true">
                 <div class="option-chip" data-value="محتوى احترافي" data-single="true">محتوى احترافي</div>
@@ -547,33 +523,25 @@
                 <div class="option-chip" data-value="محتوى موظفين" data-single="true">محتوى موظفين</div>
             </div>
 
-            <!-- خيارات إضافية -->
             <div id="extraOptionsContainer"></div>
 
-            <!-- رفع ملف -->
             <div class="file-upload-area" id="fileUploadArea">
                 📄 اضغط لرفع ملف (PDF, Word, TXT) - حتى 15 صفحة
                 <input type="file" id="fileInput" accept=".pdf,.docx,.txt" style="display: none;">
             </div>
 
-            <!-- وصف المستخدم -->
             <textarea id="userDescription" placeholder="اكتب فكرتك هنا... (مثلاً: منشور عن منتج جديد للعناية بالبشرة)"></textarea>
 
-            <!-- زر الإنشاء -->
             <button class="generate-btn" id="generateBtn">ابدأ الكتابة</button>
 
-            <!-- نتيجة -->
             <div class="result-container" id="resultContainer">
                 <div class="result-content" id="resultContent"></div>
-                
-                <!-- أزرار المشاركة -->
                 <div class="share-buttons" id="shareButtons" style="display: none;">
                     <button class="share-btn share-snapchat" onclick="share('snapchat')">سناب شات</button>
                     <button class="share-btn share-tiktok" onclick="share('tiktok')">تيك توك</button>
                     <button class="share-btn share-instagram" onclick="share('instagram')">إنستغرام</button>
                     <button class="share-btn share-facebook" onclick="share('facebook')">فيسبوك</button>
                 </div>
-
                 <div class="result-actions">
                     <button class="action-btn edit-btn" id="editBtn">تعديل</button>
                     <button class="action-btn save-btn" id="saveBtn">حفظ</button>
@@ -582,7 +550,6 @@
         </div>
     </div>
 
-    <!-- مودال التعديل -->
     <div class="modal" id="editModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">تعديل المحتوى</h3>
@@ -598,7 +565,6 @@
         </div>
     </div>
 
-    <!-- مودال التعديل اليدوي -->
     <div class="modal" id="manualEditModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">تعديل يدوي</h3>
@@ -610,7 +576,6 @@
         </div>
     </div>
 
-    <!-- مودال التعديل الذكي -->
     <div class="modal" id="aiEditModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">تعديل ذكي</h3>
@@ -622,7 +587,14 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        // ==================== Supabase ====================
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+
+        const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw'; 
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
         // ==================== رسالة ترحيب متغيرة ====================
         const welcomeMessages = [
             "أهلاً بك، شو رح نبدع اليوم؟",
@@ -639,20 +611,14 @@
         let currentDescription = '';
         let currentContent = '';
 
-        // ==================== دالة عرض رسالة حفظ فخمة ====================
         function showToast(message, isSuccess = true) {
             const toast = document.getElementById('toastMessage');
             const toastText = document.getElementById('toastText');
             toastText.textContent = message;
             toast.classList.add('show');
-            if (isSuccess) {
-                toast.classList.add('success');
-            } else {
-                toast.classList.remove('success');
-            }
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            if (isSuccess) toast.classList.add('success');
+            else toast.classList.remove('success');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
         // ==================== القائمة الجانبية ====================
@@ -685,12 +651,25 @@
         closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
         closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
 
-        sendFeedback.addEventListener('click', () => {
+        // ==================== إرسال الملاحظات إلى Supabase ====================
+        sendFeedback.addEventListener('click', async () => {
             const msg = feedbackText.value.trim();
             if (!msg) { alert('اكتب رسالتك أولاً'); return; }
-            showToast('تم إرسال رسالتك، شكراً لك', true);
-            feedbackText.value = '';
-            feedbackModal.style.display = 'none';
+
+            try {
+                const { error } = await supabase
+                    .from('feedback')
+                    .insert([{ message: msg }]);
+
+                if (error) throw error;
+
+                showToast('تم إرسال رسالتك، شكراً لك', true);
+                feedbackText.value = '';
+                feedbackModal.style.display = 'none';
+            } catch (e) {
+                console.error(e);
+                showToast('حدث خطأ في الإرسال', false);
+            }
         });
 
         // ==================== رفع الملفات ====================
@@ -703,7 +682,6 @@
         fileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
-
             const text = await file.text();
             uploadedFileContent = text.slice(0, 3000);
             showToast('✅ تم رفع الملف بنجاح', true);
@@ -715,7 +693,6 @@
                 e.stopPropagation();
                 const parent = this.parentElement;
                 const isSingle = parent.dataset.single === 'true' || this.dataset.single === 'true';
-                
                 if (isSingle) {
                     parent.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
@@ -728,7 +705,6 @@
         function updateExtraOptions(format) {
             const container = document.getElementById('extraOptionsContainer');
             container.innerHTML = '';
-            
             let html = '';
             const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
             const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
@@ -833,12 +809,10 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
             }
         });
 
-        // ==================== مشاركة ====================
         window.share = function(platform) {
             const text = currentContent || document.getElementById('resultContent').innerText;
             const url = encodeURIComponent(window.location.href);
             const encodedText = encodeURIComponent(text);
-            
             const links = {
                 snapchat: `https://www.snapchat.com/scan?attachmentUrl=${url}`,
                 tiktok: `https://www.tiktok.com/upload?reference=${url}`,
@@ -848,7 +822,6 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
             window.open(links[platform], '_blank');
         };
 
-        // ==================== حفظ ====================
         document.getElementById('saveBtn').addEventListener('click', function() {
             if (!currentDescription || !currentContent) {
                 showToast('لا يوجد محتوى للحفظ', false);
