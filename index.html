@@ -448,7 +448,7 @@
         </div>
 
         <div class="card" id="mainCard">
-            <!-- كل الخيارات هنا (نفس ما كانت) -->
+            <!-- الهدف -->
             <div class="section-title">الهدف</div>
             <div class="options-grid" id="goalOptions" data-single="true">
                 <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true">وعي بعلامة تجارية</div>
@@ -462,6 +462,7 @@
                 <div class="option-chip" data-value="هدف شخصي" data-single="true">هدف شخصي</div>
             </div>
 
+            <!-- الجمهور -->
             <div class="section-title">الجمهور المستهدف</div>
             <div class="options-grid" id="audienceOptions">
                 <div class="option-chip" data-value="آباء">آباء</div>
@@ -485,6 +486,7 @@
                 <div class="option-chip" data-value="غير ذلك">غير ذلك</div>
             </div>
 
+            <!-- العمر -->
             <div class="section-title">الفئة العمرية</div>
             <div class="options-grid" id="ageOptions">
                 <div class="option-chip" data-value="0-12">0 – 12</div>
@@ -496,6 +498,7 @@
                 <div class="option-chip" data-value="60+">60+</div>
             </div>
 
+            <!-- المنصة -->
             <div class="section-title">المنصة</div>
             <div class="options-grid" id="platformOptions" data-single="true">
                 <div class="option-chip" data-value="فيسبوك" data-single="true">فيسبوك</div>
@@ -504,6 +507,7 @@
                 <div class="option-chip" data-value="سناب شات" data-single="true">سناب شات</div>
             </div>
 
+            <!-- شكل المحتوى -->
             <div class="section-title">شكل المحتوى</div>
             <div class="options-grid" id="formatOptions" data-single="true">
                 <div class="option-chip" data-value="فكرة صورة" data-single="true">فكرة صورة</div>
@@ -517,6 +521,7 @@
                 <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true">فكرة ستوري + نص</div>
             </div>
 
+            <!-- نوع المحتوى -->
             <div class="section-title">نوع المحتوى</div>
             <div class="options-grid" id="contentTypeOptions" data-single="true">
                 <div class="option-chip" data-value="محتوى احترافي" data-single="true">محتوى احترافي</div>
@@ -592,8 +597,8 @@
         // ==================== Supabase ====================
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-        const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw';
+        const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdiamx2Y3Vub3F5eGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNzUxNTEsImV4cCI6MjA4Njg1MTE1MX0.lvurDprXQfrx_FOPpeYn_mACaqPutmoVFIlNc-Wgzb4';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
         // ==================== رسالة ترحيب متغيرة ====================

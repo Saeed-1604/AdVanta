@@ -26,7 +26,6 @@
             margin: 0 auto;
         }
 
-        /* الهيدر */
         .header {
             display: flex;
             justify-content: space-between;
@@ -60,7 +59,6 @@
             background: #fffaf8;
         }
 
-        /* بطاقات الإحصائيات */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -95,7 +93,6 @@
             color: #ff6b4a;
         }
 
-        /* صندوق الرسائل الرئيسي */
         .messages-section {
             background: white;
             border-radius: 40px;
@@ -136,7 +133,6 @@
             border-color: #ff6b4a;
         }
 
-        /* صندوق البحث */
         .search-box {
             margin-bottom: 1.5rem;
             display: flex;
@@ -168,7 +164,6 @@
             cursor: pointer;
         }
 
-        /* جدول الرسائل */
         .messages-table {
             overflow-x: auto;
         }
@@ -222,7 +217,6 @@
             color: white;
         }
 
-        /* حالة التحميل */
         .loading-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -248,7 +242,6 @@
             border-radius: 30px;
         }
 
-        /* تذييل */
         .footer {
             margin-top: 2.5rem;
             text-align: center;
@@ -259,13 +252,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- الهيدر -->
         <div class="header">
             <h1>⚙️ لوحة تحكم المالك</h1>
             <a href="index.html" class="back-btn">← العودة إلى الموقع</a>
         </div>
 
-        <!-- بطاقات الإحصائيات -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>إجمالي الرسائل</h3>
@@ -277,14 +268,12 @@
             </div>
         </div>
 
-        <!-- صندوق الرسائل -->
         <div class="messages-section">
             <div class="section-header">
                 <h2>📬 رسائل المستخدمين</h2>
                 <button class="refresh-btn" onclick="loadMessages()">⟳ تحديث</button>
             </div>
 
-            <!-- البحث والتصفية -->
             <div class="search-box">
                 <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل..." onkeyup="filterMessages()">
                 <select class="filter-select" id="sortSelect" onchange="filterMessages()">
@@ -293,15 +282,10 @@
                 </select>
             </div>
 
-            <!-- منطقة التحميل -->
             <div id="loading" class="loading-state">⏳ جاري تحميل الرسائل...</div>
-
-            <!-- منطقة الخطأ -->
             <div id="error" class="error-state" style="display: none;">
                 ❌ حدث خطأ في تحميل الرسائل. يرجى المحاولة مرة أخرى.
             </div>
-
-            <!-- جدول الرسائل -->
             <div id="messagesContainer" style="display: none;">
                 <div class="messages-table">
                     <table>
@@ -316,30 +300,25 @@
                     </table>
                 </div>
             </div>
-
-            <!-- منطقة فارغة -->
             <div id="empty" class="empty-state" style="display: none;">
                 📭 لا توجد رسائل بعد
             </div>
         </div>
 
-        <!-- تذييل -->
         <div class="footer">
             AdVanta © 2026 - جميع الحقوق محفوظة
         </div>
     </div>
 
     <script type="module">
-        // ==================== Supabase ====================
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-        const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw';  
+        const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdiamx2Y3Vub3F5eGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNzUxNTEsImV4cCI6MjA4Njg1MTE1MX0.lvurDprXQfrx_FOPpeYn_mACaqPutmoVFIlNc-Wgzb4';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
         let allMessages = [];
 
-        // ==================== تحميل الرسائل ====================
         window.loadMessages = async function() {
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
@@ -348,7 +327,6 @@
             const totalEl = document.getElementById('totalMessages');
             const lastMessageDate = document.getElementById('lastMessageDate');
 
-            // إظهار التحميل وإخفاء الباقي
             loading.style.display = 'block';
             error.style.display = 'none';
             messagesContainer.style.display = 'none';
@@ -364,7 +342,6 @@
 
                 allMessages = data || [];
 
-                // تحديث الإحصائيات
                 totalEl.textContent = allMessages.length;
                 if (allMessages.length > 0) {
                     const lastDate = new Date(allMessages[0].created_at);
@@ -373,7 +350,6 @@
                     lastMessageDate.textContent = '-';
                 }
 
-                // إخفاء التحميل
                 loading.style.display = 'none';
 
                 if (allMessages.length === 0) {
@@ -381,7 +357,6 @@
                     return;
                 }
 
-                // عرض الرسائل
                 messagesContainer.style.display = 'block';
                 displayMessages(allMessages);
 
@@ -394,12 +369,10 @@
             }
         };
 
-        // ==================== عرض الرسائل ====================
         function displayMessages(messages) {
             const tbody = document.getElementById('messagesBody');
             
             tbody.innerHTML = messages.map(msg => {
-                // تنسيق التاريخ
                 let dateStr = 'تاريخ غير معروف';
                 try {
                     const date = new Date(msg.created_at);
@@ -426,21 +399,18 @@
             }).join('');
         }
 
-        // ==================== تصفية الرسائل ====================
         window.filterMessages = function() {
             const searchText = document.getElementById('searchInput').value.toLowerCase();
             const sortOrder = document.getElementById('sortSelect').value;
 
             let filtered = [...allMessages];
 
-            // تطبيق البحث
             if (searchText) {
                 filtered = filtered.filter(msg => 
                     (msg.message || '').toLowerCase().includes(searchText)
                 );
             }
 
-            // تطبيق الترتيب
             if (sortOrder === 'oldest') {
                 filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
             } else {
@@ -450,7 +420,6 @@
             displayMessages(filtered);
         };
 
-        // ==================== حذف رسالة ====================
         window.deleteMessage = async function(id) {
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
 
@@ -462,7 +431,6 @@
 
                 if (error) throw error;
 
-                // إعادة تحميل الرسائل
                 loadMessages();
 
             } catch (e) {
@@ -471,7 +439,6 @@
             }
         };
 
-        // ==================== تحميل أولي ====================
         loadMessages();
     </script>
 </body>
