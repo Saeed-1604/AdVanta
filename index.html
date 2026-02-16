@@ -353,9 +353,61 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
+
+        /* رسالة حفظ فخمة */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: white;
+            color: #1e1e2f;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            box-shadow: 0 15px 35px rgba(255,107,74,0.25);
+            border: 1px solid rgba(255,107,74,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: transform 0.3s ease;
+            border-right: 4px solid #ff6b4a;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-right-color: #10b981;
+        }
+
+        .toast.success .toast-icon {
+            background: #10b981;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ff6b4a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+    <!-- رسالة حفظ منبثقة -->
+    <div class="toast" id="toastMessage">
+        <span class="toast-icon">✓</span>
+        <span id="toastText">تم الحفظ بنجاح</span>
+    </div>
+
     <!-- زر القائمة الجانبية -->
     <div class="menu-btn" id="menuBtn">☰ القائمة</div>
 
@@ -587,6 +639,22 @@
         let currentDescription = '';
         let currentContent = '';
 
+        // ==================== دالة عرض رسالة حفظ فخمة ====================
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            toast.classList.add('show');
+            if (isSuccess) {
+                toast.classList.add('success');
+            } else {
+                toast.classList.remove('success');
+            }
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
         // ==================== القائمة الجانبية ====================
         const menuBtn = document.getElementById('menuBtn');
         const sidebar = document.getElementById('sidebar');
@@ -620,7 +688,7 @@
         sendFeedback.addEventListener('click', () => {
             const msg = feedbackText.value.trim();
             if (!msg) { alert('اكتب رسالتك أولاً'); return; }
-            alert('تم إرسال رسالتك. شكراً لك!');
+            showToast('تم إرسال رسالتك، شكراً لك', true);
             feedbackText.value = '';
             feedbackModal.style.display = 'none';
         });
@@ -637,8 +705,8 @@
             if (!file) return;
 
             const text = await file.text();
-            uploadedFileContent = text.slice(0, 3000); // حد 15 صفحة تقريبي
-            alert('✅ تم رفع الملف. يمكنك استخدامه في الوصف.');
+            uploadedFileContent = text.slice(0, 3000);
+            showToast('✅ تم رفع الملف بنجاح', true);
         });
 
         // ==================== إدارة الخيارات ====================
@@ -749,7 +817,10 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
                 });
 
                 const data = await response.json();
-                if (data.error) { resultContent.innerHTML = `خطأ: ${data.error}`; return; }
+                if (data.error) { 
+                    resultContent.innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة'; 
+                    return; 
+                }
 
                 let text = data.result.replace(/\n/g, '<br>');
                 resultContent.innerHTML = text;
@@ -757,7 +828,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
                 currentContent = data.result;
                 
             } catch (error) {
-                resultContent.innerHTML = 'حدث خطأ في الاتصال.';
+                resultContent.innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة';
                 console.error(error);
             }
         });
@@ -780,7 +851,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
         // ==================== حفظ ====================
         document.getElementById('saveBtn').addEventListener('click', function() {
             if (!currentDescription || !currentContent) {
-                alert('لا يوجد محتوى للحفظ');
+                showToast('لا يوجد محتوى للحفظ', false);
                 return;
             }
             savedItems.unshift({
@@ -791,7 +862,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
                 date: new Date().toLocaleDateString('ar-EG')
             });
             localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
-            alert('✅ تم الحفظ');
+            showToast('✅ تم الحفظ بنجاح', true);
         });
 
         function displaySavedItems() {
@@ -822,6 +893,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
                 currentDescription = item.fullDescription;
                 currentContent = item.content;
                 savedModal.style.display = 'none';
+                showToast('✅ تم استعادة المحتوى', true);
             }
         };
 
@@ -829,6 +901,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
             savedItems = savedItems.filter(i => i.id !== id);
             localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
             displaySavedItems();
+            showToast('✅ تم الحذف', true);
         };
 
         // ==================== تعديل ====================
@@ -860,6 +933,7 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
         saveManualEdit.addEventListener('click', () => {
             document.getElementById('resultContent').innerHTML = manualEditText.value.replace(/\n/g, '<br>');
             manualEditModal.style.display = 'none';
+            showToast('✅ تم التعديل', true);
         });
 
         aiEditOption.addEventListener('click', () => {
@@ -887,8 +961,9 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
                 if (data.error) throw new Error(data.error);
                 document.getElementById('resultContent').innerHTML = data.result.replace(/\n/g, '<br>');
                 aiEditRequest.value = '';
+                showToast('✅ تم التعديل الذكي', true);
             } catch (e) {
-                document.getElementById('resultContent').innerHTML = 'خطأ في التعديل';
+                document.getElementById('resultContent').innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة';
             }
         });
 
