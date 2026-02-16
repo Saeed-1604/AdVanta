@@ -9,11 +9,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
             background: #fcfaff;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 74, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 90% 70%, rgba(0, 102, 255, 0.03) 0%, transparent 35%);
+            min-height: 100vh;
             padding: 2rem;
         }
 
@@ -22,50 +26,151 @@
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2rem;
+        /* الهيدر */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
-            color: #1e1e2f;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
+        .header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(145deg, #0066ff, #ff5e3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .back-btn {
+            background: white;
+            color: #2d3142;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1.5px solid #edf2f7;
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            border-color: #ff6b4a;
+            background: #fffaf8;
+        }
+
+        /* بطاقات الإحصائيات */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
             background: white;
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,107,74,0.1);
+            border-radius: 30px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,107,74,0.15);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(255,107,74,0.1);
         }
 
         .stat-card h3 {
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .stat-card .number {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             color: #ff6b4a;
         }
 
-        .messages-table {
+        /* صندوق الرسائل الرئيسي */
+        .messages-section {
             background: white;
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 40px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
             border: 1px solid rgba(255,107,74,0.1);
         }
 
-        .messages-table h2 {
-            margin-bottom: 1.5rem;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
             color: #1e1e2f;
+            font-weight: 700;
+        }
+
+        .refresh-btn {
+            background: #f8faff;
+            border: 1.5px solid #edf2f7;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #2d3142;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .refresh-btn:hover {
+            background: #ff6b4a;
+            color: white;
+            border-color: #ff6b4a;
+        }
+
+        /* صندوق البحث */
+        .search-box {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1.5px solid #edf2f7;
+            border-radius: 50px;
+            font-size: 1rem;
+            min-width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff6b4a;
+            box-shadow: 0 0 0 4px rgba(255,107,74,0.1);
+        }
+
+        .filter-select {
+            padding: 0.9rem 1.5rem;
+            border: 1.5px solid #edf2f7;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* جدول الرسائل */
+        .messages-table {
+            overflow-x: auto;
         }
 
         table {
@@ -75,26 +180,41 @@
 
         th {
             text-align: right;
-            padding: 1rem;
+            padding: 1rem 1rem;
             background: #f8faff;
             color: #2d3142;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #edf2f7;
         }
 
         td {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             border-bottom: 1px solid #edf2f7;
             color: #4a4e62;
+        }
+
+        .message-text {
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+
+        .date-cell {
+            white-space: nowrap;
+            color: #6b7280;
+            font-size: 0.9rem;
         }
 
         .delete-btn {
             background: #fee2e2;
             color: #ef4444;
             border: none;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.2s;
         }
 
         .delete-btn:hover {
@@ -102,57 +222,111 @@
             color: white;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            color: #6b7280;
-            text-decoration: none;
-        }
-
-        .loading {
+        /* حالة التحميل */
+        .loading-state {
             text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             color: #9ca3af;
+            font-size: 1.1rem;
         }
 
-        .error-message {
+        .error-state {
             text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             color: #ef4444;
             background: #fee2e2;
-            border-radius: 24px;
-            margin: 1rem 0;
+            border-radius: 30px;
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+            font-size: 1.1rem;
+            background: #f8faff;
+            border-radius: 30px;
+        }
+
+        /* تذييل */
+        .footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>👤 لوحة تحكم المالك</h1>
+        <!-- الهيدر -->
+        <div class="header">
+            <h1>⚙️ لوحة تحكم المالك</h1>
+            <a href="index.html" class="back-btn">← العودة إلى الموقع</a>
+        </div>
 
+        <!-- بطاقات الإحصائيات -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>إجمالي الرسائل</h3>
                 <div class="number" id="totalMessages">-</div>
             </div>
+            <div class="stat-card">
+                <h3>آخر رسالة</h3>
+                <div class="number" id="lastMessageDate">-</div>
+            </div>
         </div>
 
-        <div class="messages-table">
-            <h2>📋 رسائل المستخدمين</h2>
-            <div id="messagesLoading" class="loading">جاري تحميل الرسائل...</div>
-            <div id="errorContainer" class="error-message" style="display: none;"></div>
-            <table id="messagesTable" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>التاريخ</th>
-                        <th>الرسالة</th>
-                        <th>الإجراء</th>
-                    </tr>
-                </thead>
-                <tbody id="messagesBody"></tbody>
-            </table>
+        <!-- صندوق الرسائل -->
+        <div class="messages-section">
+            <div class="section-header">
+                <h2>📬 رسائل المستخدمين</h2>
+                <button class="refresh-btn" onclick="loadMessages()">⟳ تحديث</button>
+            </div>
+
+            <!-- البحث والتصفية -->
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل..." onkeyup="filterMessages()">
+                <select class="filter-select" id="sortSelect" onchange="filterMessages()">
+                    <option value="newest">الأحدث أولاً</option>
+                    <option value="oldest">الأقدم أولاً</option>
+                </select>
+            </div>
+
+            <!-- منطقة التحميل -->
+            <div id="loading" class="loading-state">⏳ جاري تحميل الرسائل...</div>
+
+            <!-- منطقة الخطأ -->
+            <div id="error" class="error-state" style="display: none;">
+                ❌ حدث خطأ في تحميل الرسائل. يرجى المحاولة مرة أخرى.
+            </div>
+
+            <!-- جدول الرسائل -->
+            <div id="messagesContainer" style="display: none;">
+                <div class="messages-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>الرسالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- منطقة فارغة -->
+            <div id="empty" class="empty-state" style="display: none;">
+                📭 لا توجد رسائل بعد
+            </div>
         </div>
 
-        <a href="index.html" class="back-link">← العودة إلى الموقع</a>
+        <!-- تذييل -->
+        <div class="footer">
+            AdVanta © 2026 - جميع الحقوق محفوظة
+        </div>
     </div>
 
     <script type="module">
@@ -160,78 +334,123 @@
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
         const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw'; 
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw';  
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        async function loadMessages() {
-            const loading = document.getElementById('messagesLoading');
-            const table = document.getElementById('messagesTable');
-            const tbody = document.getElementById('messagesBody');
+        let allMessages = [];
+
+        // ==================== تحميل الرسائل ====================
+        window.loadMessages = async function() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const messagesContainer = document.getElementById('messagesContainer');
+            const empty = document.getElementById('empty');
             const totalEl = document.getElementById('totalMessages');
-            const errorEl = document.getElementById('errorContainer');
+            const lastMessageDate = document.getElementById('lastMessageDate');
+
+            // إظهار التحميل وإخفاء الباقي
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            messagesContainer.style.display = 'none';
+            empty.style.display = 'none';
 
             try {
-                // محاولة جلب الرسائل من Supabase
-                const { data, error } = await supabase
+                const { data, error: supabaseError } = await supabase
                     .from('feedback')
                     .select('*')
                     .order('created_at', { ascending: false });
 
-                if (error) throw error;
+                if (supabaseError) throw supabaseError;
 
-                // إخفاء التحميل وإظهار الجدول
+                allMessages = data || [];
+
+                // تحديث الإحصائيات
+                totalEl.textContent = allMessages.length;
+                if (allMessages.length > 0) {
+                    const lastDate = new Date(allMessages[0].created_at);
+                    lastMessageDate.textContent = lastDate.toLocaleDateString('ar-EG');
+                } else {
+                    lastMessageDate.textContent = '-';
+                }
+
+                // إخفاء التحميل
                 loading.style.display = 'none';
-                errorEl.style.display = 'none';
-                
-                if (data.length === 0) {
-                    // إذا ما في رسائل، نعرض رسالة
-                    table.style.display = 'table';
-                    tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 2rem;">لا توجد رسائل بعد</td></tr>';
-                    totalEl.textContent = '0';
+
+                if (allMessages.length === 0) {
+                    empty.style.display = 'block';
                     return;
                 }
 
-                // عرض البيانات
-                table.style.display = 'table';
-                totalEl.textContent = data.length;
-
-                tbody.innerHTML = data.map(msg => {
-                    // تنسيق التاريخ بشكل آمن
-                    let dateStr = 'تاريخ غير معروف';
-                    try {
-                        dateStr = new Date(msg.created_at).toLocaleDateString('ar-EG', {
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-                    } catch (e) {
-                        console.log('تاريخ غير صالح');
-                    }
-
-                    return `
-                        <tr>
-                            <td>${dateStr}</td>
-                            <td>${msg.message || 'لا يوجد نص'}</td>
-                            <td><button class="delete-btn" onclick="deleteMessage('${msg.id}')">حذف</button></td>
-                        </tr>
-                    `;
-                }).join('');
+                // عرض الرسائل
+                messagesContainer.style.display = 'block';
+                displayMessages(allMessages);
 
             } catch (e) {
-                // في حالة الخطأ، نعرض رسالة خطأ
-                console.error('خطأ في تحميل الرسائل:', e);
+                console.error('خطأ:', e);
                 loading.style.display = 'none';
-                errorEl.style.display = 'block';
-                errorEl.innerHTML = `
-                    <strong>حدث خطأ في تحميل الرسائل</strong><br>
-                    <span style="font-size: 0.9rem;">${e.message || 'تأكد من اتصالك بقاعدة البيانات'}</span>
-                `;
+                error.style.display = 'block';
                 totalEl.textContent = '0';
+                lastMessageDate.textContent = '-';
             }
+        };
+
+        // ==================== عرض الرسائل ====================
+        function displayMessages(messages) {
+            const tbody = document.getElementById('messagesBody');
+            
+            tbody.innerHTML = messages.map(msg => {
+                // تنسيق التاريخ
+                let dateStr = 'تاريخ غير معروف';
+                try {
+                    const date = new Date(msg.created_at);
+                    dateStr = date.toLocaleDateString('ar-EG', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                } catch (e) {}
+
+                return `
+                    <tr>
+                        <td class="date-cell">${dateStr}</td>
+                        <td class="message-text">${msg.message || 'لا يوجد نص'}</td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteMessage('${msg.id}')">
+                                حذف
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
+        // ==================== تصفية الرسائل ====================
+        window.filterMessages = function() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const sortOrder = document.getElementById('sortSelect').value;
+
+            let filtered = [...allMessages];
+
+            // تطبيق البحث
+            if (searchText) {
+                filtered = filtered.filter(msg => 
+                    (msg.message || '').toLowerCase().includes(searchText)
+                );
+            }
+
+            // تطبيق الترتيب
+            if (sortOrder === 'oldest') {
+                filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+            } else {
+                filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            }
+
+            displayMessages(filtered);
+        };
+
+        // ==================== حذف رسالة ====================
         window.deleteMessage = async function(id) {
             if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
 
@@ -243,7 +462,7 @@
 
                 if (error) throw error;
 
-                // إعادة تحميل الرسائل بعد الحذف
+                // إعادة تحميل الرسائل
                 loadMessages();
 
             } catch (e) {
@@ -252,7 +471,7 @@
             }
         };
 
-        // تحميل الرسائل عند فتح الصفحة
+        // ==================== تحميل أولي ====================
         loadMessages();
     </script>
 </body>

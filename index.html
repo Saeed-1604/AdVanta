@@ -416,6 +416,7 @@
         <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
         <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
         <div class="sidebar-item" id="accountOption">👤 حسابي</div>
+        <div class="sidebar-item" id="adminOption" onclick="window.location.href='admin.html'">⚙️ لوحة المالك</div>
     </div>
 
     <div class="modal" id="feedbackModal">
@@ -592,7 +593,7 @@
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
         const supabaseUrl = 'https://exzshjratpxhpppyosi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw'; 
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4enNoanJhdHB4aHBwcHB5b3NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MTkxMTksImV4cCI6MjA4NjM5NTExOX0.CALveHBYa1jbFpi-1XoPF37xnYJwflcf_6ZnF_tpVVw';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
         // ==================== رسالة ترحيب متغيرة ====================
@@ -654,7 +655,10 @@
         // ==================== إرسال الملاحظات إلى Supabase ====================
         sendFeedback.addEventListener('click', async () => {
             const msg = feedbackText.value.trim();
-            if (!msg) { alert('اكتب رسالتك أولاً'); return; }
+            if (!msg) { 
+                showToast('اكتب رسالتك أولاً', false);
+                return; 
+            }
 
             try {
                 const { error } = await supabase
@@ -667,8 +671,8 @@
                 feedbackText.value = '';
                 feedbackModal.style.display = 'none';
             } catch (e) {
-                console.error(e);
-                showToast('حدث خطأ في الإرسال', false);
+                console.error('Supabase error:', e);
+                showToast('حدث خطأ في الإرسال. تأكد من الاتصال.', false);
             }
         });
 
