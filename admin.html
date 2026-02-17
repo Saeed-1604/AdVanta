@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdVanta | لوحة المالك</title>
+    <title>AdVanta | لوحة المالك المتقدمة</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -43,6 +43,12 @@
             font-weight: 800;
         }
 
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         .back-btn {
             background: white;
             color: #2d3142;
@@ -57,6 +63,24 @@
         .back-btn:hover {
             border-color: #ff6b4a;
             background: #fffaf8;
+        }
+
+        .logout-btn {
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1.5px solid #fecaca;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
         }
 
         .admin-sidebar {
@@ -109,7 +133,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
@@ -141,12 +165,19 @@
             color: #ff6b4a;
         }
 
+        .stat-card .small-text {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
         .messages-section {
             background: white;
             border-radius: 40px;
             padding: 2rem;
             box-shadow: 0 20px 40px rgba(0,0,0,0.02);
             border: 1px solid rgba(255,107,74,0.1);
+            margin-bottom: 2rem;
         }
 
         .section-header {
@@ -334,6 +365,20 @@
             cursor: pointer;
         }
 
+        .stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            background: #f8faff;
+            border-radius: 20px;
+        }
+
         .footer {
             margin-top: 2.5rem;
             text-align: center;
@@ -354,6 +399,7 @@
         <div class="admin-sidebar-item" id="changePasswordOption">🔐 تغيير كلمة المرور</div>
         <div class="admin-sidebar-item" id="siteSettingsOption">⚙️ إعدادات الموقع</div>
         <div class="admin-sidebar-item" id="statsOption">📊 إحصائيات متقدمة</div>
+        <div class="admin-sidebar-item" id="usersOption">👥 إدارة المستخدمين</div>
     </div>
 
     <div class="modal" id="profileModal">
@@ -395,35 +441,59 @@
     <div class="modal" id="statsModal">
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;">📊 إحصائيات متقدمة</h3>
-            <div style="margin-bottom: 1rem;">
-                <strong>إجمالي الرسائل:</strong> <span id="totalMessagesStats">-</span>
+            <div class="stats-list" id="statsList">
+                <div class="stat-item"><span>إجمالي الرسائل:</span> <strong id="totalMessagesStats">-</strong></div>
+                <div class="stat-item"><span>آخر رسالة:</span> <strong id="lastMessageDateStats">-</strong></div>
+                <div class="stat-item"><span>عدد المستخدمين المسجلين:</span> <strong id="totalUsersStats">-</strong></div>
+                <div class="stat-item"><span>أكثر مستخدم نشاطاً:</span> <strong id="mostActiveUser">-</strong></div>
+                <div class="stat-item"><span>متوسط الرسائل لكل مستخدم:</span> <strong id="avgMessagesPerUser">-</strong></div>
             </div>
-            <div style="margin-bottom: 1rem;">
-                <strong>آخر رسالة:</strong> <span id="lastMessageDateStats">-</span>
-            </div>
-            <div style="margin-bottom: 1rem;">
-                <strong>عدد المستخدمين المسجلين:</strong> <span id="totalUsersStats">-</span>
+        </div>
+    </div>
+
+    <div class="modal" id="usersModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">👥 إدارة المستخدمين</h3>
+            <div id="usersList" class="stats-list">
+                <!-- المستخدمين يظهرون هنا -->
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="header">
-            <h1>⚙️ لوحة تحكم المالك</h1>
-            <a href="index.html" class="back-btn">← العودة إلى الموقع</a>
+            <h1>⚙️ لوحة تحكم المالك المتقدمة</h1>
+            <div class="header-actions">
+                <button class="logout-btn" id="logoutBtn">🚪 تسجيل الخروج</button>
+                <a href="index.html" class="back-btn">← العودة إلى الموقع</a>
+            </div>
         </div>
 
+        <!-- بطاقات الإحصائيات السريعة -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>إجمالي الرسائل</h3>
                 <div class="number" id="totalMessages">-</div>
+                <div class="small-text" id="messagesGrowth"></div>
+            </div>
+            <div class="stat-card">
+                <h3>المستخدمين المسجلين</h3>
+                <div class="number" id="totalUsers">-</div>
+                <div class="small-text" id="usersGrowth"></div>
             </div>
             <div class="stat-card">
                 <h3>آخر رسالة</h3>
                 <div class="number" id="lastMessageDate">-</div>
+                <div class="small-text" id="lastMessageTime"></div>
+            </div>
+            <div class="stat-card">
+                <h3>أكثر مستخدم نشاطاً</h3>
+                <div class="number" id="mostActiveUserCount">-</div>
+                <div class="small-text" id="mostActiveUserEmail"></div>
             </div>
         </div>
 
+        <!-- قسم الرسائل -->
         <div class="messages-section">
             <div class="section-header">
                 <h2>📬 رسائل المستخدمين</h2>
@@ -431,10 +501,11 @@
             </div>
 
             <div class="search-box">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل..." onkeyup="filterMessages()">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل (بالبريد أو المحتوى)..." onkeyup="filterMessages()">
                 <select class="filter-select" id="sortSelect" onchange="filterMessages()">
                     <option value="newest">الأحدث أولاً</option>
                     <option value="oldest">الأقدم أولاً</option>
+                    <option value="mostActive">الأكثر نشاطاً</option>
                 </select>
             </div>
 
@@ -447,7 +518,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>المستخدم</th>
+                                <th>البريد الإلكتروني</th>
                                 <th>التاريخ</th>
                                 <th>الرسالة</th>
                                 <th>الإجراء</th>
@@ -476,6 +547,7 @@
 
         let allMessages = [];
         let currentUser = null;
+        let allUsers = {};
 
         // ==================== التحقق من المستخدم ====================
         async function checkAdmin() {
@@ -484,9 +556,10 @@
                 window.location.href = 'index.html';
             }
             currentUser = user;
+            loadUserEmails();
         }
 
-        // ==================== تحميل الرسائل ====================
+        // ==================== تحميل رسائل المستخدمين ====================
         window.loadMessages = async function() {
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
@@ -494,6 +567,7 @@
             const empty = document.getElementById('empty');
             const totalEl = document.getElementById('totalMessages');
             const lastMessageDate = document.getElementById('lastMessageDate');
+            const lastMessageTime = document.getElementById('lastMessageTime');
 
             loading.style.display = 'block';
             error.style.display = 'none';
@@ -510,15 +584,20 @@
 
                 allMessages = data || [];
 
+                // تحديث الإحصائيات
                 totalEl.textContent = allMessages.length;
+                
                 if (allMessages.length > 0) {
                     const lastDate = new Date(allMessages[0].created_at);
                     lastMessageDate.textContent = lastDate.toLocaleDateString('ar-EG');
-                    document.getElementById('totalMessagesStats').textContent = allMessages.length;
-                    document.getElementById('lastMessageDateStats').textContent = lastDate.toLocaleDateString('ar-EG');
+                    lastMessageTime.textContent = lastDate.toLocaleTimeString('ar-EG');
                 } else {
                     lastMessageDate.textContent = '-';
+                    lastMessageTime.textContent = '-';
                 }
+
+                // تحديث إحصائيات المستخدمين
+                await updateUserStats();
 
                 loading.style.display = 'none';
 
@@ -539,6 +618,51 @@
             }
         };
 
+        // ==================== تحميل بيانات المستخدمين ====================
+        async function loadUserEmails() {
+            const { data: users } = await supabase.auth.admin.listUsers();
+            if (users?.users) {
+                users.users.forEach(u => {
+                    allUsers[u.id] = u.email;
+                });
+            }
+        }
+
+        // ==================== تحديث إحصائيات المستخدمين ====================
+        async function updateUserStats() {
+            // عدد المستخدمين الفريدين
+            const uniqueUsers = new Set(allMessages.map(m => m.user_id).filter(id => id));
+            document.getElementById('totalUsers').textContent = uniqueUsers.size;
+            document.getElementById('totalUsersStats').textContent = uniqueUsers.size;
+
+            // أكثر مستخدم نشاطاً
+            const userCounts = {};
+            allMessages.forEach(m => {
+                if (m.user_id) {
+                    userCounts[m.user_id] = (userCounts[m.user_id] || 0) + 1;
+                }
+            });
+
+            let mostActiveId = null;
+            let maxCount = 0;
+            for (const [id, count] of Object.entries(userCounts)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostActiveId = id;
+                }
+            }
+
+            if (mostActiveId) {
+                document.getElementById('mostActiveUserCount').textContent = maxCount;
+                document.getElementById('mostActiveUserEmail').textContent = allUsers[mostActiveId] || 'مجهول';
+                document.getElementById('mostActiveUser').textContent = `${allUsers[mostActiveId] || 'مجهول'} (${maxCount} رسالة)`;
+            }
+
+            // متوسط الرسائل لكل مستخدم
+            const avg = uniqueUsers.size ? (allMessages.length / uniqueUsers.size).toFixed(1) : 0;
+            document.getElementById('avgMessagesPerUser').textContent = avg;
+        }
+
         function displayMessages(messages) {
             const tbody = document.getElementById('messagesBody');
             
@@ -555,9 +679,11 @@
                     });
                 } catch (e) {}
 
+                const userEmail = allUsers[msg.user_id] || msg.user_id || 'مجهول';
+
                 return `
                     <tr>
-                        <td class="message-text">${msg.user_id || 'مجهول'}</td>
+                        <td class="message-text">${userEmail}</td>
                         <td class="date-cell">${dateStr}</td>
                         <td class="message-text">${msg.message || 'لا يوجد نص'}</td>
                         <td>
@@ -579,12 +705,18 @@
             if (searchText) {
                 filtered = filtered.filter(msg => 
                     (msg.message || '').toLowerCase().includes(searchText) ||
-                    (msg.user_id || '').toLowerCase().includes(searchText)
+                    (allUsers[msg.user_id] || '').toLowerCase().includes(searchText)
                 );
             }
 
             if (sortOrder === 'oldest') {
                 filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+            } else if (sortOrder === 'mostActive') {
+                const userMsgCount = {};
+                filtered.forEach(m => {
+                    if (m.user_id) userMsgCount[m.user_id] = (userMsgCount[m.user_id] || 0) + 1;
+                });
+                filtered.sort((a, b) => (userMsgCount[b.user_id] || 0) - (userMsgCount[a.user_id] || 0));
             } else {
                 filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             }
@@ -619,10 +751,13 @@
         const changePasswordOption = document.getElementById('changePasswordOption');
         const siteSettingsOption = document.getElementById('siteSettingsOption');
         const statsOption = document.getElementById('statsOption');
+        const usersOption = document.getElementById('usersOption');
         const profileModal = document.getElementById('profileModal');
         const passwordModal = document.getElementById('passwordModal');
         const settingsModal = document.getElementById('settingsModal');
         const statsModal = document.getElementById('statsModal');
+        const usersModal = document.getElementById('usersModal');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         adminMenuBtn.addEventListener('click', () => adminSidebar.classList.add('open'));
         closeAdminSidebar.addEventListener('click', () => adminSidebar.classList.remove('open'));
@@ -645,12 +780,38 @@
         statsOption.addEventListener('click', async () => {
             adminSidebar.classList.remove('open');
             
-            const { count: userCount } = await supabase
-                .from('feelback')
-                .select('*', { count: 'exact', head: true });
-            
-            document.getElementById('totalUsersStats').textContent = userCount || 0;
+            await updateUserStats();
             statsModal.style.display = 'flex';
+        });
+
+        usersOption.addEventListener('click', async () => {
+            adminSidebar.classList.remove('open');
+            
+            const usersList = document.getElementById('usersList');
+            const uniqueUserIds = [...new Set(allMessages.map(m => m.user_id).filter(id => id))];
+            
+            usersList.innerHTML = '';
+            for (const userId of uniqueUserIds) {
+                const userEmail = allUsers[userId] || 'مجهول';
+                const userMsgCount = allMessages.filter(m => m.user_id === userId).length;
+                
+                const div = document.createElement('div');
+                div.className = 'stat-item';
+                div.innerHTML = `<span>${userEmail}</span> <strong>${userMsgCount} رسالة</strong>`;
+                usersList.appendChild(div);
+            }
+            
+            if (uniqueUserIds.length === 0) {
+                usersList.innerHTML = '<div class="stat-item">لا يوجد مستخدمين بعد</div>';
+            }
+            
+            usersModal.style.display = 'flex';
+        });
+
+        // ==================== تسجيل الخروج ====================
+        logoutBtn.addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
         });
 
         // ==================== إغلاق النوافذ ====================
@@ -671,13 +832,6 @@
         // ==================== بدء التحميل ====================
         await checkAdmin();
         loadMessages();
-
-        // جلب عدد المستخدمين (تقريبي)
-        const { count } = await supabase
-            .from('feelback')
-            .select('user_id', { count: 'exact', head: true })
-            .not('user_id', 'is', null);
-        document.getElementById('totalUsersStats').textContent = count || 0;
     </script>
 </body>
 </html>
