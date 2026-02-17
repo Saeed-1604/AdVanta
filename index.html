@@ -882,14 +882,14 @@
                     <p>ثم أدخل الرمز المكون من 6 أرقام</p>
                     <input type="text" id="verificationCode" class="auth-input" placeholder="000000" maxlength="6">
                     <button class="auth-btn" onclick="verify2FA('${factorId}', document.getElementById('verificationCode').value)">تحقق</button>
-                    <button class="auth-btn" style="background: #e2e8f0; color: black;" onclick="closeModal('qrModal')">إلغاء</button>
+                    <button class="auth-btn" style="background: #e2e8f0; color: black;" onclick="closeQRModal('qrModal')">إلغاء</button>
                 </div>
             `;
             document.body.appendChild(modal);
             modal.style.display = 'flex';
         }
 
-        function closeModal(id) {
+        function closeQRModal(id) {
             const modal = document.getElementById(id);
             if (modal) modal.remove();
         }
