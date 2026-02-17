@@ -895,7 +895,7 @@
         }
 
         // ربط زر 2FA
-        //document.getElementById('enable2FA')?.addEventListener('click', enable2FA);
+        document.getElementById('enable2FA')?.addEventListener('click', enable2FA);
 
         // ==================== رفع الملفات ====================
         const fileUploadArea = document.getElementById('fileUploadArea');
@@ -1196,6 +1196,9 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
 
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
+        // اختبار القائمة
+console.log('menuBtn:', document.getElementById('menuBtn'));
+console.log('sidebar:', document.getElementById('sidebar'));
     </script>
 </body>
 </html>
