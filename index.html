@@ -468,6 +468,11 @@
         <div class="modal-content">
             <h3 style="margin-bottom: 1.5rem;" id="authTitle">تسجيل الدخول</h3>
             <div class="auth-form" id="authForm">
+                <button class="auth-btn" id="googleSignIn" style="background: #4285F4; margin-bottom: 1rem;">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px; margin-left: 0.5rem;">
+    تسجيل الدخول بـ Google
+</button>
+<div style="text-align: center; margin: 1rem 0; color: #6b7280;">أو</div>
                 <input type="email" id="authEmail" class="auth-input" placeholder="البريد الإلكتروني" required>
                 <input type="password" id="authPassword" class="auth-input" placeholder="كلمة المرور" required>
                 <button class="auth-btn" id="authAction">تسجيل الدخول</button>
@@ -1142,6 +1147,20 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
 
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
+        // تسجيل الدخول بـ Google
+document.getElementById('googleSignIn')?.addEventListener('click', async () => {
+    try {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+        if (error) throw error;
+    } catch (e) {
+        showToast(e.message, false);
+    }
+});
     </script>
 </body>
 </html>
