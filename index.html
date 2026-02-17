@@ -684,23 +684,30 @@
         }
 
         // ==================== تسجيل الدخول/الخروج ====================
-        async function handleAuth(email, password, isSignUp) {
-            try {
-                if (isSignUp) {
-                    const { error } = await supabase.auth.signUp({ email, password });
-                    if (error) throw error;
-                    showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
-                } else {
-                    const { error } = await supabase.auth.signInWithPassword({ email, password });
-                    if (error) throw error;
-                    showToast('تم تسجيل الدخول بنجاح', true);
-                }
-                document.getElementById('authModal').style.display = 'none';
-                await checkUser();
-            } catch (e) {
-                showToast(e.message, false);
+       async function handleAuth(email, password, isSignUp) {
+    try {
+        if (isSignUp) {
+            const { error } = await supabase.auth.signUp({ email, password });
+            if (error) throw error;
+            showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
+        } else {
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            showToast('تم تسجيل الدخول بنجاح', true);
+            
+            // ✅ التحويل التلقائي للمالك
+            if (email === 'saeedqasrawi773@gmail.com') {
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 1000);
             }
         }
+        document.getElementById('authModal').style.display = 'none';
+        await checkUser();
+    } catch (e) {
+        showToast(e.message, false);
+    }
+}
 
         // ==================== تسجيل الخروج ====================
         async function handleSignOut() {
