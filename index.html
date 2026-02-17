@@ -83,6 +83,17 @@
             background: #fffaf8;
         }
 
+        .user-info {
+            background: linear-gradient(145deg, #0066ff10, #ff6b4a20);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #2d3142;
+            border: 1px solid #ff6b4a30;
+        }
+
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -320,6 +331,36 @@
             overflow-y: auto;
         }
 
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .auth-input {
+            padding: 1rem;
+            border: 1.5px solid #edf2f7;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .auth-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .auth-toggle {
+            text-align: center;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
         .saved-item {
             background: #f8faff;
             border: 1.5px solid #edf2f7;
@@ -413,10 +454,26 @@
             <h3>القائمة</h3>
             <button class="close-sidebar" id="closeSidebar">✕</button>
         </div>
+        
+        <div id="userInfo" class="user-info" style="display: none;">
+            👤 <span id="userEmail"></span>
+        </div>
+
+        <div class="sidebar-item" id="authOption">🔑 تسجيل الدخول</div>
         <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
         <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
-        <div class="sidebar-item" id="accountOption">👤 حسابي</div>
-        <div class="sidebar-item" id="adminOption" onclick="window.location.href='admin.html'">⚙️ لوحة المالك</div>
+    </div>
+
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;" id="authTitle">تسجيل الدخول</h3>
+            <div class="auth-form" id="authForm">
+                <input type="email" id="authEmail" class="auth-input" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="authPassword" class="auth-input" placeholder="كلمة المرور" required>
+                <button class="auth-btn" id="authAction">تسجيل الدخول</button>
+                <div class="auth-toggle" id="authToggle">ليس لديك حساب؟ سجل الآن</div>
+            </div>
+        </div>
     </div>
 
     <div class="modal" id="feedbackModal">
@@ -594,14 +651,66 @@
     </div>
 
     <script type="module">
-        // ==================== Supabase ====================
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
         const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdiamx2Y3Vub3F5eGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNzUxNTEsImV4cCI6MjA4Njg1MTE1MX0.lvurDprXQfrx_FOPpeYn_mACaqPutmoVFIlNc-Wgzb4';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        // ==================== رسالة ترحيب متغيرة ====================
+        // ==================== المتغيرات العامة ====================
+        let currentUser = null;
+        let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
+        let currentDescription = '';
+        let currentContent = '';
+
+        // ==================== التحقق من الجلسة الحالية ====================
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                currentUser = user;
+                document.getElementById('userInfo').style.display = 'block';
+                document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('authOption').textContent = '🚪 تسجيل الخروج';
+                
+                // لو كان المالك، نخلي رابط سري (اختياري)
+                if (user.email === 'saeedqasrawi773@gmail.com') {
+                    console.log('مرحباً المالك');
+                }
+            } else {
+                currentUser = null;
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('authOption').textContent = '🔑 تسجيل الدخول';
+            }
+        }
+
+        // ==================== تسجيل الدخول/الخروج ====================
+        async function handleAuth(email, password, isSignUp) {
+            try {
+                if (isSignUp) {
+                    const { error } = await supabase.auth.signUp({ email, password });
+                    if (error) throw error;
+                    showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
+                } else {
+                    const { error } = await supabase.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    showToast('تم تسجيل الدخول بنجاح', true);
+                }
+                document.getElementById('authModal').style.display = 'none';
+                await checkUser();
+            } catch (e) {
+                showToast(e.message, false);
+            }
+        }
+
+        // ==================== تسجيل الخروج ====================
+        async function handleSignOut() {
+            await supabase.auth.signOut();
+            currentUser = null;
+            await checkUser();
+            showToast('تم تسجيل الخروج', true);
+        }
+
+        // ==================== رسالة ترحيب ====================
         const welcomeMessages = [
             "أهلاً بك، شو رح نبدع اليوم؟",
             "مرحباً، وين رايح نكتب اليوم؟",
@@ -611,11 +720,6 @@
             "مرحباً، شو رح ننتج اليوم؟"
         ];
         document.getElementById('welcomeMessage').textContent = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-
-        // ==================== المتغيرات العامة ====================
-        let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
-        let currentDescription = '';
-        let currentContent = '';
 
         function showToast(message, isSuccess = true) {
             const toast = document.getElementById('toastMessage');
@@ -631,25 +735,49 @@
         const menuBtn = document.getElementById('menuBtn');
         const sidebar = document.getElementById('sidebar');
         const closeSidebar = document.getElementById('closeSidebar');
+        const authOption = document.getElementById('authOption');
         const feedbackOption = document.getElementById('feedbackOption');
         const savedOption = document.getElementById('savedOption');
+        const authModal = document.getElementById('authModal');
         const feedbackModal = document.getElementById('feedbackModal');
         const savedModal = document.getElementById('savedModal');
         const closeFeedback = document.getElementById('closeFeedback');
         const closeSaved = document.getElementById('closeSaved');
         const sendFeedback = document.getElementById('sendFeedback');
         const feedbackText = document.getElementById('feedbackText');
+        const authEmail = document.getElementById('authEmail');
+        const authPassword = document.getElementById('authPassword');
+        const authAction = document.getElementById('authAction');
+        const authToggle = document.getElementById('authToggle');
+        const authTitle = document.getElementById('authTitle');
 
         menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
         closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
 
+        authOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            if (currentUser) {
+                handleSignOut();
+            } else {
+                authModal.style.display = 'flex';
+            }
+        });
+
         feedbackOption.addEventListener('click', () => {
             sidebar.classList.remove('open');
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
             feedbackModal.style.display = 'flex';
         });
 
         savedOption.addEventListener('click', () => {
             sidebar.classList.remove('open');
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
             displaySavedItems();
             savedModal.style.display = 'flex';
         });
@@ -657,7 +785,26 @@
         closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
         closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
 
-        // ==================== إرسال الملاحظات إلى Supabase ====================
+        // ==================== نافذة تسجيل الدخول ====================
+        let isSignUp = false;
+        authToggle.addEventListener('click', () => {
+            isSignUp = !isSignUp;
+            authTitle.textContent = isSignUp ? 'إنشاء حساب جديد' : 'تسجيل الدخول';
+            authAction.textContent = isSignUp ? 'تسجيل' : 'تسجيل الدخول';
+            authToggle.textContent = isSignUp ? 'لديك حساب؟ سجل دخولك' : 'ليس لديك حساب؟ سجل الآن';
+        });
+
+        authAction.addEventListener('click', () => {
+            const email = authEmail.value.trim();
+            const password = authPassword.value.trim();
+            if (!email || !password) {
+                showToast('يرجى إدخال البريد الإلكتروني وكلمة المرور', false);
+                return;
+            }
+            handleAuth(email, password, isSignUp);
+        });
+
+        // ==================== إرسال الملاحظات ====================
         sendFeedback.addEventListener('click', async () => {
             const msg = feedbackText.value.trim();
             if (!msg) { 
@@ -665,10 +812,18 @@
                 return; 
             }
 
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+
             try {
                 const { error } = await supabase
                     .from('feelback')
-                    .insert([{ message: msg }]);
+                    .insert([{ 
+                        message: msg,
+                        user_id: currentUser.id 
+                    }]);
 
                 if (error) throw error;
 
@@ -677,7 +832,7 @@
                 feedbackModal.style.display = 'none';
             } catch (e) {
                 console.error('Supabase error:', e);
-                showToast('حدث خطأ في الإرسال. تأكد من الاتصال.', false);
+                showToast('حدث خطأ في الإرسال', false);
             }
         });
 
@@ -831,29 +986,45 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
             window.open(links[platform], '_blank');
         };
 
+        // ==================== حفظ المحتوى (خاص بالمستخدم) ====================
         document.getElementById('saveBtn').addEventListener('click', function() {
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
             if (!currentDescription || !currentContent) {
                 showToast('لا يوجد محتوى للحفظ', false);
                 return;
             }
-            savedItems.unshift({
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            
+            userSaved.unshift({
                 id: Date.now(),
                 description: currentDescription.substring(0, 100) + '...',
                 fullDescription: currentDescription,
                 content: currentContent,
                 date: new Date().toLocaleDateString('ar-EG')
             });
-            localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
+            
+            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
             showToast('✅ تم الحفظ بنجاح', true);
         });
 
         function displaySavedItems() {
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
             const container = document.getElementById('savedItemsContainer');
-            if (savedItems.length === 0) {
+            
+            if (userSaved.length === 0) {
                 container.innerHTML = '<p style="text-align: center; color: #9ca3af;">لا توجد محفوظات بعد</p>';
                 return;
             }
-            container.innerHTML = savedItems.map(item => `
+            
+            container.innerHTML = userSaved.map(item => `
                 <div class="saved-item">
                     <div class="desc">📌 ${item.description}</div>
                     <div class="content">${item.content.substring(0, 100)}...</div>
@@ -866,7 +1037,12 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
         }
 
         window.loadSavedItem = function(id) {
-            const item = savedItems.find(i => i.id === id);
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            const item = userSaved.find(i => i.id === id);
+            
             if (item) {
                 document.getElementById('userDescription').value = item.fullDescription;
                 document.getElementById('resultContent').innerHTML = item.content.replace(/\n/g, '<br>');
@@ -880,8 +1056,12 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
         };
 
         window.deleteSavedItem = function(id) {
-            savedItems = savedItems.filter(i => i.id !== id);
-            localStorage.setItem('advanta_saved', JSON.stringify(savedItems));
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            userSaved = userSaved.filter(i => i.id !== id);
+            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
             displaySavedItems();
             showToast('✅ تم الحذف', true);
         };
@@ -952,6 +1132,9 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) e.target.style.display = 'none';
         });
+
+        // التحقق من المستخدم عند تحميل الصفحة
+        checkUser();
     </script>
 </body>
 </html>
