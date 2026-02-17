@@ -460,9 +460,9 @@
         </div>
 
         <div class="sidebar-item" id="authOption">🔑 تسجيل الدخول</div>
+        <div class="sidebar-item" id="enable2FA">🔐 تفعيل التحقق بخطوتين</div>
         <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
         <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
-        <div class="sidebar-item" id="enable2FA">🔐 تفعيل التحقق بخطوتين</div>
     </div>
 
     <div class="modal" id="authModal">
@@ -470,10 +470,10 @@
             <h3 style="margin-bottom: 1.5rem;" id="authTitle">تسجيل الدخول</h3>
             <div class="auth-form" id="authForm">
                 <button class="auth-btn" id="googleSignIn" style="background: #4285F4; margin-bottom: 1rem;">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px; margin-left: 0.5rem;">
-    تسجيل الدخول بـ Google
-</button>
-<div style="text-align: center; margin: 1rem 0; color: #6b7280;">أو</div>
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px; margin-left: 0.5rem;">
+                    تسجيل الدخول بـ Google
+                </button>
+                <div style="text-align: center; margin: 1rem 0; color: #6b7280;">أو</div>
                 <input type="email" id="authEmail" class="auth-input" placeholder="البريد الإلكتروني" required>
                 <input type="password" id="authPassword" class="auth-input" placeholder="كلمة المرور" required>
                 <button class="auth-btn" id="authAction">تسجيل الدخول</button>
@@ -677,50 +677,11 @@
                 document.getElementById('userInfo').style.display = 'block';
                 document.getElementById('userEmail').textContent = user.email;
                 document.getElementById('authOption').textContent = '🚪 تسجيل الخروج';
-                
-                // لو كان المالك، نخلي رابط سري (اختياري)
-                if (user.email === 'saeedqasrawi773@gmail.com') {
-                    console.log('مرحباً المالك');
-                }
             } else {
                 currentUser = null;
                 document.getElementById('userInfo').style.display = 'none';
                 document.getElementById('authOption').textContent = '🔑 تسجيل الدخول';
             }
-        }
-
-        // ==================== تسجيل الدخول/الخروج ====================
-       async function handleAuth(email, password, isSignUp) {
-    try {
-        if (isSignUp) {
-            const { error } = await supabase.auth.signUp({ email, password });
-            if (error) throw error;
-            showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
-        } else {
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) throw error;
-            showToast('تم تسجيل الدخول بنجاح', true);
-            
-            // ✅ التحويل التلقائي للمالك
-            if (email === 'saeedqasrawi773@gmail.com') {
-                setTimeout(() => {
-                    window.location.href = 'admin.html';
-                }, 1000);
-            }
-        }
-        document.getElementById('authModal').style.display = 'none';
-        await checkUser();
-    } catch (e) {
-        showToast(e.message, false);
-    }
-}
-
-        // ==================== تسجيل الخروج ====================
-        async function handleSignOut() {
-            await supabase.auth.signOut();
-            currentUser = null;
-            await checkUser();
-            showToast('تم تسجيل الخروج', true);
         }
 
         // ==================== رسالة ترحيب ====================
@@ -770,7 +731,9 @@
         authOption.addEventListener('click', () => {
             sidebar.classList.remove('open');
             if (currentUser) {
-                handleSignOut();
+                supabase.auth.signOut();
+                checkUser();
+                showToast('تم تسجيل الخروج', true);
             } else {
                 authModal.style.display = 'flex';
             }
@@ -807,6 +770,30 @@
             authToggle.textContent = isSignUp ? 'لديك حساب؟ سجل دخولك' : 'ليس لديك حساب؟ سجل الآن';
         });
 
+        async function handleAuth(email, password, isSignUp) {
+            try {
+                if (isSignUp) {
+                    const { error } = await supabase.auth.signUp({ email, password });
+                    if (error) throw error;
+                    showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
+                } else {
+                    const { error } = await supabase.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    showToast('تم تسجيل الدخول بنجاح', true);
+                    
+                    if (email === 'saeedqasrawi773@gmail.com') {
+                        setTimeout(() => {
+                            window.location.href = 'admin.html';
+                        }, 1000);
+                    }
+                }
+                authModal.style.display = 'none';
+                await checkUser();
+            } catch (e) {
+                showToast(e.message, false);
+            }
+        }
+
         authAction.addEventListener('click', () => {
             const email = authEmail.value.trim();
             const password = authPassword.value.trim();
@@ -817,37 +804,98 @@
             handleAuth(email, password, isSignUp);
         });
 
-        // ==================== إرسال الملاحظات ====================
-        sendFeedback.addEventListener('click', async () => {
-            const msg = feedbackText.value.trim();
-            if (!msg) { 
-                showToast('اكتب رسالتك أولاً', false);
-                return; 
+        // ==================== تسجيل الدخول بـ Google ====================
+        document.getElementById('googleSignIn')?.addEventListener('click', async () => {
+            try {
+                const { error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        redirectTo: window.location.origin
+                    }
+                });
+                if (error) throw error;
+            } catch (e) {
+                showToast(e.message, false);
             }
+        });
 
+        // ==================== 2FA ====================
+        async function enable2FA() {
             if (!currentUser) {
                 showToast('يرجى تسجيل الدخول أولاً', false);
                 return;
             }
 
             try {
-                const { error } = await supabase
-                    .from('feelback')
-                    .insert([{ 
-                        message: msg,
-                        user_id: currentUser.id 
-                    }]);
+                const { data, error } = await supabase.auth.mfa.enroll({
+                    factorType: 'totp',
+                    friendlyName: 'Google Authenticator'
+                });
 
                 if (error) throw error;
 
-                showToast('تم إرسال رسالتك، شكراً لك', true);
-                feedbackText.value = '';
-                feedbackModal.style.display = 'none';
+                const qrCode = data.totp.qr_code;
+                const factorId = data.id;
+
+                showQRCodeModal(qrCode, factorId);
+
             } catch (e) {
-                console.error('Supabase error:', e);
-                showToast('حدث خطأ في الإرسال', false);
+                showToast(e.message, false);
             }
-        });
+        }
+
+        async function verify2FA(factorId, code) {
+            try {
+                const { data, error } = await supabase.auth.mfa.challenge({
+                    factorId: factorId
+                });
+
+                if (error) throw error;
+
+                const challengeId = data.id;
+
+                const { error: verifyError } = await supabase.auth.mfa.verify({
+                    factorId: factorId,
+                    challengeId: challengeId,
+                    code: code
+                });
+
+                if (verifyError) throw verifyError;
+
+                showToast('تم تفعيل التحقق بخطوتين بنجاح', true);
+                closeModal('qrModal');
+
+            } catch (e) {
+                showToast(e.message, false);
+            }
+        }
+
+        function showQRCodeModal(qrCode, factorId) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'qrModal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h3>🔐 تفعيل التحقق بخطوتين</h3>
+                    <p>امسح رمز QR باستخدام Google Authenticator</p>
+                    <img src="${qrCode}" style="width: 200px; height: 200px; display: block; margin: 1rem auto;">
+                    <p>ثم أدخل الرمز المكون من 6 أرقام</p>
+                    <input type="text" id="verificationCode" class="auth-input" placeholder="000000" maxlength="6">
+                    <button class="auth-btn" onclick="verify2FA('${factorId}', document.getElementById('verificationCode').value)">تحقق</button>
+                    <button class="auth-btn" style="background: #e2e8f0; color: black;" onclick="closeModal('qrModal')">إلغاء</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.remove();
+        }
+
+        // ربط زر 2FA
+        document.getElementById('enable2FA')?.addEventListener('click', enable2FA);
 
         // ==================== رفع الملفات ====================
         const fileUploadArea = document.getElementById('fileUploadArea');
@@ -1148,104 +1196,6 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
 
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
-        // تسجيل الدخول بـ Google
-document.getElementById('googleSignIn')?.addEventListener('click', async () => {
-    try {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: window.location.origin
-            }
-        });
-        if (error) throw error;
-    } catch (e) {
-        showToast(e.message, false);
-    }
-});
-
-   
-    // ==================== دوال 2FA الجديدة ====================
-    async function enable2FA() {
-        if (!currentUser) {
-            showToast('يرجى تسجيل الدخول أولاً', false);
-            return;
-        }
-
-        try {
-            const { data, error } = await supabase.auth.mfa.enroll({
-                factorType: 'totp',
-                friendlyName: 'Google Authenticator'
-            });
-
-            if (error) throw error;
-
-            const qrCode = data.totp.qr_code;
-            const factorId = data.id;
-
-            showQRCodeModal(qrCode, factorId);
-
-        } catch (e) {
-            showToast(e.message, false);
-        }
-    }
-
-    async function verify2FA(factorId, code) {
-        try {
-            const { data, error } = await supabase.auth.mfa.challenge({
-                factorId: factorId
-            });
-
-            if (error) throw error;
-
-            const challengeId = data.id;
-
-            const { error: verifyError } = await supabase.auth.mfa.verify({
-                factorId: factorId,
-                challengeId: challengeId,
-                code: code
-            });
-
-            if (verifyError) throw verifyError;
-
-            showToast('تم تفعيل التحقق بخطوتين بنجاح', true);
-            closeModal('qrModal');
-
-        } catch (e) {
-            showToast(e.message, false);
-        }
-    }
-
-    function showQRCodeModal(qrCode, factorId) {
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.id = 'qrModal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <h3>🔐 تفعيل التحقق بخطوتين</h3>
-                <p>امسح رمز QR باستخدام Google Authenticator</p>
-                <img src="${qrCode}" style="width: 200px; height: 200px; display: block; margin: 1rem auto;">
-                <p>ثم أدخل الرمز المكون من 6 أرقام</p>
-                <input type="text" id="verificationCode" class="auth-input" placeholder="000000" maxlength="6">
-                <button class="auth-btn" onclick="verify2FA('${factorId}', document.getElementById('verificationCode').value)">تحقق</button>
-                <button class="auth-btn" style="background: #e2e8f0; color: black;" onclick="closeModal('qrModal')">إلغاء</button>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        modal.style.display = 'flex';
-    }
-
-    function closeModal(id) {
-        const modal = document.getElementById(id);
-        if (modal) modal.remove();
-    }
-
-    // ==================== السطر الصغير لربط الزر ====================
-    if (document.getElementById('enable2FA')) {
-        document.getElementById('enable2FA').addEventListener('click', enable2FA);
-    }
-
-</script>
-
     </script>
 </body>
 </html>
