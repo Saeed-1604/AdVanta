@@ -462,6 +462,7 @@
         <div class="sidebar-item" id="authOption">🔑 تسجيل الدخول</div>
         <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
         <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
+        <div class="sidebar-item" id="enable2FA">🔐 تفعيل التحقق بخطوتين</div>
     </div>
 
     <div class="modal" id="authModal">
@@ -1161,6 +1162,84 @@ document.getElementById('googleSignIn')?.addEventListener('click', async () => {
         showToast(e.message, false);
     }
 });
+// ==================== التحقق بخطوتين (2FA) ====================
+async function enable2FA() {
+    if (!currentUser) {
+        showToast('يرجى تسجيل الدخول أولاً', false);
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase.auth.mfa.enroll({
+            factorType: 'totp',
+            friendlyName: 'Google Authenticator'
+        });
+
+        if (error) throw error;
+
+        // عرض QR Code
+        const qrCode = data.totp.qr_code;
+        const factorId = data.id;
+
+        // هنا نعرض نافذة فيها QR Code
+        showQRCodeModal(qrCode, factorId);
+
+    } catch (e) {
+        showToast(e.message, false);
+    }
+}
+
+async function verify2FA(factorId, code) {
+    try {
+        const { data, error } = await supabase.auth.mfa.challenge({
+            factorId: factorId
+        });
+
+        if (error) throw error;
+
+        const challengeId = data.id;
+
+        const { error: verifyError } = await supabase.auth.mfa.verify({
+            factorId: factorId,
+            challengeId: challengeId,
+            code: code
+        });
+
+        if (verifyError) throw verifyError;
+
+        showToast('تم تفعيل التحقق بخطوتين بنجاح', true);
+        closeModal('qrModal');
+
+    } catch (e) {
+        showToast(e.message, false);
+    }
+}
+
+// دالة لعرض QR Code
+function showQRCodeModal(qrCode, factorId) {
+    // إنشاء عنصر modal جديد أو استخدام modal موجود
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'qrModal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>🔐 تفعيل التحقق بخطوتين</h3>
+            <p>امسح رمز QR باستخدام Google Authenticator</p>
+            <img src="${qrCode}" style="width: 200px; height: 200px; display: block; margin: 1rem auto;">
+            <p>ثم أدخل الرمز المكون من 6 أرقام</p>
+            <input type="text" id="verificationCode" class="auth-input" placeholder="000000" maxlength="6">
+            <button class="auth-btn" onclick="verify2FA('${factorId}', document.getElementById('verificationCode').value)">تحقق</button>
+            <button class="auth-btn" style="background: #e2e8f0; color: black;" onclick="closeModal('qrModal')">إلغاء</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    modal.style.display = 'flex';
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.remove();
+}
     </script>
 </body>
 </html>
