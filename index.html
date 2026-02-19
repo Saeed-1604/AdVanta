@@ -1097,6 +1097,47 @@ ${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFil
 
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
+        
+        // ==================== إعادة ربط زر الإرسال بالجدول الصحيح ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const sendBtn = document.getElementById('sendFeedback');
+    if (sendBtn) {
+        sendBtn.addEventListener('click', async function() {
+            const msg = document.getElementById('feedbackText').value.trim();
+            if (!msg) { 
+                showToast('اكتب رسالتك أولاً', false);
+                return; 
+            }
+
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('feelback')
+                    .insert([{ 
+                        message: msg,
+                        user_id: currentUser.id 
+                    }]);
+
+                if (error) throw error;
+
+                showToast('تم إرسال رسالتك، شكراً لك', true);
+                document.getElementById('feedbackText').value = '';
+                document.getElementById('feedbackModal').style.display = 'none';
+            } catch (e) {
+                console.error('Supabase error:', e);
+                showToast('حدث خطأ في الإرسال', false);
+            }
+        });
+        console.log('✅ زر الإرسال تم ربطه');
+    } else {
+        console.error('❌ زر الإرسال غير موجود');
+    }
+});
+
     </script>
 </body>
 </html>
