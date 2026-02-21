@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdVanta | لوحة المالك المتقدمة</title>
+    <title>AdVanta | لوحة المالك</title>
     <style>
         * {
             margin: 0;
@@ -83,54 +83,6 @@
             border-color: #ef4444;
         }
 
-        .admin-sidebar {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            padding: 2rem;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(255,107,74,0.2);
-        }
-
-        .admin-sidebar.open {
-            right: 0;
-        }
-
-        .admin-menu-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            border: 1.5px solid #edf2f7;
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .admin-sidebar-item {
-            padding: 1rem;
-            background: #f8faff;
-            border-radius: 30px;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1.5px solid #edf2f7;
-        }
-
-        .admin-sidebar-item:hover {
-            border-color: #ff6b4a;
-            background: #fffaf8;
-        }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -163,12 +115,6 @@
             font-size: 2.8rem;
             font-weight: 800;
             color: #ff6b4a;
-        }
-
-        .stat-card .small-text {
-            color: #6b7280;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
         }
 
         .messages-section {
@@ -321,64 +267,6 @@
             border-radius: 30px;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 40px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .profile-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .profile-input {
-            padding: 1rem;
-            border: 1.5px solid #edf2f7;
-            border-radius: 30px;
-            font-size: 1rem;
-        }
-
-        .profile-btn {
-            background: #ff6b4a;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .stats-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem;
-            background: #f8faff;
-            border-radius: 20px;
-        }
-
         .footer {
             margin-top: 2.5rem;
             text-align: center;
@@ -388,112 +276,26 @@
     </style>
 </head>
 <body>
-    <div class="admin-menu-btn" id="adminMenuBtn">☰ قائمة الإعدادات</div>
-
-    <div class="admin-sidebar" id="adminSidebar">
-        <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h3 style="color: #2d3142;">إعدادات المالك</h3>
-            <button class="close-sidebar" id="closeAdminSidebar" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
-        </div>
-        <div class="admin-sidebar-item" id="profileOption">👤 ملفي الشخصي</div>
-        <div class="admin-sidebar-item" id="changePasswordOption">🔐 تغيير كلمة المرور</div>
-        <div class="admin-sidebar-item" id="siteSettingsOption">⚙️ إعدادات الموقع</div>
-        <div class="admin-sidebar-item" id="statsOption">📊 إحصائيات متقدمة</div>
-        <div class="admin-sidebar-item" id="usersOption">👥 إدارة المستخدمين</div>
-    </div>
-
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">👤 ملفي الشخصي</h3>
-            <div class="profile-form">
-                <input type="email" id="profileEmail" class="profile-input" placeholder="البريد الإلكتروني" value="saeedqasrawi773@gmail.com" disabled>
-                <input type="text" id="profileName" class="profile-input" placeholder="الاسم" value="Saeed">
-                <button class="profile-btn" id="saveProfile">حفظ التغييرات</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">🔐 تغيير كلمة المرور</h3>
-            <div class="profile-form">
-                <input type="password" id="currentPassword" class="profile-input" placeholder="كلمة المرور الحالية">
-                <input type="password" id="newPassword" class="profile-input" placeholder="كلمة المرور الجديدة">
-                <input type="password" id="confirmPassword" class="profile-input" placeholder="تأكيد كلمة المرور الجديدة">
-                <button class="profile-btn" id="changePassword">تغيير كلمة المرور</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="settingsModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">⚙️ إعدادات الموقع</h3>
-            <div class="profile-form">
-                <label style="text-align: right;">اسم الموقع</label>
-                <input type="text" id="siteName" class="profile-input" value="AdVanta">
-                <label style="text-align: right;">وصف الموقع</label>
-                <textarea id="siteDescription" class="profile-input" rows="3">موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال دقائق</textarea>
-                <button class="profile-btn" id="saveSettings">حفظ الإعدادات</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="statsModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">📊 إحصائيات متقدمة</h3>
-            <div class="stats-list" id="statsList">
-                <div class="stat-item"><span>إجمالي الرسائل:</span> <strong id="totalMessagesStats">-</strong></div>
-                <div class="stat-item"><span>آخر رسالة:</span> <strong id="lastMessageDateStats">-</strong></div>
-                <div class="stat-item"><span>عدد المستخدمين المسجلين:</span> <strong id="totalUsersStats">-</strong></div>
-                <div class="stat-item"><span>أكثر مستخدم نشاطاً:</span> <strong id="mostActiveUser">-</strong></div>
-                <div class="stat-item"><span>متوسط الرسائل لكل مستخدم:</span> <strong id="avgMessagesPerUser">-</strong></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="usersModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">👥 إدارة المستخدمين</h3>
-            <div id="usersList" class="stats-list">
-                <!-- المستخدمين يظهرون هنا -->
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <div class="header">
-            <h1>⚙️ لوحة تحكم المالك المتقدمة</h1>
+            <h1>⚙️ لوحة تحكم المالك</h1>
             <div class="header-actions">
                 <button class="logout-btn" id="logoutBtn">🚪 تسجيل الخروج</button>
                 <a href="index.html" class="back-btn">← العودة إلى الموقع</a>
             </div>
         </div>
 
-        <!-- بطاقات الإحصائيات السريعة -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>إجمالي الرسائل</h3>
                 <div class="number" id="totalMessages">-</div>
-                <div class="small-text" id="messagesGrowth"></div>
-            </div>
-            <div class="stat-card">
-                <h3>المستخدمين المسجلين</h3>
-                <div class="number" id="totalUsers">-</div>
-                <div class="small-text" id="usersGrowth"></div>
             </div>
             <div class="stat-card">
                 <h3>آخر رسالة</h3>
                 <div class="number" id="lastMessageDate">-</div>
-                <div class="small-text" id="lastMessageTime"></div>
-            </div>
-            <div class="stat-card">
-                <h3>أكثر مستخدم نشاطاً</h3>
-                <div class="number" id="mostActiveUserCount">-</div>
-                <div class="small-text" id="mostActiveUserEmail"></div>
             </div>
         </div>
 
-        <!-- قسم الرسائل -->
         <div class="messages-section">
             <div class="section-header">
                 <h2>📬 رسائل المستخدمين</h2>
@@ -501,11 +303,10 @@
             </div>
 
             <div class="search-box">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل (بالبريد أو المحتوى)..." onkeyup="filterMessages()">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 بحث في الرسائل..." onkeyup="filterMessages()">
                 <select class="filter-select" id="sortSelect" onchange="filterMessages()">
                     <option value="newest">الأحدث أولاً</option>
                     <option value="oldest">الأقدم أولاً</option>
-                    <option value="mostActive">الأكثر نشاطاً</option>
                 </select>
             </div>
 
@@ -518,6 +319,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>اسم المستخدم</th>
                                 <th>البريد الإلكتروني</th>
                                 <th>التاريخ</th>
                                 <th>الرسالة</th>
@@ -547,19 +349,15 @@
 
         let allMessages = [];
         let currentUser = null;
-        let allUsers = {};
 
-        // ==================== التحقق من المستخدم ====================
         async function checkAdmin() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user || user.email !== 'saeedqasrawi773@gmail.com') {
                 window.location.href = 'index.html';
             }
             currentUser = user;
-            loadUserEmails();
         }
 
-        // ==================== تحميل رسائل المستخدمين ====================
         window.loadMessages = async function() {
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
@@ -567,7 +365,6 @@
             const empty = document.getElementById('empty');
             const totalEl = document.getElementById('totalMessages');
             const lastMessageDate = document.getElementById('lastMessageDate');
-            const lastMessageTime = document.getElementById('lastMessageTime');
 
             loading.style.display = 'block';
             error.style.display = 'none';
@@ -584,20 +381,13 @@
 
                 allMessages = data || [];
 
-                // تحديث الإحصائيات
                 totalEl.textContent = allMessages.length;
-                
                 if (allMessages.length > 0) {
                     const lastDate = new Date(allMessages[0].created_at);
                     lastMessageDate.textContent = lastDate.toLocaleDateString('ar-EG');
-                    lastMessageTime.textContent = lastDate.toLocaleTimeString('ar-EG');
                 } else {
                     lastMessageDate.textContent = '-';
-                    lastMessageTime.textContent = '-';
                 }
-
-                // تحديث إحصائيات المستخدمين
-                await updateUserStats();
 
                 loading.style.display = 'none';
 
@@ -618,51 +408,6 @@
             }
         };
 
-        // ==================== تحميل بيانات المستخدمين ====================
-        async function loadUserEmails() {
-            const { data: users } = await supabase.auth.admin.listUsers();
-            if (users?.users) {
-                users.users.forEach(u => {
-                    allUsers[u.id] = u.email;
-                });
-            }
-        }
-
-        // ==================== تحديث إحصائيات المستخدمين ====================
-        async function updateUserStats() {
-            // عدد المستخدمين الفريدين
-            const uniqueUsers = new Set(allMessages.map(m => m.user_id).filter(id => id));
-            document.getElementById('totalUsers').textContent = uniqueUsers.size;
-            document.getElementById('totalUsersStats').textContent = uniqueUsers.size;
-
-            // أكثر مستخدم نشاطاً
-            const userCounts = {};
-            allMessages.forEach(m => {
-                if (m.user_id) {
-                    userCounts[m.user_id] = (userCounts[m.user_id] || 0) + 1;
-                }
-            });
-
-            let mostActiveId = null;
-            let maxCount = 0;
-            for (const [id, count] of Object.entries(userCounts)) {
-                if (count > maxCount) {
-                    maxCount = count;
-                    mostActiveId = id;
-                }
-            }
-
-            if (mostActiveId) {
-                document.getElementById('mostActiveUserCount').textContent = maxCount;
-                document.getElementById('mostActiveUserEmail').textContent = allUsers[mostActiveId] || 'مجهول';
-                document.getElementById('mostActiveUser').textContent = `${allUsers[mostActiveId] || 'مجهول'} (${maxCount} رسالة)`;
-            }
-
-            // متوسط الرسائل لكل مستخدم
-            const avg = uniqueUsers.size ? (allMessages.length / uniqueUsers.size).toFixed(1) : 0;
-            document.getElementById('avgMessagesPerUser').textContent = avg;
-        }
-
         function displayMessages(messages) {
             const tbody = document.getElementById('messagesBody');
             
@@ -679,11 +424,10 @@
                     });
                 } catch (e) {}
 
-                const userEmail = allUsers[msg.user_id] || msg.user_id || 'مجهول';
-
                 return `
                     <tr>
-                        <td class="message-text">${userEmail}</td>
+                        <td>${msg.username || 'غير معروف'}</td>
+                        <td>${msg.user_id ? 'موجود' : 'غير معروف'}</td>
                         <td class="date-cell">${dateStr}</td>
                         <td class="message-text">${msg.message || 'لا يوجد نص'}</td>
                         <td>
@@ -705,18 +449,12 @@
             if (searchText) {
                 filtered = filtered.filter(msg => 
                     (msg.message || '').toLowerCase().includes(searchText) ||
-                    (allUsers[msg.user_id] || '').toLowerCase().includes(searchText)
+                    (msg.username || '').toLowerCase().includes(searchText)
                 );
             }
 
             if (sortOrder === 'oldest') {
                 filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-            } else if (sortOrder === 'mostActive') {
-                const userMsgCount = {};
-                filtered.forEach(m => {
-                    if (m.user_id) userMsgCount[m.user_id] = (userMsgCount[m.user_id] || 0) + 1;
-                });
-                filtered.sort((a, b) => (userMsgCount[b.user_id] || 0) - (userMsgCount[a.user_id] || 0));
             } else {
                 filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             }
@@ -743,93 +481,11 @@
             }
         };
 
-        // ==================== قائمة الإعدادات الجانبية ====================
-        const adminMenuBtn = document.getElementById('adminMenuBtn');
-        const adminSidebar = document.getElementById('adminSidebar');
-        const closeAdminSidebar = document.getElementById('closeAdminSidebar');
-        const profileOption = document.getElementById('profileOption');
-        const changePasswordOption = document.getElementById('changePasswordOption');
-        const siteSettingsOption = document.getElementById('siteSettingsOption');
-        const statsOption = document.getElementById('statsOption');
-        const usersOption = document.getElementById('usersOption');
-        const profileModal = document.getElementById('profileModal');
-        const passwordModal = document.getElementById('passwordModal');
-        const settingsModal = document.getElementById('settingsModal');
-        const statsModal = document.getElementById('statsModal');
-        const usersModal = document.getElementById('usersModal');
-        const logoutBtn = document.getElementById('logoutBtn');
-
-        adminMenuBtn.addEventListener('click', () => adminSidebar.classList.add('open'));
-        closeAdminSidebar.addEventListener('click', () => adminSidebar.classList.remove('open'));
-
-        profileOption.addEventListener('click', () => {
-            adminSidebar.classList.remove('open');
-            profileModal.style.display = 'flex';
-        });
-
-        changePasswordOption.addEventListener('click', () => {
-            adminSidebar.classList.remove('open');
-            passwordModal.style.display = 'flex';
-        });
-
-        siteSettingsOption.addEventListener('click', () => {
-            adminSidebar.classList.remove('open');
-            settingsModal.style.display = 'flex';
-        });
-
-        statsOption.addEventListener('click', async () => {
-            adminSidebar.classList.remove('open');
-            
-            await updateUserStats();
-            statsModal.style.display = 'flex';
-        });
-
-        usersOption.addEventListener('click', async () => {
-            adminSidebar.classList.remove('open');
-            
-            const usersList = document.getElementById('usersList');
-            const uniqueUserIds = [...new Set(allMessages.map(m => m.user_id).filter(id => id))];
-            
-            usersList.innerHTML = '';
-            for (const userId of uniqueUserIds) {
-                const userEmail = allUsers[userId] || 'مجهول';
-                const userMsgCount = allMessages.filter(m => m.user_id === userId).length;
-                
-                const div = document.createElement('div');
-                div.className = 'stat-item';
-                div.innerHTML = `<span>${userEmail}</span> <strong>${userMsgCount} رسالة</strong>`;
-                usersList.appendChild(div);
-            }
-            
-            if (uniqueUserIds.length === 0) {
-                usersList.innerHTML = '<div class="stat-item">لا يوجد مستخدمين بعد</div>';
-            }
-            
-            usersModal.style.display = 'flex';
-        });
-
-        // ==================== تسجيل الخروج ====================
-        logoutBtn.addEventListener('click', async () => {
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
             await supabase.auth.signOut();
             window.location.href = 'index.html';
         });
 
-        // ==================== إغلاق النوافذ ====================
-        document.querySelectorAll('.modal .profile-btn').forEach(btn => {
-            if (btn.id !== 'saveProfile' && btn.id !== 'changePassword' && btn.id !== 'saveSettings') {
-                btn.addEventListener('click', () => {
-                    btn.closest('.modal').style.display = 'none';
-                });
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
-        });
-
-        // ==================== بدء التحميل ====================
         await checkAdmin();
         loadMessages();
     </script>
