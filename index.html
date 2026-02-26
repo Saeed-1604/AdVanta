@@ -1193,64 +1193,77 @@ ${outputFormat}
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
     </script>
-  <!-- ======================= الفوتر الجديد ======================= -->
+<!-- ==================== فوتر نهائي ==================== -->
 <footer style="
-    margin-top: 60px;
-    padding: 30px 20px 20px;
+    margin-top: 80px;
+    padding: 40px 20px 30px;
     text-align: center;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    background: rgba(255,255,255,0.3);
-    backdrop-filter: blur(4px);
-    border-radius: 40px 40px 0 0;
+    border-top: 2px solid #edf2f7;
+    background: linear-gradient(145deg, #ffffff, #faf9fc);
+    border-radius: 50px 50px 0 0;
+    box-shadow: 0 -8px 25px rgba(0,0,0,0.02);
     direction: rtl;
+    width: 100%;
+    display: block;
+    position: relative;
+    bottom: 0;
 ">
     <div style="
+        max-width: 600px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        max-width: 600px;
-        margin: 0 auto;
     ">
         <a href="privacy.html" style="
-            color: #4b5563;
+            display: inline-block;
+            background: white;
+            color: #2d3748;
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 10px 28px;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
             width: fit-content;
-        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white';" 
-           onmouseout="this.style.background='white'; this.style.color='#4b5563';">
+        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white'; this.style.borderColor='#ff6b4a';"
+           onmouseout="this.style.background='white'; this.style.color='#2d3748'; this.style.borderColor='#e2e8f0';">
             📄 سياسة الخصوصية
         </a>
 
         <a href="terms.html" style="
-            color: #4b5563;
+            display: inline-block;
+            background: white;
+            color: #2d3748;
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 10px 28px;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
             width: fit-content;
-        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white';" 
-           onmouseout="this.style.background='white'; this.style.color='#4b5563';">
+        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white'; this.style.borderColor='#ff6b4a';"
+           onmouseout="this.style.background='white'; this.style.color='#2d3748'; this.style.borderColor='#e2e8f0';">
             ⚖️ شروط الاستخدام
         </a>
     </div>
 
     <div style="
         margin-top: 30px;
-        color: #9aa3b3;
         font-size: 0.9rem;
+        color: #7e8c9f;
+        border-top: 1px dashed #dde3ed;
+        padding-top: 20px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
     ">
-        © 2026 AdVanta — جميع الحقوق محفوظة
+        © 2026 AdVanta — منصة عربية بالكامل لتوليد المحتوى بالذكاء الاصطناعي
     </div>
 </footer>
 </body>
