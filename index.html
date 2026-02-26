@@ -614,6 +614,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- ✅ صندوق الروابط الصغير تحت الكارد مباشرة -->
+        <div style="max-width: 500px; margin: 2rem auto; padding: 1.5rem; background: white; border-radius: 30px; box-shadow: 0 4px 20px rgba(255,107,74,0.08); border: 1px solid rgba(255,107,74,0.15); text-align: center; direction: rtl;">
+            <h3 style="color: #1e1e2f; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">📌 روابط مهمة</h3>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <a href="privacy.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
+                    <span style="font-size: 1.2rem;">🔐</span> سياسة الخصوصية
+                </a>
+                <a href="terms.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
+                    <span style="font-size: 1.2rem;">📄</span> شروط الاستخدام
+                </a>
+            </div>
+            <p style="color: #6b7280; font-size: 0.8rem; margin-top: 1rem; border-top: 1px solid #edf2f7; padding-top: 1rem;">
+                © 2026 AdVanta - جميع الحقوق محفوظة
+            </p>
+        </div>
     </div>
 
     <div class="modal" id="editModal">
@@ -670,7 +686,7 @@
         // رسائل ترحيبية متنوعة
         const welcomeMessages = [
             (name) => `مرحباً ${name}، شو رح نبدع اليوم؟`,
-            (name) => `أهلاً ${name}، وين رايح نكتب اليوم؟`,
+            (name) => `أهلاً ${name}، فكرتك وين؟`,
             (name) => `أهلاً بك ${name}، مستعد نكتب شي مميز؟`,
             (name) => `مرحباً ${name}، شو رح ننتج اليوم؟`
         ];
@@ -1193,20 +1209,5 @@ ${outputFormat}
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
     </script>
-   <!-- صندوق الروابط الصغير -->
-<div style="max-width: 500px; margin: 2rem auto; padding: 1.5rem; background: white; border-radius: 30px; box-shadow: 0 4px 20px rgba(255,107,74,0.08); border: 1px solid rgba(255,107,74,0.15); text-align: center; direction: rtl;">
-    <h3 style="color: #1e1e2f; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">📌 روابط مهمة</h3>
-    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <a href="privacy.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="font-size: 1.2rem;">🔐</span> سياسة الخصوصية
-        </a>
-        <a href="terms.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="font-size: 1.2rem;">📄</span> شروط الاستخدام
-        </a>
-    </div>
-    <p style="color: #6b7280; font-size: 0.8rem; margin-top: 1rem; border-top: 1px solid #edf2f7; padding-top: 1rem;">
-        © 2026 AdVanta - جميع الحقوق محفوظة
-    </p>
-</div>
 </body>
 </html>
