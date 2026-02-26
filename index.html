@@ -1193,10 +1193,95 @@ ${outputFormat}
         // التحقق من المستخدم عند تحميل الصفحة
         checkUser();
     </script>
-<footer style="text-align: center; margin-top: 3rem; padding: 1rem; border-top: 1px solid #eee; direction: rtl;">
-  <a href="privacy.html" style="margin: 0 10px; color: #ff6b4a; text-decoration: none;">سياسة الخصوصية</a>
-  <a href="terms.html" style="margin: 0 10px; color: #ff6b4a; text-decoration: none;">شروط الاستخدام</a>
-  <p style="margin-top: 1rem; color: #888;">© 2026 AdVanta. جميع الحقوق محفوظة.</p>
-</footer>
+    <style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100vh;
+    }
+</style>
+<div style="
+    margin-top: 80px;
+    padding: 40px 20px 30px;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    background: linear-gradient(145deg, #ffffff, #faf9fc);
+    border-radius: 50px 50px 0 0;
+    width: 100%;
+    clear: both;
+    display: block;
+    direction: rtl;
+">
+    <!-- الروابط أفقياً -->
+    <div style="
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    ">
+        <a href="privacy.html" style="
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 22px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: inline-block;
+        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white'; this.style.borderColor='#ff6b4a';"
+           onmouseout="this.style.background='white'; this.style.color='#4b5563'; this.style.borderColor='#e2e8f0';">
+            📄 سياسة الخصوصية
+        </a>
+
+        <a href="terms.html" style="
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 22px;
+            border-radius: 40px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: inline-block;
+        " onmouseover="this.style.background='#ff6b4a'; this.style.color='white'; this.style.borderColor='#ff6b4a';"
+           onmouseout="this.style.background='white'; this.style.color='#4b5563'; this.style.borderColor='#e2e8f0';">
+            ⚖️ شروط الاستخدام
+        </a>
+    </div>
+
+    <!-- الجملة تحت الروابط -->
+    <div style="
+        margin-top: 30px;
+        color: #8f95a3;
+        font-size: 0.9rem;
+        border-top: 1px dashed #e0e7ef;
+        padding-top: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    ">
+        منصة عربية بالكامل لتوليد المحتوى بالذكاء الاصطناعي
+    </div>
+
+    <!-- حقوق النشر -->
+    <div style="
+        margin-top: 15px;
+        color: #a3a9b9;
+        font-size: 0.8rem;
+    ">
+        © 2026 AdVanta
+    </div>
+</div>
 </body>
 </html>
