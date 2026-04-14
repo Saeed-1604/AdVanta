@@ -512,7 +512,9 @@
         <div class="sidebar-item" id="authOption">تسجيل الدخول</div>
         <div class="sidebar-item" id="feedbackOption">اكتب مشكلتك أو اقتراحك</div>
         <div class="sidebar-item" id="savedOption">محفوظاتي</div>
-        <div class="sidebar-item" id="languageOption">🌐 اللغة / Language</div>
+        <div class="sidebar-item" id="languageOption" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            اللغة / Language
+        </div>
     </div>
 
     <div class="modal" id="authModal">
@@ -562,82 +564,82 @@
             <!-- الهدف -->
             <div class="section-title" id="goalTitle">الهدف</div>
             <div class="options-grid" id="goalOptions" data-single="true">
-                <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true">وعي بعلامة تجارية</div>
-                <div class="option-chip" data-value="تعريف بمنتج جديد" data-single="true">تعريف بمنتج جديد</div>
-                <div class="option-chip" data-value="تعريف خدمة جديدة" data-single="true">تعريف خدمة جديدة</div>
-                <div class="option-chip" data-value="زيادة المتابعين" data-single="true">زيادة المتابعين</div>
-                <div class="option-chip" data-value="الوصول لمزيد من الأشخاص" data-single="true">الوصول لمزيد من الأشخاص</div>
-                <div class="option-chip" data-value="زيادة التفاعل" data-single="true">زيادة التفاعل</div>
-                <div class="option-chip" data-value="زيادة المبيعات" data-single="true">زيادة المبيعات</div>
-                <div class="option-chip" data-value="صناعة المؤثرين" data-single="true">صناعة المؤثرين</div>
-                <div class="option-chip" data-value="هدف شخصي" data-single="true">هدف شخصي</div>
+                <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true" data-ar="وعي بعلامة تجارية" data-en="Brand awareness">وعي بعلامة تجارية</div>
+                <div class="option-chip" data-value="تعريف بمنتج جديد" data-single="true" data-ar="تعريف بمنتج جديد" data-en="New product launch">تعريف بمنتج جديد</div>
+                <div class="option-chip" data-value="تعريف خدمة جديدة" data-single="true" data-ar="تعريف خدمة جديدة" data-en="New service launch">تعريف خدمة جديدة</div>
+                <div class="option-chip" data-value="زيادة المتابعين" data-single="true" data-ar="زيادة المتابعين" data-en="Increase followers">زيادة المتابعين</div>
+                <div class="option-chip" data-value="الوصول لمزيد من الأشخاص" data-single="true" data-ar="الوصول لمزيد من الأشخاص" data-en="Reach more people">الوصول لمزيد من الأشخاص</div>
+                <div class="option-chip" data-value="زيادة التفاعل" data-single="true" data-ar="زيادة التفاعل" data-en="Increase engagement">زيادة التفاعل</div>
+                <div class="option-chip" data-value="زيادة المبيعات" data-single="true" data-ar="زيادة المبيعات" data-en="Increase sales">زيادة المبيعات</div>
+                <div class="option-chip" data-value="صناعة المؤثرين" data-single="true" data-ar="صناعة المؤثرين" data-en="Influencer growth">صناعة المؤثرين</div>
+                <div class="option-chip" data-value="هدف شخصي" data-single="true" data-ar="هدف شخصي" data-en="Personal goal">هدف شخصي</div>
             </div>
 
             <!-- الجمهور -->
             <div class="section-title" id="audienceTitle">الجمهور المستهدف</div>
             <div class="options-grid" id="audienceOptions">
-                <div class="option-chip" data-value="آباء">آباء</div>
-                <div class="option-chip" data-value="أطفال">أطفال</div>
-                <div class="option-chip" data-value="شباب">شباب</div>
-                <div class="option-chip" data-value="بنات">بنات</div>
-                <div class="option-chip" data-value="رجال">رجال</div>
-                <div class="option-chip" data-value="نساء">نساء</div>
-                <div class="option-chip" data-value="تجار">تجار</div>
-                <div class="option-chip" data-value="رياضيون">رياضيون</div>
-                <div class="option-chip" data-value="أصحاب أعمال">أصحاب أعمال</div>
-                <div class="option-chip" data-value="طلاب">طلاب</div>
-                <div class="option-chip" data-value="موظفون">موظفون</div>
-                <div class="option-chip" data-value="مهتمون بالتغذية">مهتمون بالتغذية</div>
-                <div class="option-chip" data-value="عناية بالبشرة">عناية بالبشرة</div>
-                <div class="option-chip" data-value="لياقة بدنية">لياقة بدنية</div>
-                <div class="option-chip" data-value="مربو حيوانات">مربو حيوانات</div>
-                <div class="option-chip" data-value="مسافرون">مسافرون</div>
-                <div class="option-chip" data-value="تقنيون">تقنيون</div>
-                <div class="option-chip" data-value="محبون للأزياء">محبون للأزياء</div>
-                <div class="option-chip" data-value="غير ذلك">غير ذلك</div>
+                <div class="option-chip" data-value="آباء" data-ar="آباء" data-en="Parents">آباء</div>
+                <div class="option-chip" data-value="أطفال" data-ar="أطفال" data-en="Children">أطفال</div>
+                <div class="option-chip" data-value="شباب" data-ar="شباب" data-en="Youth">شباب</div>
+                <div class="option-chip" data-value="بنات" data-ar="بنات" data-en="Girls">بنات</div>
+                <div class="option-chip" data-value="رجال" data-ar="رجال" data-en="Men">رجال</div>
+                <div class="option-chip" data-value="نساء" data-ar="نساء" data-en="Women">نساء</div>
+                <div class="option-chip" data-value="تجار" data-ar="تجار" data-en="Traders">تجار</div>
+                <div class="option-chip" data-value="رياضيون" data-ar="رياضيون" data-en="Athletes">رياضيون</div>
+                <div class="option-chip" data-value="أصحاب أعمال" data-ar="أصحاب أعمال" data-en="Business owners">أصحاب أعمال</div>
+                <div class="option-chip" data-value="طلاب" data-ar="طلاب" data-en="Students">طلاب</div>
+                <div class="option-chip" data-value="موظفون" data-ar="موظفون" data-en="Employees">موظفون</div>
+                <div class="option-chip" data-value="مهتمون بالتغذية" data-ar="مهتمون بالتغذية" data-en="Nutrition enthusiasts">مهتمون بالتغذية</div>
+                <div class="option-chip" data-value="عناية بالبشرة" data-ar="عناية بالبشرة" data-en="Skincare">عناية بالبشرة</div>
+                <div class="option-chip" data-value="لياقة بدنية" data-ar="لياقة بدنية" data-en="Fitness">لياقة بدنية</div>
+                <div class="option-chip" data-value="مربو حيوانات" data-ar="مربو حيوانات" data-en="Pet owners">مربو حيوانات</div>
+                <div class="option-chip" data-value="مسافرون" data-ar="مسافرون" data-en="Travelers">مسافرون</div>
+                <div class="option-chip" data-value="تقنيون" data-ar="تقنيون" data-en="Tech enthusiasts">تقنيون</div>
+                <div class="option-chip" data-value="محبون للأزياء" data-ar="محبون للأزياء" data-en="Fashion lovers">محبون للأزياء</div>
+                <div class="option-chip" data-value="غير ذلك" data-ar="غير ذلك" data-en="Other">غير ذلك</div>
             </div>
 
             <!-- العمر -->
             <div class="section-title" id="ageTitle">الفئة العمرية</div>
             <div class="options-grid" id="ageOptions">
-                <div class="option-chip" data-value="3-12">3 – 12</div>
-                <div class="option-chip" data-value="13-17">13 – 17</div>
-                <div class="option-chip" data-value="18-24">18 – 24</div>
-                <div class="option-chip" data-value="25-34">25 – 34</div>
-                <div class="option-chip" data-value="35-44">35 – 44</div>
-                <div class="option-chip" data-value="45-60">45 – 60</div>
-                <div class="option-chip" data-value="60+">60+</div>
+                <div class="option-chip" data-value="3-12" data-ar="3-12" data-en="3-12">3 – 12</div>
+                <div class="option-chip" data-value="13-17" data-ar="13-17" data-en="13-17">13 – 17</div>
+                <div class="option-chip" data-value="18-24" data-ar="18-24" data-en="18-24">18 – 24</div>
+                <div class="option-chip" data-value="25-34" data-ar="25-34" data-en="25-34">25 – 34</div>
+                <div class="option-chip" data-value="35-44" data-ar="35-44" data-en="35-44">35 – 44</div>
+                <div class="option-chip" data-value="45-60" data-ar="45-60" data-en="45-60">45 – 60</div>
+                <div class="option-chip" data-value="60+" data-ar="60+" data-en="60+">60+</div>
             </div>
 
             <!-- المنصة -->
             <div class="section-title" id="platformTitle">المنصة</div>
             <div class="options-grid" id="platformOptions" data-single="true">
-                <div class="option-chip" data-value="فيسبوك" data-single="true">فيسبوك</div>
-                <div class="option-chip" data-value="إنستغرام" data-single="true">إنستغرام</div>
-                <div class="option-chip" data-value="تيك توك" data-single="true">تيك توك</div>
-                <div class="option-chip" data-value="سناب شات" data-single="true">سناب شات</div>
+                <div class="option-chip" data-value="فيسبوك" data-single="true" data-ar="فيسبوك" data-en="Facebook">فيسبوك</div>
+                <div class="option-chip" data-value="إنستغرام" data-single="true" data-ar="إنستغرام" data-en="Instagram">إنستغرام</div>
+                <div class="option-chip" data-value="تيك توك" data-single="true" data-ar="تيك توك" data-en="TikTok">تيك توك</div>
+                <div class="option-chip" data-value="سناب شات" data-single="true" data-ar="سناب شات" data-en="Snapchat">سناب شات</div>
             </div>
 
             <!-- شكل المحتوى -->
             <div class="section-title" id="formatTitle">شكل المحتوى</div>
             <div class="options-grid" id="formatOptions" data-single="true">
-                <div class="option-chip" data-value="فكرة صورة" data-single="true">فكرة صورة</div>
-                <div class="option-chip" data-value="فكرة صورة + كابشن" data-single="true">فكرة صورة + كابشن</div>
-                <div class="option-chip" data-value="نص" data-single="true">نص</div>
-                <div class="option-chip" data-value="سكريبت ريل" data-single="true">سكريبت ريل</div>
-                <div class="option-chip" data-value="سكريبت ريل + كابشن" data-single="true">سكريبت ريل + كابشن</div>
-                <div class="option-chip" data-value="فكرة فيديو" data-single="true">فكرة فيديو</div>
-                <div class="option-chip" data-value="فكرة فيديو + كابشن" data-single="true">فكرة فيديو + كابشن</div>
-                <div class="option-chip" data-value="فكرة ستوري" data-single="true">فكرة ستורי</div>
-                <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true">فكرة ستوري + نص</div>
+                <div class="option-chip" data-value="فكرة صورة" data-single="true" data-ar="فكرة صورة" data-en="Image idea">فكرة صورة</div>
+                <div class="option-chip" data-value="فكرة صورة + كابشن" data-single="true" data-ar="فكرة صورة + كابشن" data-en="Image idea + caption">فكرة صورة + كابشن</div>
+                <div class="option-chip" data-value="نص" data-single="true" data-ar="نص" data-en="Text">نص</div>
+                <div class="option-chip" data-value="سكريبت ريل" data-single="true" data-ar="سكريبت ريل" data-en="Reel script">سكريبت ريل</div>
+                <div class="option-chip" data-value="سكريبت ريل + كابشن" data-single="true" data-ar="سكريبت ريل + كابشن" data-en="Reel script + caption">سكريبت ريل + كابشن</div>
+                <div class="option-chip" data-value="فكرة فيديو" data-single="true" data-ar="فكرة فيديو" data-en="Video idea">فكرة فيديو</div>
+                <div class="option-chip" data-value="فكرة فيديو + كابشن" data-single="true" data-ar="فكرة فيديو + كابشن" data-en="Video idea + caption">فكرة فيديو + كابشن</div>
+                <div class="option-chip" data-value="فكرة ستوري" data-single="true" data-ar="فكرة ستوري" data-en="Story idea">فكرة ستوري</div>
+                <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true" data-ar="فكرة ستوري + نص" data-en="Story idea + text">فكرة ستوري + نص</div>
             </div>
 
             <!-- نوع المحتوى -->
             <div class="section-title" id="contentTypeTitle">نوع المحتوى</div>
             <div class="options-grid" id="contentTypeOptions" data-single="true">
-                <div class="option-chip" data-value="محتوى احترافي" data-single="true">محتوى احترافي</div>
-                <div class="option-chip" data-value="محتوى مستخدمين" data-single="true">محتوى مستخدمين</div>
-                <div class="option-chip" data-value="محتوى موظفين" data-single="true">محتوى موظفين</div>
+                <div class="option-chip" data-value="محتوى احترافي" data-single="true" data-ar="محتوى احترافي" data-en="Professional content">محتوى احترافي</div>
+                <div class="option-chip" data-value="محتوى مستخدمين" data-single="true" data-ar="محتوى مستخدمين" data-en="User content">محتوى مستخدمين</div>
+                <div class="option-chip" data-value="محتوى موظفين" data-single="true" data-ar="محتوى موظفين" data-en="Employee content">محتوى موظفين</div>
             </div>
 
             <div id="extraOptionsContainer"></div>
@@ -653,10 +655,10 @@
             <div class="result-container" id="resultContainer">
                 <div class="result-content" id="resultContent"></div>
                 <div class="share-buttons" id="shareButtons" style="display: none;">
-                    <button class="share-btn share-snapchat" onclick="share('snapchat')">سناب شات</button>
-                    <button class="share-btn share-tiktok" onclick="share('tiktok')">تيك توك</button>
-                    <button class="share-btn share-instagram" onclick="share('instagram')">إنستغرام</button>
-                    <button class="share-btn share-facebook" onclick="share('facebook')">فيسبوك</button>
+                    <button class="share-btn share-snapchat" onclick="share('snapchat')" id="shareSnapchat">سناب شات</button>
+                    <button class="share-btn share-tiktok" onclick="share('tiktok')" id="shareTiktok">تيك توك</button>
+                    <button class="share-btn share-instagram" onclick="share('instagram')" id="shareInstagram">إنستغرام</button>
+                    <button class="share-btn share-facebook" onclick="share('facebook')" id="shareFacebook">فيسبوك</button>
                 </div>
                 <div class="result-actions">
                     <button class="action-btn edit-btn" id="editBtn">تعديل</button>
@@ -731,7 +733,7 @@
                 authOption: 'تسجيل الدخول',
                 feedbackOption: 'اكتب مشكلتك أو اقتراحك',
                 savedOption: 'محفوظاتي',
-                languageOption: '🌐 اللغة / Language',
+                languageOption: 'اللغة / Language',
                 authTitle: 'تسجيل الدخول',
                 authToggle: 'ليس لديك حساب؟ سجل الآن',
                 signupToggle: 'لديك حساب؟ سجل دخولك',
@@ -771,6 +773,7 @@
                 aiEditModalTitle: 'تعديل ذكي',
                 sendAiEdit: 'إرسال',
                 closeAiEdit: 'إلغاء',
+                aiEditPlaceholder: 'اكتب طلب التعديل...',
                 footerLinksTitle: 'روابط مهمة',
                 privacyLink: 'سياسة الخصوصية',
                 termsLink: 'شروط الاستخدام',
@@ -783,7 +786,13 @@
                 errorLoginRequired: 'يرجى تسجيل الدخول أولاً',
                 errorWriteFirst: 'اكتب فكرتك أولاً',
                 errorWriteMessage: 'اكتب رسالتك أولاً',
-                errorGeneric: 'حدث خطأ، رجاءً أعد المحاولة'
+                errorGeneric: 'حدث خطأ، رجاءً أعد المحاولة',
+                shareSnapchat: 'سناب شات',
+                shareTiktok: 'تيك توك',
+                shareInstagram: 'إنستغرام',
+                shareFacebook: 'فيسبوك',
+                userDescriptionPlaceholder: 'اكتب فكرتك هنا... (مثلاً: منتج جديد للعناية بالبشرة)',
+                aiEditRequestPlaceholder: 'اكتب طلب التعديل...'
             },
             en: {
                 dir: 'ltr',
@@ -791,7 +800,7 @@
                 authOption: 'Login',
                 feedbackOption: 'Write your problem or suggestion',
                 savedOption: 'Saved',
-                languageOption: '🌐 اللغة / Language',
+                languageOption: 'اللغة / Language',
                 authTitle: 'Login',
                 authToggle: "Don't have an account? Sign up",
                 signupToggle: 'Already have an account? Login',
@@ -831,6 +840,7 @@
                 aiEditModalTitle: 'AI Edit',
                 sendAiEdit: 'Send',
                 closeAiEdit: 'Cancel',
+                aiEditPlaceholder: 'Write your edit request...',
                 footerLinksTitle: 'Important Links',
                 privacyLink: 'Privacy Policy',
                 termsLink: 'Terms of Use',
@@ -843,9 +853,25 @@
                 errorLoginRequired: 'Please login first',
                 errorWriteFirst: 'Write your idea first',
                 errorWriteMessage: 'Write your message first',
-                errorGeneric: 'An error occurred, please try again'
+                errorGeneric: 'An error occurred, please try again',
+                shareSnapchat: 'Snapchat',
+                shareTiktok: 'TikTok',
+                shareInstagram: 'Instagram',
+                shareFacebook: 'Facebook',
+                userDescriptionPlaceholder: 'Write your idea here... (e.g., new skincare product)',
+                aiEditRequestPlaceholder: 'Write your edit request...'
             }
         };
+
+        function updateAllOptionsByLanguage() {
+            const lang = currentLang;
+            document.querySelectorAll('.option-chip').forEach(chip => {
+                const newText = chip.getAttribute(`data-${lang}`);
+                if (newText) {
+                    chip.textContent = newText;
+                }
+            });
+        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -853,12 +879,12 @@
             htmlTag.setAttribute('dir', translations[lang].dir);
             htmlTag.setAttribute('lang', lang === 'ar' ? 'ar' : 'en');
             
-            // تحديث النصوص
+            // تحديث النصوص العامة
             document.getElementById('sidebarTitle').textContent = translations[lang].sidebarTitle;
             document.getElementById('authOption').textContent = translations[lang].authOption;
             document.getElementById('feedbackOption').textContent = translations[lang].feedbackOption;
             document.getElementById('savedOption').textContent = translations[lang].savedOption;
-            document.getElementById('languageOption').textContent = translations[lang].languageOption;
+            document.getElementById('languageOption').innerHTML = translations[lang].languageOption;
             document.getElementById('authTitle').textContent = translations[lang].authTitle;
             document.getElementById('authToggle').textContent = translations[lang].authToggle;
             document.getElementById('authAction').textContent = isSignUp ? translations[lang].authActionSignup : translations[lang].authActionLogin;
@@ -892,6 +918,15 @@
             document.getElementById('privacyLink').textContent = translations[lang].privacyLink;
             document.getElementById('termsLink').textContent = translations[lang].termsLink;
             document.getElementById('copyrightText').textContent = translations[lang].copyrightText;
+            document.getElementById('shareSnapchat').textContent = translations[lang].shareSnapchat;
+            document.getElementById('shareTiktok').textContent = translations[lang].shareTiktok;
+            document.getElementById('shareInstagram').textContent = translations[lang].shareInstagram;
+            document.getElementById('shareFacebook').textContent = translations[lang].shareFacebook;
+            document.getElementById('userDescription').placeholder = translations[lang].userDescriptionPlaceholder;
+            document.getElementById('aiEditRequest').placeholder = translations[lang].aiEditPlaceholder;
+            
+            // تحديث الخيارات الداخلية
+            updateAllOptionsByLanguage();
             
             // تحديث الرسالة الترحيبية
             if (currentUser) {
@@ -936,7 +971,7 @@
                 
                 document.getElementById('userInfo').style.display = 'block';
                 document.getElementById('userEmail').textContent = user.email;
-                document.getElementById('authOption').textContent = translations[currentLang].authOption === 'تسجيل الدخول' ? 'تسجيل الخروج' : 'Logout';
+                document.getElementById('authOption').textContent = currentLang === 'ar' ? 'تسجيل الخروج' : 'Logout';
                 
                 const randomMsg = translations[currentLang].welcomeMessages[Math.floor(Math.random() * translations[currentLang].welcomeMessages.length)];
                 document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
@@ -1109,21 +1144,7 @@
             }
         });
 
-        // ==================== إدارة الخيارات ====================
-        document.querySelectorAll('.option-chip').forEach(chip => {
-            chip.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const parent = this.parentElement;
-                const isSingle = parent.dataset.single === 'true' || this.dataset.single === 'true';
-                if (isSingle) {
-                    parent.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
-                    this.classList.add('selected');
-                } else {
-                    this.classList.toggle('selected');
-                }
-            });
-        });
-
+        // ==================== إدارة الخيارات الإضافية ====================
         function updateExtraOptions(format) {
             const container = document.getElementById('extraOptionsContainer');
             container.innerHTML = '';
@@ -1133,11 +1154,11 @@
             
             if (hasCaption) {
                 html += `<div class="section-title">${currentLang === 'ar' ? 'عدد أسطر الكابشن' : 'Number of caption lines'}</div><div class="options-grid" id="captionLines" data-single="true">` +
-                    [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
+                    [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
             }
             if (hasDuration) {
                 html += `<div class="section-title">${currentLang === 'ar' ? 'طول السكريبت (ثانية)' : 'Script length (seconds)'}</div><div class="options-grid" id="videoDuration" data-single="true">` +
-                    [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
+                    [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
             }
             if (html) {
                 container.innerHTML = html;
@@ -1163,12 +1184,12 @@
                 return; 
             }
 
-            const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.dataset.value);
-            const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.dataset.value);
-            const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.dataset.value);
-            const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.dataset.value);
-            const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.dataset.value);
-            const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.dataset.value);
+            const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+            const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+            const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+            const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+            const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+            const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
             
             let captionLines = document.querySelector('#captionLines .option-chip.selected')?.dataset.value || '';
             let videoDuration = document.querySelector('#videoDuration .option-chip.selected')?.dataset.value || '';
@@ -1182,7 +1203,7 @@
             resultContent.innerHTML = currentLang === 'ar' ? 'جاري كتابة المحتوى...' : 'Writing content...';
 
             try {
-                let formatType = formats[0] || 'نص';
+                let formatType = formats[0] || (currentLang === 'ar' ? 'نص' : 'Text');
                 let contentType = '';
                 let outputFormat = '';
                 
@@ -1224,45 +1245,51 @@
                             contentType = 'فكرة ستوري مع نص كل مشهد';
                             outputFormat = 'فكرة الستوري :\n\nالنص :\n';
                             break;
+                        default:
+                            contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
+                            outputFormat = '';
                     }
                 } else {
                     switch(formatType) {
-                        case 'فكرة صورة':
+                        case 'Image idea':
                             contentType = 'Image idea with image description';
                             outputFormat = 'Image idea :\n';
                             break;
-                        case 'فكرة صورة + كابشن':
+                        case 'Image idea + caption':
                             contentType = 'Image idea with caption';
                             outputFormat = 'Image idea :\n\nCaption :\n';
                             break;
-                        case 'نص':
+                        case 'Text':
                             contentType = 'Complete text (article, post, text ad)';
                             outputFormat = '';
                             break;
-                        case 'سكريبت ريل':
+                        case 'Reel script':
                             contentType = 'Detailed reel script (scenes, timing, text)';
                             outputFormat = 'Script :\n';
                             break;
-                        case 'سكريبت ريل + كابشن':
+                        case 'Reel script + caption':
                             contentType = 'Detailed reel script with separate caption';
                             outputFormat = 'Script :\n\nCaption :\n';
                             break;
-                        case 'فكرة فيديو':
+                        case 'Video idea':
                             contentType = 'General video idea (main scenes)';
                             outputFormat = 'Video idea :\n';
                             break;
-                        case 'فكرة فيديو + كابشن':
+                        case 'Video idea + caption':
                             contentType = 'Video idea with appropriate caption';
                             outputFormat = 'Video idea :\n\nCaption :\n';
                             break;
-                        case 'فكرة ستوري':
+                        case 'Story idea':
                             contentType = 'Short sequential story idea';
                             outputFormat = 'Story idea :\n';
                             break;
-                        case 'فكرة ستوري + نص':
+                        case 'Story idea + text':
                             contentType = 'Story idea with text for each scene';
                             outputFormat = 'Story idea :\n\nText :\n';
                             break;
+                        default:
+                            contentType = 'Complete text (article, post, text ad)';
+                            outputFormat = '';
                     }
                 }
 
@@ -1442,7 +1469,7 @@ Keep the titles as they are.`;
         sendAiEdit.addEventListener('click', async () => {
             const request = aiEditRequest.value.trim();
             if (!request) { 
-                alert(currentLang === 'ar' ? 'اكتب طلب التعديل' : 'Write your edit request');
+                alert(translations[currentLang].errorWriteFirst);
                 return; 
             }
 
