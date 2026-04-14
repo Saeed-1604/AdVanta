@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>AdVanta | كاتب محتوى ذكي بتصميم خيالي</title>
+    <title>AdVanta | منصة كتابة المحتوى بالذكاء الاصطناعي</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at 10% 30%, #eef2ff, #ffffff);
+            background: linear-gradient(125deg, #f4f8ff 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -22,233 +22,226 @@
         }
 
         /* الحاوية الرئيسية */
-        .advanta-wrapper {
+        .adVanta-container {
             max-width: 1300px;
             width: 100%;
         }
 
-        /* شعار كبير وبارز */
-        .logo-area {
+        /* الشعار بشكل ضخم ونظيف */
+        .brand {
             text-align: center;
             margin-bottom: 2rem;
         }
-        .logo {
+        .brand img {
             width: 280px;
             max-width: 75%;
-            transition: all 0.4s ease;
-            filter: drop-shadow(0 12px 20px rgba(0,102,255,0.2));
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 12px 20px rgba(0, 102, 255, 0.15));
         }
-        .logo:hover {
+        .brand img:hover {
             transform: scale(1.02);
-            filter: drop-shadow(0 20px 30px rgba(255,107,74,0.3));
         }
 
-        /* وصف + ترحيب */
-        .hero-area {
+        /* الترويسة */
+        .hero {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
-        .welcome-badge {
-            background: linear-gradient(135deg, #0066ff10, #ff6b4a10);
-            backdrop-filter: blur(8px);
-            display: inline-block;
-            padding: 0.7rem 2rem;
-            border-radius: 100px;
-            font-weight: 600;
-            color: #1f2b4e;
-            border: 1px solid rgba(0,102,255,0.2);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        .site-desc {
-            font-size: 1.4rem;
-            font-weight: 500;
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
             background: linear-gradient(145deg, #0066ff, #ff6b4a);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
         }
-        .sub-desc {
-            color: #4a5568;
-            font-size: 1rem;
-        }
-
-        /* كارد رئيسي – خيالي */
-        .premium-card {
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(14px);
-            border-radius: 56px;
-            padding: 2.2rem;
-            box-shadow: 0 35px 60px -20px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,107,74,0.15);
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .premium-card:hover {
-            box-shadow: 0 45px 70px -20px rgba(255,107,74,0.2);
+        .hero p {
+            font-size: 1.2rem;
+            color: #2c3e66;
+            margin-top: 0.75rem;
         }
 
-        /* مجموعات الخيارات */
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
+        /* الكارد الرئيسي – تصميم عصري جداً */
+        .smart-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 64px;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 45px 65px -20px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 107, 74, 0.2);
+            transition: 0.3s;
+        }
+
+        /* عناوين الأقسام */
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f2b3d;
+            margin-bottom: 1rem;
             border-right: 4px solid #ff6b4a;
             padding-right: 1rem;
         }
 
-        .chips-grid {
+        /* خيارات القطع (chips) */
+        .chips-wrapper {
             display: flex;
             flex-wrap: wrap;
             gap: 0.7rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         .chip {
             background: white;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 60px;
-            padding: 0.6rem 1.4rem;
+            border: 1.5px solid #e0e7f5;
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
             font-weight: 500;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s;
-            color: #1f2b4e;
+            transition: 0.2s;
+            color: #1f2f54;
         }
         .chip.selected {
             background: #0066ff;
             border-color: #0066ff;
             color: white;
-            box-shadow: 0 6px 14px rgba(0,102,255,0.25);
+            box-shadow: 0 8px 16px -8px rgba(0, 102, 255, 0.4);
         }
         .chip:hover {
             transform: translateY(-2px);
             border-color: #ff6b4a;
         }
 
-        /* صندوق الكتابة + عداد */
-        .idea-box {
-            margin: 1.8rem 0 1rem;
+        /* صندوق الكتابة وعداد الحروف */
+        .idea-field {
+            margin: 1.2rem 0 1rem;
         }
-        textarea {
+        .idea-field textarea {
             width: 100%;
-            padding: 1.3rem;
-            border-radius: 44px;
-            background: #ffffffcc;
-            backdrop-filter: blur(4px);
-            border: 1.5px solid #cbd5e1;
+            padding: 1.2rem 1.5rem;
+            background: #ffffffdd;
+            border: 1.5px solid #cddcf0;
+            border-radius: 48px;
             font-size: 1rem;
             resize: vertical;
             transition: 0.2s;
         }
-        textarea:focus {
+        .idea-field textarea:focus {
             border-color: #ff6b4a;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(255,107,74,0.2);
             background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 74, 0.1);
         }
         .char-counter {
             text-align: left;
-            font-size: 0.8rem;
-            color: #475569;
+            font-size: 0.75rem;
+            color: #4a627a;
             margin-top: 0.3rem;
         }
 
-        /* أزرار الإجراءات */
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0 1rem;
-        }
-        .btn-generate {
-            flex: 1;
-            background: linear-gradient(105deg, #0066ff, #ff6b4a);
+        /* زر الإجراء الرئيسي */
+        .primary-action {
+            background: linear-gradient(115deg, #0066ff, #ff6b4a);
             border: none;
+            width: 100%;
             padding: 1rem;
             border-radius: 60px;
             font-weight: 700;
             font-size: 1.2rem;
             color: white;
             cursor: pointer;
+            margin: 1rem 0 0.5rem;
             transition: 0.25s;
-            box-shadow: 0 12px 22px -10px #ff6b4a;
+            box-shadow: 0 12px 20px -12px #ff6b4a;
         }
-        .btn-generate:hover {
+        .primary-action:hover {
             transform: scale(1.01);
-            background: linear-gradient(105deg, #0055ee, #ff541f);
+            background: linear-gradient(115deg, #0055ee, #ff541f);
         }
 
         /* صندوق النتيجة الرائع */
-        .result-card {
-            background: rgba(255,255,245,0.8);
-            backdrop-filter: blur(12px);
+        .result-box {
+            background: #ffffffcc;
+            backdrop-filter: blur(8px);
             border-radius: 48px;
-            padding: 1.8rem;
+            padding: 1.6rem;
             margin-top: 2rem;
-            border: 1px solid rgba(255,107,74,0.4);
             display: none;
+            border: 1px solid rgba(255, 107, 74, 0.3);
         }
-        .result-content {
-            line-height: 1.75;
-            color: #1e293b;
-            font-size: 1rem;
+        .result-text {
+            line-height: 1.7;
+            color: #1a2c3e;
         }
-        .share-strip {
+
+        /* أزرار المشاركة والتعديل */
+        .action-group {
             display: flex;
-            gap: 0.6rem;
-            margin: 1.2rem 0 1rem;
+            gap: 0.8rem;
+            margin: 1.2rem 0 0.5rem;
             flex-wrap: wrap;
         }
-        .share-btn {
+        .action-btn {
             flex: 1;
-            padding: 0.5rem;
-            border-radius: 40px;
+            padding: 0.6rem;
+            border-radius: 44px;
             border: none;
             font-weight: 600;
             cursor: pointer;
+            transition: 0.2s;
         }
 
-        .footer-card {
+        /* الفوتر */
+        .legal-footer {
             max-width: 550px;
             margin: 2.5rem auto 0;
-            background: rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(8px);
-            border-radius: 44px;
-            padding: 1.2rem;
+            border-radius: 48px;
+            padding: 1rem;
             text-align: center;
         }
-        .footer-links a {
+        .legal-footer a {
             color: #0066ff;
             text-decoration: none;
             margin: 0 1rem;
             font-weight: 500;
         }
+        .legal-footer a:hover {
+            color: #ff6b4a;
+        }
+
+        @media (max-width: 700px) {
+            .smart-card {
+                padding: 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="advanta-wrapper">
+<div class="adVanta-container">
 
-    <!-- الشعار -->
-    <div class="logo-area">
-        <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/280x100/0066ff/ff6b4a/png?text=AdVanta'">
+    <!-- شعار -->
+    <div class="brand">
+        <img src="logo.png.png" alt="AdVanta" onerror="this.src='https://placehold.co/280x100/0066ff/ff6b4a/png?text=AdVanta'">
     </div>
 
-    <!-- الترحيب والوصف -->
-    <div class="hero-area">
-        <div class="welcome-badge" id="welcomeMessage">✨ مرحباً بك في AdVanta</div>
-        <div class="site-desc">موقع ذكي متخصص في كتابة المحتوى خلال ثواني</div>
-        <div class="sub-desc">اختر التفاصيل، واترك الباقي على الذكاء الاصطناعي</div>
+    <!-- ترحيب ووصف واضح -->
+    <div class="hero">
+        <h1>مرحباً بك في AdVanta</h1>
+        <p>موقع ذكي لكتابة المحتوى الإبداعي خلال ثواني</p>
     </div>
 
-    <!-- الكارد الرئيسي الخيالي -->
-    <div class="premium-card">
-
+    <!-- الكارد الذكي -->
+    <div class="smart-card">
         <!-- الهدف -->
-        <div class="section-title">🎯 الهدف</div>
-        <div class="chips-grid" id="goalOptions" data-single="true">
+        <div class="section-header">🎯 الهدف</div>
+        <div class="chips-wrapper" id="goalOptions" data-single="true">
             <div class="chip" data-value="وعي بعلامة تجارية">وعي بعلامة تجارية</div>
             <div class="chip" data-value="تعريف بمنتج جديد">تعريف بمنتج جديد</div>
             <div class="chip" data-value="تعريف خدمة جديدة">تعريف خدمة جديدة</div>
@@ -261,8 +254,8 @@
         </div>
 
         <!-- الجمهور -->
-        <div class="section-title">👥 الجمهور المستهدف</div>
-        <div class="chips-grid" id="audienceOptions">
+        <div class="section-header">👥 الجمهور المستهدف</div>
+        <div class="chips-wrapper" id="audienceOptions">
             <div class="chip" data-value="آباء">آباء</div>
             <div class="chip" data-value="أطفال">أطفال</div>
             <div class="chip" data-value="شباب">شباب</div>
@@ -282,8 +275,8 @@
         </div>
 
         <!-- العمر -->
-        <div class="section-title">📊 الفئة العمرية</div>
-        <div class="chips-grid" id="ageOptions">
+        <div class="section-header">📊 الفئة العمرية</div>
+        <div class="chips-wrapper" id="ageOptions">
             <div class="chip" data-value="3-12">3 – 12</div>
             <div class="chip" data-value="13-17">13 – 17</div>
             <div class="chip" data-value="18-24">18 – 24</div>
@@ -294,8 +287,8 @@
         </div>
 
         <!-- المنصة -->
-        <div class="section-title">📱 المنصة</div>
-        <div class="chips-grid" id="platformOptions" data-single="true">
+        <div class="section-header">📱 المنصة</div>
+        <div class="chips-wrapper" id="platformOptions" data-single="true">
             <div class="chip" data-value="فيسبوك">فيسبوك</div>
             <div class="chip" data-value="إنستغرام">إنستغرام</div>
             <div class="chip" data-value="تيك توك">تيك توك</div>
@@ -303,8 +296,8 @@
         </div>
 
         <!-- شكل المحتوى -->
-        <div class="section-title">🎬 شكل المحتوى</div>
-        <div class="chips-grid" id="formatOptions" data-single="true">
+        <div class="section-header">🎬 شكل المحتوى</div>
+        <div class="chips-wrapper" id="formatOptions" data-single="true">
             <div class="chip" data-value="فكرة صورة">فكرة صورة</div>
             <div class="chip" data-value="فكرة صورة + كابشن">صورة + كابشن</div>
             <div class="chip" data-value="نص">نص</div>
@@ -317,49 +310,45 @@
         </div>
 
         <!-- نوع المحتوى -->
-        <div class="section-title">📌 نوع المحتوى</div>
-        <div class="chips-grid" id="contentTypeOptions" data-single="true">
+        <div class="section-header">📌 نوع المحتوى</div>
+        <div class="chips-wrapper" id="contentTypeOptions" data-single="true">
             <div class="chip" data-value="محتوى احترافي">احترافي</div>
             <div class="chip" data-value="محتوى مستخدمين">محتوى مستخدمين</div>
             <div class="chip" data-value="محتوى موظفين">محتوى موظفين</div>
         </div>
 
-        <div id="extraOptionsContainer"></div>
+        <div id="extraOptions"></div>
 
-        <!-- صندوق الفكرة -->
-        <div class="idea-box">
-            <textarea id="userDescription" rows="2" placeholder="اكتب فكرتك باختصار (مثلاً: منتج جديد للعناية بالبشرة)" maxlength="50"></textarea>
-            <div class="char-counter"><span id="charCount">0</span> / 50 حرف</div>
+        <!-- كتابة الفكرة -->
+        <div class="idea-field">
+            <textarea id="userIdea" rows="2" placeholder="مثال: منتج جديد للعناية بالبشرة للنساء" maxlength="50"></textarea>
+            <div class="char-counter"><span id="charCounter">0</span> / 50 حرف</div>
         </div>
 
-        <!-- أزرار -->
-        <div class="action-buttons">
-            <button class="btn-generate" id="generateBtn">🚀 ابدأ الكتابة</button>
-        </div>
+        <!-- زر التشغيل -->
+        <button class="primary-action" id="runGenerateBtn">ابدأ الكتابة 🚀</button>
 
-        <!-- نتيجة -->
-        <div id="resultContainer" class="result-card">
-            <div id="resultContent" class="result-content"></div>
-            <div id="shareButtons" style="display: none;" class="share-strip">
-                <button class="share-btn" style="background:#FFFC00; color:black;" onclick="share('snapchat')">سناب شات</button>
-                <button class="share-btn" style="background:#000; color:white;" onclick="share('tiktok')">تيك توك</button>
-                <button class="share-btn" style="background:#d62976; color:white;" onclick="share('instagram')">إنستغرام</button>
-                <button class="share-btn" style="background:#1877f2; color:white;" onclick="share('facebook')">فيسبوك</button>
+        <!-- منطقة النتيجة -->
+        <div id="resultPanel" class="result-box">
+            <div id="resultText" class="result-text"></div>
+            <div id="shareSection" style="display: none;" class="action-group">
+                <button class="action-btn" style="background:#FFFC00; color:black;" onclick="shareNow('snapchat')">سناب شات</button>
+                <button class="action-btn" style="background:#000; color:white;" onclick="shareNow('tiktok')">تيك توك</button>
+                <button class="action-btn" style="background:#d62976; color:white;" onclick="shareNow('instagram')">إنستغرام</button>
+                <button class="action-btn" style="background:#1877f2; color:white;" onclick="shareNow('facebook')">فيسبوك</button>
             </div>
-            <div style="display: flex; gap: 0.8rem; margin-top: 1.2rem;">
-                <button class="share-btn" id="editBtn" style="background:#e2e8f0; color:#1e293b;">✏️ تعديل</button>
-                <button class="share-btn" id="saveBtn" style="background:#ff6b4a; color:white;">💾 حفظ</button>
+            <div class="action-group">
+                <button class="action-btn" id="editNowBtn" style="background:#eef2ff; color:#1f2b4e;">تعديل يدوي</button>
+                <button class="action-btn" id="saveNowBtn" style="background:#ff6b4a; color:white;">حفظ المحتوى</button>
             </div>
         </div>
     </div>
 
-    <!-- روابط سياسة وشروط -->
-    <div class="footer-card">
-        <div class="footer-links">
-            <a href="privacy.html">سياسة الخصوصية</a>
-            <a href="terms.html">شروط الاستخدام</a>
-        </div>
-        <p style="color:#6b7280; font-size:0.8rem; margin-top: 0.8rem;">© 2025 AdVanta – جميع الحقوق محفوظة</p>
+    <!-- روابط قانونية بدون ملصقات -->
+    <div class="legal-footer">
+        <a href="privacy.html">سياسة الخصوصية</a>
+        <a href="terms.html">شروط الاستخدام</a>
+        <p style="color:#6b7280; font-size:0.75rem; margin-top: 0.7rem;">© 2025 AdVanta – جميع الحقوق محفوظة</p>
     </div>
 </div>
 
@@ -369,118 +358,106 @@
     const supabaseKey = 'هون_حط_مفتاحك_الأنون';
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    let currentUser = null, currentUsername = '', currentDescription = '', currentContent = '';
+    let currentUser = null, currentUsername = '', currentDesc = '', currentResultRaw = '';
 
-    // ========== UI Helpers ==========
-    function showToast(msg, isSuccess=true) { alert(msg); }
+    // عداد الحروف
+    const ideaArea = document.getElementById('userIdea');
+    const countSpan = document.getElementById('charCounter');
+    ideaArea.addEventListener('input', () => { countSpan.innerText = ideaArea.value.length; });
+    countSpan.innerText = ideaArea.value.length;
 
-    // ========== اختيارات ==========
-    document.querySelectorAll('.chips-grid').forEach(grid => {
-        const isSingle = grid.dataset.single === 'true';
-        grid.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                if (isSingle) {
-                    grid.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-                    chip.classList.add('selected');
+    // إدارة الـ chips
+    document.querySelectorAll('.chips-wrapper').forEach(wrap => {
+        const single = wrap.dataset.single === 'true';
+        wrap.querySelectorAll('.chip').forEach(ch => {
+            ch.addEventListener('click', () => {
+                if (single) {
+                    wrap.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+                    ch.classList.add('selected');
                 } else {
-                    chip.classList.toggle('selected');
+                    ch.classList.toggle('selected');
                 }
             });
         });
     });
 
-    // عداد الحروف
-    const textarea = document.getElementById('userDescription');
-    const charSpan = document.getElementById('charCount');
-    textarea.addEventListener('input', () => charSpan.innerText = textarea.value.length);
-    charSpan.innerText = textarea.value.length;
-
-    // عرض الخيارات الإضافية
-    function updateExtraOptions(format) {
-        const container = document.getElementById('extraOptionsContainer');
+    function updateExtraOpts(format) {
+        const container = document.getElementById('extraOptions');
+        if (!container) return;
         container.innerHTML = '';
         let html = '';
         const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
         const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
-        if (hasCaption) html += `<div class="section-title">📝 عدد أسطر الكابشن</div><div class="chips-grid" id="captionLines" data-single="true">${[1,2,3,4,5].map(n => `<div class="chip" data-value="${n}">${n}</div>`).join('')}</div>`;
-        if (hasDuration) html += `<div class="section-title">⏱️ طول السكريبت (ثانية)</div><div class="chips-grid" id="videoDuration" data-single="true">${[10,15,20,25,30,40,50,60].map(n => `<div class="chip" data-value="${n}">${n}</div>`).join('')}</div>`;
+        if (hasCaption) html += `<div class="section-header">📝 عدد أسطر الكابشن</div><div class="chips-wrapper" id="captionLines" data-single="true">${[1,2,3,4,5].map(n => `<div class="chip" data-value="${n}">${n}</div>`).join('')}</div>`;
+        if (hasDuration) html += `<div class="section-header">⏱️ طول السكريبت (ثانية)</div><div class="chips-wrapper" id="videoDuration" data-single="true">${[10,15,20,25,30,40,50,60].map(n => `<div class="chip" data-value="${n}">${n}</div>`).join('')}</div>`;
         if (html) {
             container.innerHTML = html;
-            container.querySelectorAll('.chip').forEach(c => c.addEventListener('click', function(e){ this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); this.classList.add('selected'); }));
+            container.querySelectorAll('.chip').forEach(c => c.addEventListener('click', function() { this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); this.classList.add('selected'); }));
         }
     }
+    document.querySelectorAll('#formatOptions .chip').forEach(chip => chip.addEventListener('click', () => updateExtraOpts(chip.dataset.value)));
 
-    document.querySelectorAll('#formatOptions .chip').forEach(chip => chip.addEventListener('click', ()=>updateExtraOptions(chip.dataset.value)));
-
-    // زر الكتابة (اتصال بالباك إند)
-    document.getElementById('generateBtn').addEventListener('click', async function(){
-        const desc = textarea.value.trim();
-        if(!desc) { alert('اكتب فكرتك أولاً'); return; }
-
+    // توليد المحتوى
+    document.getElementById('runGenerateBtn').addEventListener('click', async () => {
+        const idea = ideaArea.value.trim();
+        if (!idea) { alert('اكتب فكرتك أولاً'); return; }
         const goals = [...document.querySelectorAll('#goalOptions .chip.selected')].map(c=>c.dataset.value);
         const audiences = [...document.querySelectorAll('#audienceOptions .chip.selected')].map(c=>c.dataset.value);
         const ages = [...document.querySelectorAll('#ageOptions .chip.selected')].map(c=>c.dataset.value);
         const platforms = [...document.querySelectorAll('#platformOptions .chip.selected')].map(c=>c.dataset.value);
         const formats = [...document.querySelectorAll('#formatOptions .chip.selected')].map(c=>c.dataset.value);
-        const contentTypes = [...document.querySelectorAll('#contentTypeOptions .chip.selected')].map(c=>c.dataset.value);
+        const types = [...document.querySelectorAll('#contentTypeOptions .chip.selected')].map(c=>c.dataset.value);
         let captionLines = document.querySelector('#captionLines .chip.selected')?.dataset.value || '';
         let videoDuration = document.querySelector('#videoDuration .chip.selected')?.dataset.value || '';
 
-        const resultDiv = document.getElementById('resultContainer');
-        const resultContent = document.getElementById('resultContent');
-        const shareDiv = document.getElementById('shareButtons');
-        resultDiv.style.display = 'block';
+        const resultBox = document.getElementById('resultPanel');
+        const resultDiv = document.getElementById('resultText');
+        const shareDiv = document.getElementById('shareSection');
+        resultBox.style.display = 'block';
         shareDiv.style.display = 'flex';
-        resultContent.innerHTML = '⏳ جاري كتابة المحتوى الذكي...';
+        resultDiv.innerHTML = '⏳ جاري كتابة محتوى احترافي...';
 
         let formatType = formats[0] || 'نص';
-        let outputFormat = '';
-        let contentType = '';
+        let outputShape = '';
+        let contentTypeReq = '';
         switch(formatType){
-            case 'فكرة صورة': contentType='فكرة لصورة فقط'; outputFormat='فكرة الصورة :\n'; break;
-            case 'فكرة صورة + كابشن': contentType='فكرة صورة مع كابشن'; outputFormat='فكرة الصورة :\n\nالكابشن :\n'; break;
-            case 'نص': contentType='نص متكامل'; outputFormat=''; break;
-            case 'سكريبت ريل': contentType='سيناريو ريل'; outputFormat='السكريبت :\n'; break;
-            case 'سكريبت ريل + كابشن': contentType='سيناريو ريل + كابشن'; outputFormat='السكريبت :\n\nالكابشن :\n'; break;
-            case 'فكرة فيديو': contentType='فكرة فيديو'; outputFormat='فكرة الفيديو :\n'; break;
-            case 'فكرة فيديو + كابشن': contentType='فكرة فيديو + كابشن'; outputFormat='فكرة الفيديو :\n\nالكابشن :\n'; break;
-            case 'فكرة ستوري': contentType='فكرة ستوري'; outputFormat='فكرة الستوري :\n'; break;
-            case 'فكرة ستوري + نص': contentType='فكرة ستوري + نص'; outputFormat='فكرة الستوري :\n\nالنص :\n'; break;
+            case 'فكرة صورة': contentTypeReq='فكرة صورة فقط'; outputShape='فكرة الصورة :\n'; break;
+            case 'فكرة صورة + كابشن': contentTypeReq='صورة + كابشن'; outputShape='فكرة الصورة :\n\nالكابشن :\n'; break;
+            case 'نص': contentTypeReq='نص متكامل'; outputShape=''; break;
+            case 'سكريبت ريل': contentTypeReq='سيناريو ريل'; outputShape='السكريبت :\n'; break;
+            case 'سكريبت ريل + كابشن': contentTypeReq='ريل + كابشن'; outputShape='السكريبت :\n\nالكابشن :\n'; break;
+            case 'فكرة فيديو': contentTypeReq='فكرة فيديو'; outputShape='فكرة الفيديو :\n'; break;
+            case 'فكرة فيديو + كابشن': contentTypeReq='فيديو + كابشن'; outputShape='فكرة الفيديو :\n\nالكابشن :\n'; break;
+            case 'فكرة ستوري': contentTypeReq='فكرة ستوري'; outputShape='فكرة الستوري :\n'; break;
+            case 'فكرة ستوري + نص': contentTypeReq='ستوري + نص'; outputShape='فكرة الستوري :\n\nالنص :\n'; break;
         }
-
-        const prompt = `أنت خبير محتوى تسويقي. أجب بالعربية الفصحى حسب المعطيات:
+        const prompt = `أنت مساعد كتابة محتوى عربي. اكتب محتوى واحد فقط حسب المعطيات:
 الهدف: ${goals.join(', ')} | الجمهور: ${audiences.join(', ')} | العمر: ${ages.join(', ')} | المنصة: ${platforms.join(', ')}
-شكل المحتوى: ${formatType} | نوع المحتوى: ${contentTypes.join(', ')}
-${captionLines ? 'عدد أسطر الكابشن: '+captionLines : ''} ${videoDuration ? 'مدة الفيديو: '+videoDuration : ''}
-وصف المستخدم: ${desc}
+شكل المحتوى: ${formatType} | النوع: ${types.join(', ')} ${captionLines ? 'أسطر الكابشن: '+captionLines : ''} ${videoDuration ? 'مدة الفيديو: '+videoDuration+'s' : ''}
+فكرة المستخدم: ${idea}
+المطلوب: ${contentTypeReq}
+أكتب الناتج بالصيغة الدقيقة التالية:
+${outputShape}
+لا تكرر الأسئلة، فقط الناتج.`;
 
-المطلوب: ${contentType}
-أكتب بالصيغة التالية:
-${outputFormat}`;
-
-        try{
-            const res = await fetch('https://advanta-backend.onrender.com/api/generate', {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({prompt})
-            });
+        try {
+            const res = await fetch('https://advanta-backend.onrender.com/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({prompt}) });
             const data = await res.json();
-            if(data.error) throw new Error(data.error);
-            resultContent.innerHTML = (data.result || '').replace(/\n/g,'<br>');
-            currentDescription = desc; currentContent = data.result;
-        }catch(e){
-            resultContent.innerHTML = '❌ حدث خطأ، حاول مجدداً';
-        }
+            if (data.error) throw new Error(data.error);
+            resultDiv.innerHTML = (data.result || '').replace(/\n/g, '<br>');
+            currentDesc = idea; currentResultRaw = data.result;
+        } catch(e) { resultDiv.innerHTML = '❌ حدث خطأ، حاول مجدداً'; }
     });
 
-    window.share = function(platform){
-        const text = currentContent || document.getElementById('resultContent').innerText;
+    window.shareNow = (platform) => {
+        const txt = currentResultRaw || document.getElementById('resultText').innerText;
         const url = encodeURIComponent(window.location.href);
-        const links = { snapchat:`https://www.snapchat.com/scan?attachmentUrl=${url}`, tiktok:`https://www.tiktok.com/upload?reference=${url}`, instagram:`https://www.instagram.com/create/story?text=${encodeURIComponent(text)}`, facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(text)}` };
-        window.open(links[platform], '_blank');
+        const shareMap = { snapchat:`https://www.snapchat.com/scan?attachmentUrl=${url}`, tiktok:`https://www.tiktok.com/upload?reference=${url}`, instagram:`https://www.instagram.com/create/story?text=${encodeURIComponent(txt)}`, facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(txt)}` };
+        window.open(shareMap[platform], '_blank');
     };
 
-    document.getElementById('saveBtn').addEventListener('click', ()=> alert('تم الحفظ محلياً (demo)'));
-    document.getElementById('editBtn').addEventListener('click', ()=> alert('جاري فتح المحرر الذكي قريباً'));
+    document.getElementById('saveNowBtn').addEventListener('click', () => alert('تم حفظ المحتوى بنجاح (إصدار تجريبي)'));
+    document.getElementById('editNowBtn').addEventListener('click', () => alert('فتح المحرر الذكي قريباً'));
 </script>
 </body>
 </html>
