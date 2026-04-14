@@ -70,17 +70,22 @@
 
         .sidebar-item {
             padding: 1rem;
-            background: #f8faff;
+            background: white;
             border-radius: 30px;
             margin-bottom: 1rem;
             cursor: pointer;
             transition: 0.2s;
-            border: 1.5px solid #edf2f7;
+            border: 2px solid rgb(184, 72, 1);
+            box-shadow: 0 8px 15px -5px #9E3E00;
+            font-weight: 600;
+            color: #2d3142;
+            text-align: center;
         }
 
         .sidebar-item:hover {
             border-color: #ff6b4a;
             background: #fffaf8;
+            transform: translateY(-2px);
         }
 
         .user-info {
@@ -100,13 +105,14 @@
             top: 20px;
             right: 20px;
             background: white;
-            border: 1.5px solid #edf2f7;
+            border: 2px solid rgb(184, 72, 1);
             border-radius: 50px;
             padding: 0.5rem 1rem;
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 15px -5px #9E3E00;
+            font-weight: 600;
         }
 
         .logo-wrapper {
@@ -222,7 +228,7 @@
         }
 
         .generate-btn {
-            background: #ff6b4a;
+            background: rgb(184, 72, 1);
             color: white;
             border: none;
             padding: 1rem 2rem;
@@ -232,11 +238,11 @@
             cursor: pointer;
             width: 100%;
             transition: 0.25s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .generate-btn:hover {
-            background: #ff541f;
+            background: #9E3E00;
             transform: translateY(-2px);
         }
 
@@ -502,12 +508,12 @@
         </div>
         
         <div id="userInfo" class="user-info" style="display: none;">
-            👤 <span id="userEmail"></span>
+            <span id="userEmail"></span>
         </div>
 
-        <div class="sidebar-item" id="authOption">🔑 تسجيل الدخول</div>
-        <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
-        <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
+        <div class="sidebar-item" id="authOption">تسجيل الدخول</div>
+        <div class="sidebar-item" id="feedbackOption">اكتب مشكلتك أو اقتراحك</div>
+        <div class="sidebar-item" id="savedOption">محفوظاتي</div>
     </div>
 
     <div class="modal" id="authModal">
@@ -527,7 +533,7 @@
 
     <div class="modal" id="feedbackModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">📝 اكتب مشكلتك أو اقتراحك</h3>
+            <h3 style="margin-bottom: 1.5rem;">اكتب مشكلتك أو اقتراحك</h3>
             <textarea id="feedbackText" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;" placeholder="اكتب رسالتك هنا..."></textarea>
             <button id="sendFeedback" style="width: 100%; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
             <button id="closeFeedback" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
@@ -536,7 +542,7 @@
 
     <div class="modal" id="savedModal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1.5rem;">📁 المحفوظات</h3>
+            <h3 style="margin-bottom: 1.5rem;">المحفوظات</h3>
             <div id="savedItemsContainer"></div>
             <button id="closeSaved" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إغلاق</button>
         </div>
@@ -752,7 +758,7 @@
                 
                 document.getElementById('userInfo').style.display = 'block';
                 document.getElementById('userEmail').textContent = user.email;
-                document.getElementById('authOption').textContent = '🚪 تسجيل الخروج';
+                document.getElementById('authOption').textContent = 'تسجيل الخروج';
                 
                 const randomMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
                 document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
@@ -760,7 +766,7 @@
                 currentUser = null;
                 currentUsername = '';
                 document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('authOption').textContent = '🔑 تسجيل الدخول';
+                document.getElementById('authOption').textContent = 'تسجيل الدخول';
                 document.getElementById('welcomeMessage').textContent = 'مرحباً بك في AdVanta';
             }
         }
