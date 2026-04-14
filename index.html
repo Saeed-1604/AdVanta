@@ -115,8 +115,13 @@
         }
 
         .logo {
-            width: min(220px, 70%);
+            width: min(320px, 85%);
             height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
         }
 
         .site-description {
@@ -208,20 +213,6 @@
             margin: 1rem 0;
             resize: vertical;
             min-height: 120px;
-        }
-
-        .file-upload-area {
-            border: 2px dashed #ffb7a5;
-            border-radius: 24px;
-            padding: 1rem;
-            text-align: center;
-            margin: 1rem 0;
-            cursor: pointer;
-            background: #fffaf8;
-        }
-
-        .file-upload-area:hover {
-            background: #fff0ed;
         }
 
         .generate-btn {
@@ -439,6 +430,18 @@
             justify-content: center;
             font-size: 14px;
         }
+
+        .char-counter {
+            text-align: left;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .char-counter span {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -498,7 +501,7 @@
 
     <div class="container">
         <div class="logo-wrapper">
-            <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/220x80/0066ff/ff6b4a/png?text=AdVanta'">
+            <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/320x120/0066ff/ff6b4a/png?text=AdVanta'">
         </div>
 
         <div class="welcome-message" id="welcomeMessage"></div>
@@ -549,7 +552,7 @@
             <!-- العمر -->
             <div class="section-title">الفئة العمرية</div>
             <div class="options-grid" id="ageOptions">
-                <div class="option-chip" data-value="0-12">0 – 12</div>
+                <div class="option-chip" data-value="3-12">3 – 12</div>
                 <div class="option-chip" data-value="13-17">13 – 17</div>
                 <div class="option-chip" data-value="18-24">18 – 24</div>
                 <div class="option-chip" data-value="25-34">25 – 34</div>
@@ -591,12 +594,11 @@
 
             <div id="extraOptionsContainer"></div>
 
-            <div class="file-upload-area" id="fileUploadArea">
-                📄 اضغط لرفع ملف (PDF, Word, TXT) - حتى 15 صفحة
-                <input type="file" id="fileInput" accept=".pdf,.docx,.txt" style="display: none;">
+            <!-- وصف المستخدم -->
+            <textarea id="userDescription" placeholder="اكتب فكرتك هنا... (مثلاً: منتج جديد للعناية بالبشرة)" maxlength="50"></textarea>
+            <div class="char-counter">
+                <span id="charCount">0</span> / 50 حرف
             </div>
-
-            <textarea id="userDescription" placeholder="اكتب فكرتك هنا... (مثلاً: منشور عن منتج جديد للعناية بالبشرة)"></textarea>
 
             <button class="generate-btn" id="generateBtn">ابدأ الكتابة</button>
 
@@ -615,19 +617,15 @@
             </div>
         </div>
 
-        <!-- ✅ صندوق الروابط الصغير تحت الكارد مباشرة -->
+        <!-- صندوق الروابط تحت الكارد -->
         <div style="max-width: 500px; margin: 2rem auto; padding: 1.5rem; background: white; border-radius: 30px; box-shadow: 0 4px 20px rgba(255,107,74,0.08); border: 1px solid rgba(255,107,74,0.15); text-align: center; direction: rtl;">
-            <h3 style="color: #1e1e2f; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">📌 روابط مهمة</h3>
+            <h3 style="color: #1e1e2f; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">روابط مهمة</h3>
             <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                <a href="privacy.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
-                    <span style="font-size: 1.2rem;">🔐</span> سياسة الخصوصية
-                </a>
-                <a href="terms.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.4rem;">
-                    <span style="font-size: 1.2rem;">📄</span> شروط الاستخدام
-                </a>
+                <a href="privacy.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500;">سياسة الخصوصية</a>
+                <a href="terms.html" style="color: #ff6b4a; text-decoration: none; font-weight: 500;">شروط الاستخدام</a>
             </div>
             <p style="color: #6b7280; font-size: 0.8rem; margin-top: 1rem; border-top: 1px solid #edf2f7; padding-top: 1rem;">
-                © 2026 AdVanta - جميع الحقوق محفوظة
+                © 2025 AdVanta - جميع الحقوق محفوظة
             </p>
         </div>
     </div>
@@ -673,7 +671,7 @@
         import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
         const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdiamx2Y3Vub3F5eGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNzUxNTEsImV4cCI6MjA4Njg1MTE1MX0.lvurDprXQfrx_FOPpeYn_mACaqPutmoVFIlNc-Wgzb4';
+        const supabaseKey = 'هون_حط_مفتاحك_الأنون';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
         // ==================== المتغيرات العامة ====================
@@ -683,10 +681,23 @@
         let currentDescription = '';
         let currentContent = '';
 
+        // عداد الحروف
+        const descTextarea = document.getElementById('userDescription');
+        const charCountSpan = document.getElementById('charCount');
+        
+        function updateCharCount() {
+            charCountSpan.textContent = descTextarea.value.length;
+        }
+        
+        descTextarea.addEventListener('input', updateCharCount);
+        updateCharCount();
+
         // رسائل ترحيبية متنوعة
         const welcomeMessages = [
             (name) => `مرحباً ${name}، شو رح نبدع اليوم؟`,
+            (name) => `أهلاً ${name}، وين رايح نكتب اليوم؟`,
             (name) => `أهلاً ${name}، فكرتك وين؟`,
+            (name) => `مرحباً ${name}، شو في جديد؟`,
             (name) => `أهلاً بك ${name}، مستعد نكتب شي مميز؟`,
             (name) => `مرحباً ${name}، شو رح ننتج اليوم؟`
         ];
@@ -696,14 +707,12 @@
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 currentUser = user;
-                // محاولة الحصول على اسم المستخدم من user_metadata
                 currentUsername = user.user_metadata?.username || user.email?.split('@')[0] || 'صديق';
                 
                 document.getElementById('userInfo').style.display = 'block';
                 document.getElementById('userEmail').textContent = user.email;
                 document.getElementById('authOption').textContent = '🚪 تسجيل الخروج';
                 
-                // عرض رسالة ترحيبية عشوائية
                 const randomMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
                 document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
             } else {
@@ -875,21 +884,6 @@
             }
         });
 
-        // ==================== رفع الملفات ====================
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const fileInput = document.getElementById('fileInput');
-        let uploadedFileContent = '';
-
-        fileUploadArea.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const text = await file.text();
-            uploadedFileContent = text.slice(0, 3000);
-            showToast('✅ تم رفع الملف بنجاح', true);
-        });
-
         // ==================== إدارة الخيارات ====================
         document.querySelectorAll('.option-chip').forEach(chip => {
             chip.addEventListener('click', function(e) {
@@ -938,7 +932,7 @@
 
         // ==================== زر الإنشاء مع تنسيق النتيجة حسب الطلب ====================
         document.getElementById('generateBtn').addEventListener('click', async function() {
-            const desc = document.getElementById('userDescription').value.trim() + '\n' + uploadedFileContent;
+            const desc = document.getElementById('userDescription').value.trim();
             if (!desc.trim()) { alert('اكتب فكرتك أولاً'); return; }
 
             const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.dataset.value);
@@ -964,7 +958,6 @@
                 let contentType = '';
                 let outputFormat = '';
                 
-                // تحديد نوع المحتوى وتنسيق النتيجة
                 switch(formatType) {
                     case 'فكرة صورة':
                         contentType = 'فكرة لصورة فقط مع وصف للصورة';
@@ -1013,7 +1006,6 @@
 نوع المحتوى: ${contentTypes.join('، ') || 'احترافي'}
 ${captionLines ? '- عدد أسطر الكابشن: ' + captionLines : ''}
 ${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' : ''}
-${uploadedFileContent ? '- محتوى الملف المرفوع: ' + uploadedFileContent : ''}
 
 وصف المستخدم: "${desc}"
 
