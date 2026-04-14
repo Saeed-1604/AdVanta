@@ -3,399 +3,1246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdVanta | منشئ المحتوى الإبداعي</title>
+    <title>AdVanta | كاتب المحتوى الذكي</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at 10% 20%, #030518, #01020c);
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            padding: 2rem 1.5rem;
-            color: #edf2ff;
-        }
-
-        /* الحاوية الرئيسية ترتيب عمودي */
-        .vortex {
-            max-width: 1100px;
-            margin: 0 auto;
+            background: #fcfaff;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(184, 72, 1, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 90% 70%, rgba(0, 102, 255, 0.02) 0%, transparent 35%);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            justify-content: center;
+            padding: 2rem 1rem;
         }
 
-        /* الشعار بشكل ضخم ومرتفع */
-        .hero-logo {
-            text-align: center;
-            margin-bottom: 1rem;
+        .container {
+            max-width: 1200px;
+            width: 100%;
         }
-        .hero-logo img {
-            width: 280px;
-            filter: drop-shadow(0 0 12px #0055ffaa);
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
             transition: 0.3s;
-        }
-
-        /* كل بطاقة منفصلة */
-        .floating-card {
-            background: rgba(8, 12, 28, 0.65);
+            padding: 2rem;
+            z-index: 1000;
             backdrop-filter: blur(10px);
-            border-radius: 3rem;
-            padding: 1.2rem 1.8rem;
-            border: 1px solid rgba(0, 85, 255, 0.4);
-            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+            border-left: 1px solid rgba(255,107,74,0.2);
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header h3 {
+            color: #2d3142;
+            font-size: 1.3rem;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .sidebar-item {
+            padding: 1rem;
+            background: #f8faff;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            cursor: pointer;
             transition: 0.2s;
+            border: 1.5px solid #edf2f7;
         }
 
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+        .sidebar-item:hover {
+            border-color: #ff6b4a;
+            background: #fffaf8;
+        }
+
+        .user-info {
+            background: linear-gradient(145deg, #0066ff10, #ff6b4a20);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
             font-weight: 600;
-            color: #ff914d;
-            margin-bottom: 0.6rem;
+            color: #2d3142;
+            border: 1px solid #ff6b4a30;
         }
 
-        /* خيارات مبتكرة (أزرار دائرية/بيضاوية) */
-        .options-cluster {
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 1.5px solid #edf2f7;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: min(320px, 85%);
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .site-description {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #2d3142;
+            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.5);
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,107,74,0.2);
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #ff6b4a;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,107,74,0.2);
+            animation: gentlePulse 3s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .card {
+            background: linear-gradient(145deg, #b84801, #7a2f00);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 1.5rem 0 1rem 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .options-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 0.8rem;
-            align-items: center;
+            margin-bottom: 1rem;
         }
-        .pill-btn {
-            background: #121a30;
-            border: 1px solid #2a3c70;
-            border-radius: 3rem;
-            padding: 0.5rem 1.3rem;
-            font-size: 0.85rem;
+
+        .option-chip {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border: 1.5px solid rgba(255,255,255,0.3);
+            border-radius: 40px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.2s;
+            user-select: none;
             font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #cddcff;
-        }
-        .pill-btn.selected {
-            background: #0055ff;
-            border-color: #ff5500;
-            color: white;
-            box-shadow: 0 0 8px #ff5500aa;
         }
 
-        /* صندوق الفكرة بشكل مميز */
-        .idea-module {
-            background: #0c1124cc;
-            border-radius: 2.5rem;
-            padding: 0.2rem;
-            border: 1px solid #ff5500;
+        .option-chip.selected {
+            background: #ff6b4a;
+            color: white;
+            border-color: #ffffff;
         }
-        .idea-module textarea {
+
+        textarea {
             width: 100%;
-            background: transparent;
-            border: none;
             padding: 1.2rem;
-            color: white;
+            background: rgba(255,255,255,0.95);
+            border: 1.5px solid #edf2f7;
+            border-radius: 24px;
             font-size: 1rem;
-            outline: none;
+            margin: 1rem 0;
             resize: vertical;
-        }
-        .char-track {
-            text-align: left;
-            padding: 0 1rem 0.8rem;
-            font-size: 0.7rem;
-            color: #ffb48a;
+            min-height: 120px;
+            color: #1a1e2b;
         }
 
-        /* زر التنفيذ الرئيسي بشكل دائري بيضاوي طويل */
-        .action-prime {
-            background: linear-gradient(115deg, #0055ff, #ff5500);
-            border: none;
-            border-radius: 4rem;
-            padding: 1rem;
-            font-weight: 800;
-            font-size: 1.1rem;
+        .generate-btn {
+            background: #ff6b4a;
             color: white;
-            width: 100%;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: 0.2s;
-            margin: 0.2rem 0;
+            width: 100%;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        /* بطاقة النتيجة */
-        .result-luxury {
-            background: #0b1022e6;
-            border-radius: 2rem;
-            padding: 1.5rem;
-            border: 1px solid #ff914d;
-            margin: 0.5rem 0;
-            line-height: 1.65;
+        .generate-btn:hover {
+            background: #ff541f;
+            transform: translateY(-2px);
         }
 
-        .share-strip {
+        .result-container {
+            margin-top: 2rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 32px;
+            padding: 2rem;
+            display: none;
+        }
+
+        .result-content {
+            line-height: 1.8;
+            color: #2d3142;
+            white-space: pre-wrap;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .result-actions {
             display: flex;
             gap: 1rem;
-            margin: 1rem 0;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
         }
-        .share-btn-sm {
+
+        .action-btn {
             flex: 1;
-            background: #1f2a48;
-            border: none;
-            border-radius: 3rem;
-            padding: 0.5rem;
+            padding: 0.8rem;
+            border-radius: 40px;
             font-weight: 600;
+            border: none;
             cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .edit-btn {
+            background: #e2e8f0;
+            color: #1e1e2f;
+        }
+
+        .save-btn {
+            background: #ff6b4a;
             color: white;
         }
 
-        .legal-tail {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.7rem;
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
         }
-        .legal-tail a {
-            color: #7f9fef;
-            margin: 0 0.6rem;
+
+        .share-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .share-snapchat { background: #FFFC00; color: black; }
+        .share-tiktok { background: #000000; color: white; }
+        .share-instagram { background: #d62976; color: white; }
+        .share-facebook { background: #1877f2; color: white; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 40px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .auth-input {
+            padding: 1rem;
+            border: 1.5px solid #edf2f7;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .auth-btn {
+            background: #ff6b4a;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .auth-toggle {
+            text-align: center;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .saved-item {
+            background: #f8faff;
+            border: 1.5px solid #edf2f7;
+            border-radius: 24px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .saved-item .desc {
+            font-weight: 600;
+            color: #2d3142;
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-item .content {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .saved-item-actions button {
+            flex: 1;
+            padding: 0.4rem;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: white;
+            color: #1e1e2f;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,107,74,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: transform 0.3s ease;
+            border-right: 4px solid #ff6b4a;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-right-color: #10b981;
+        }
+
+        .toast.success .toast-icon {
+            background: #10b981;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ff6b4a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .char-counter {
+            text-align: left;
+            font-size: 0.8rem;
+            color: #ffffff;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .char-counter span {
+            font-weight: bold;
+        }
+
+        .footer-card {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, #b84801, #7a2f00);
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            direction: rtl;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer-card h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .footer-card a {
+            color: #ffffff;
             text-decoration: none;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .footer-card a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
         }
     </style>
 </head>
 <body>
-<div class="vortex">
-
-    <!-- الشعار -->
-    <div class="hero-logo">
-        <img src="logo.png.png" alt="AdVanta" onerror="this.src='https://placehold.co/300x110/0055ff/ff5500/png?text=AdVanta'">
+    <div class="toast" id="toastMessage">
+        <span class="toast-icon">✓</span>
+        <span id="toastText">تم الحفظ بنجاح</span>
     </div>
 
-    <!-- 1. الهدف -->
-    <div class="floating-card">
-        <div class="section-label">🎯 الهدف الاستراتيجي</div>
-        <div class="options-cluster" id="goalGroup" data-single="true">
-            <div class="pill-btn" data-value="وعي بعلامة تجارية">وعي</div>
-            <div class="pill-btn" data-value="تعريف بمنتج جديد">منتج</div>
-            <div class="pill-btn" data-value="تعريف خدمة جديدة">خدمة</div>
-            <div class="pill-btn" data-value="زيادة المتابعين">متابعين</div>
-            <div class="pill-btn" data-value="الوصول لمزيد من الأشخاص">وصول</div>
-            <div class="pill-btn" data-value="زيادة التفاعل">تفاعل</div>
-            <div class="pill-btn" data-value="زيادة المبيعات">مبيعات</div>
-            <div class="pill-btn" data-value="صناعة المؤثرين">مؤثرين</div>
-            <div class="pill-btn" data-value="هدف شخصي">شخصي</div>
+    <div class="menu-btn" id="menuBtn">☰ القائمة</div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        
+        <div id="userInfo" class="user-info" style="display: none;">
+            👤 <span id="userEmail"></span>
+        </div>
+
+        <div class="sidebar-item" id="authOption">🔑 تسجيل الدخول</div>
+        <div class="sidebar-item" id="feedbackOption">📝 اكتب مشكلتك أو اقتراحك</div>
+        <div class="sidebar-item" id="savedOption">📁 محفوظاتي</div>
+    </div>
+
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;" id="authTitle">تسجيل الدخول</h3>
+            <div class="auth-form" id="authForm">
+                <div id="signupFields" style="display: none;">
+                    <input type="text" id="authUsername" class="auth-input" placeholder="اسم المستخدم" required>
+                </div>
+                <input type="email" id="authEmail" class="auth-input" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="authPassword" class="auth-input" placeholder="كلمة المرور" required>
+                <button class="auth-btn" id="authAction">تسجيل الدخول</button>
+                <div class="auth-toggle" id="authToggle">ليس لديك حساب؟ سجل الآن</div>
+            </div>
         </div>
     </div>
 
-    <!-- 2. الجمهور -->
-    <div class="floating-card">
-        <div class="section-label">👥 الجمهور النشط</div>
-        <div class="options-cluster" id="audienceGroup">
-            <div class="pill-btn" data-value="آباء">آباء</div>
-            <div class="pill-btn" data-value="أطفال">أطفال</div>
-            <div class="pill-btn" data-value="شباب">شباب</div>
-            <div class="pill-btn" data-value="بنات">بنات</div>
-            <div class="pill-btn" data-value="رجال">رجال</div>
-            <div class="pill-btn" data-value="نساء">نساء</div>
-            <div class="pill-btn" data-value="تجار">تجار</div>
-            <div class="pill-btn" data-value="رياضيون">رياضيون</div>
-            <div class="pill-btn" data-value="أعمال">أعمال</div>
-            <div class="pill-btn" data-value="طلاب">طلاب</div>
-            <div class="pill-btn" data-value="تغذية">تغذية</div>
-            <div class="pill-btn" data-value="عناية">عناية</div>
-            <div class="pill-btn" data-value="لياقة">لياقة</div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">📝 اكتب مشكلتك أو اقتراحك</h3>
+            <textarea id="feedbackText" style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;" placeholder="اكتب رسالتك هنا..."></textarea>
+            <button id="sendFeedback" style="width: 100%; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px; cursor: pointer;">إرسال</button>
+            <button id="closeFeedback" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
         </div>
     </div>
 
-    <!-- 3. العمر -->
-    <div class="floating-card">
-        <div class="section-label">📊 النطاق العمري</div>
-        <div class="options-cluster" id="ageGroup">
-            <div class="pill-btn" data-value="3-12">3-12</div>
-            <div class="pill-btn" data-value="13-17">13-17</div>
-            <div class="pill-btn" data-value="18-24">18-24</div>
-            <div class="pill-btn" data-value="25-34">25-34</div>
-            <div class="pill-btn" data-value="35-44">35-44</div>
-            <div class="pill-btn" data-value="45-60">45-60</div>
-            <div class="pill-btn" data-value="60+">60+</div>
+    <div class="modal" id="savedModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">📁 المحفوظات</h3>
+            <div id="savedItemsContainer"></div>
+            <button id="closeSaved" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إغلاق</button>
         </div>
     </div>
 
-    <!-- 4. المنصة -->
-    <div class="floating-card">
-        <div class="section-label">📱 المنصة المستهدفة</div>
-        <div class="options-cluster" id="platformGroup" data-single="true">
-            <div class="pill-btn" data-value="فيسبوك">فيسبوك</div>
-            <div class="pill-btn" data-value="إنستغرام">إنستغرام</div>
-            <div class="pill-btn" data-value="تيك توك">تيك توك</div>
-            <div class="pill-btn" data-value="سناب شات">سناب شات</div>
+    <div class="container">
+        <div class="logo-wrapper">
+            <img src="logo.png.png" alt="AdVanta" class="logo" onerror="this.src='https://placehold.co/320x120/0066ff/ff6b4a/png?text=AdVanta'">
+        </div>
+
+        <div class="welcome-message" id="welcomeMessage"></div>
+
+        <div class="site-description">
+            موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال ثواني
+        </div>
+
+        <div class="card" id="mainCard">
+            <!-- الهدف -->
+            <div class="section-title">الهدف</div>
+            <div class="options-grid" id="goalOptions" data-single="true">
+                <div class="option-chip" data-value="وعي بعلامة تجارية" data-single="true">وعي بعلامة تجارية</div>
+                <div class="option-chip" data-value="تعريف بمنتج جديد" data-single="true">تعريف بمنتج جديد</div>
+                <div class="option-chip" data-value="تعريف خدمة جديدة" data-single="true">تعريف خدمة جديدة</div>
+                <div class="option-chip" data-value="زيادة المتابعين" data-single="true">زيادة المتابعين</div>
+                <div class="option-chip" data-value="الوصول لمزيد من الأشخاص" data-single="true">الوصول لمزيد من الأشخاص</div>
+                <div class="option-chip" data-value="زيادة التفاعل" data-single="true">زيادة التفاعل</div>
+                <div class="option-chip" data-value="زيادة المبيعات" data-single="true">زيادة المبيعات</div>
+                <div class="option-chip" data-value="صناعة المؤثرين" data-single="true">صناعة المؤثرين</div>
+                <div class="option-chip" data-value="هدف شخصي" data-single="true">هدف شخصي</div>
+            </div>
+
+            <!-- الجمهور -->
+            <div class="section-title">الجمهور المستهدف</div>
+            <div class="options-grid" id="audienceOptions">
+                <div class="option-chip" data-value="آباء">آباء</div>
+                <div class="option-chip" data-value="أطفال">أطفال</div>
+                <div class="option-chip" data-value="شباب">شباب</div>
+                <div class="option-chip" data-value="بنات">بنات</div>
+                <div class="option-chip" data-value="رجال">رجال</div>
+                <div class="option-chip" data-value="نساء">نساء</div>
+                <div class="option-chip" data-value="تجار">تجار</div>
+                <div class="option-chip" data-value="رياضيون">رياضيون</div>
+                <div class="option-chip" data-value="أصحاب أعمال">أصحاب أعمال</div>
+                <div class="option-chip" data-value="طلاب">طلاب</div>
+                <div class="option-chip" data-value="موظفون">موظفون</div>
+                <div class="option-chip" data-value="مهتمون بالتغذية">مهتمون بالتغذية</div>
+                <div class="option-chip" data-value="عناية بالبشرة">عناية بالبشرة</div>
+                <div class="option-chip" data-value="لياقة بدنية">لياقة بدنية</div>
+                <div class="option-chip" data-value="مربو حيوانات">مربو حيوانات</div>
+                <div class="option-chip" data-value="مسافرون">مسافرون</div>
+                <div class="option-chip" data-value="تقنيون">تقنيون</div>
+                <div class="option-chip" data-value="محبون للأزياء">محبون للأزياء</div>
+                <div class="option-chip" data-value="غير ذلك">غير ذلك</div>
+            </div>
+
+            <!-- العمر -->
+            <div class="section-title">الفئة العمرية</div>
+            <div class="options-grid" id="ageOptions">
+                <div class="option-chip" data-value="3-12">3 – 12</div>
+                <div class="option-chip" data-value="13-17">13 – 17</div>
+                <div class="option-chip" data-value="18-24">18 – 24</div>
+                <div class="option-chip" data-value="25-34">25 – 34</div>
+                <div class="option-chip" data-value="35-44">35 – 44</div>
+                <div class="option-chip" data-value="45-60">45 – 60</div>
+                <div class="option-chip" data-value="60+">60+</div>
+            </div>
+
+            <!-- المنصة -->
+            <div class="section-title">المنصة</div>
+            <div class="options-grid" id="platformOptions" data-single="true">
+                <div class="option-chip" data-value="فيسبوك" data-single="true">فيسبوك</div>
+                <div class="option-chip" data-value="إنستغرام" data-single="true">إنستغرام</div>
+                <div class="option-chip" data-value="تيك توك" data-single="true">تيك توك</div>
+                <div class="option-chip" data-value="سناب شات" data-single="true">سناب شات</div>
+            </div>
+
+            <!-- شكل المحتوى -->
+            <div class="section-title">شكل المحتوى</div>
+            <div class="options-grid" id="formatOptions" data-single="true">
+                <div class="option-chip" data-value="فكرة صورة" data-single="true">فكرة صورة</div>
+                <div class="option-chip" data-value="فكرة صورة + كابشن" data-single="true">فكرة صورة + كابشن</div>
+                <div class="option-chip" data-value="نص" data-single="true">نص</div>
+                <div class="option-chip" data-value="سكريبت ريل" data-single="true">سكريبت ريل</div>
+                <div class="option-chip" data-value="سكريبت ريل + كابشن" data-single="true">سكريبت ريل + كابشن</div>
+                <div class="option-chip" data-value="فكرة فيديو" data-single="true">فكرة فيديو</div>
+                <div class="option-chip" data-value="فكرة فيديو + كابشن" data-single="true">فكرة فيديو + كابشن</div>
+                <div class="option-chip" data-value="فكرة ستوري" data-single="true">فكرة ستوري</div>
+                <div class="option-chip" data-value="فكرة ستوري + نص" data-single="true">فكرة ستوري + نص</div>
+            </div>
+
+            <!-- نوع المحتوى -->
+            <div class="section-title">نوع المحتوى</div>
+            <div class="options-grid" id="contentTypeOptions" data-single="true">
+                <div class="option-chip" data-value="محتوى احترافي" data-single="true">محتوى احترافي</div>
+                <div class="option-chip" data-value="محتوى مستخدمين" data-single="true">محتوى مستخدمين</div>
+                <div class="option-chip" data-value="محتوى موظفين" data-single="true">محتوى موظفين</div>
+            </div>
+
+            <div id="extraOptionsContainer"></div>
+
+            <!-- وصف المستخدم -->
+            <textarea id="userDescription" placeholder="اكتب فكرتك هنا... (مثلاً: منتج جديد للعناية بالبشرة)" maxlength="50"></textarea>
+            <div class="char-counter">
+                <span id="charCount">0</span> / 50 حرف
+            </div>
+
+            <button class="generate-btn" id="generateBtn">ابدأ الكتابة</button>
+
+            <div class="result-container" id="resultContainer">
+                <div class="result-content" id="resultContent"></div>
+                <div class="share-buttons" id="shareButtons" style="display: none;">
+                    <button class="share-btn share-snapchat" onclick="share('snapchat')">سناب شات</button>
+                    <button class="share-btn share-tiktok" onclick="share('tiktok')">تيك توك</button>
+                    <button class="share-btn share-instagram" onclick="share('instagram')">إنستغرام</button>
+                    <button class="share-btn share-facebook" onclick="share('facebook')">فيسبوك</button>
+                </div>
+                <div class="result-actions">
+                    <button class="action-btn edit-btn" id="editBtn">تعديل</button>
+                    <button class="action-btn save-btn" id="saveBtn">حفظ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- صندوق الروابط تحت الكارد -->
+        <div class="footer-card">
+            <h3>روابط مهمة</h3>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">شروط الاستخدام</a>
+            </div>
+            <p>© 2025 AdVanta - جميع الحقوق محفوظة</p>
         </div>
     </div>
 
-    <!-- 5. شكل المحتوى -->
-    <div class="floating-card">
-        <div class="section-label">🎬 شكل القالب</div>
-        <div class="options-cluster" id="formatGroup" data-single="true">
-            <div class="pill-btn" data-value="فكرة صورة">صورة</div>
-            <div class="pill-btn" data-value="فكرة صورة + كابشن">صورة+كابشن</div>
-            <div class="pill-btn" data-value="نص">نص</div>
-            <div class="pill-btn" data-value="سكريبت ريل">سكريبت ريل</div>
-            <div class="pill-btn" data-value="سكريبت ريل + كابشن">ريل+كابشن</div>
-            <div class="pill-btn" data-value="فكرة فيديو">فكرة فيديو</div>
-            <div class="pill-btn" data-value="فكرة فيديو + كابشن">فيديو+كابشن</div>
-            <div class="pill-btn" data-value="فكرة ستوري">ستوري</div>
-            <div class="pill-btn" data-value="فكرة ستوري + نص">ستوري+نص</div>
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">تعديل المحتوى</h3>
+            <div class="edit-option" id="manualEditOption">
+                <div style="font-weight: 700;">تعديل يدوي</div>
+                <div style="color: #6b7280; font-size: 0.9rem;">عدل النص بنفسك</div>
+            </div>
+            <div class="edit-option" id="aiEditOption">
+                <div style="font-weight: 700;">تعديل ذكي</div>
+                <div style="color: #6b7280; font-size: 0.9rem;">اطلب من الذكاء التعديل</div>
+            </div>
+            <button id="closeModal" style="margin-top: 1rem; padding: 0.8rem; width: 100%; background: #e2e8f0; border: none; border-radius: 40px; cursor: pointer;">إلغاء</button>
         </div>
     </div>
 
-    <!-- 6. نوع المحتوى -->
-    <div class="floating-card">
-        <div class="section-label">📌 التصنيف</div>
-        <div class="options-cluster" id="contentTypeGroup" data-single="true">
-            <div class="pill-btn" data-value="محتوى احترافي">احترافي</div>
-            <div class="pill-btn" data-value="محتوى مستخدمين">مستخدمين</div>
-            <div class="pill-btn" data-value="محتوى موظفين">موظفين</div>
+    <div class="modal" id="manualEditModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">تعديل يدوي</h3>
+            <textarea id="manualEditText" style="width: 100%; min-height: 200px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
+            <div style="display: flex; gap: 1rem;">
+                <button id="saveManualEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px;">حفظ</button>
+                <button id="closeManualEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px;">إلغاء</button>
+            </div>
         </div>
     </div>
 
-    <div id="extraArea"></div>
-
-    <!-- صندوق الفكرة -->
-    <div class="idea-module">
-        <textarea id="userBrief" rows="2" placeholder="اكتب فكرتك باختصار (مثال: كريم عناية بالبشرة)" maxlength="50"></textarea>
-        <div class="char-track"><span id="charCount">0</span>/50</div>
-    </div>
-
-    <!-- زر التشغيل -->
-    <button class="action-prime" id="genBtn">🚀 أنشئ المحتوى</button>
-
-    <!-- النتيجة -->
-    <div id="resultCard" style="display: none;">
-        <div class="section-label">✨ المخرجات الذكية</div>
-        <div class="result-luxury" id="resultText"></div>
-        <div id="sharePanel" style="display: none;" class="share-strip">
-            <button class="share-btn-sm" style="background:#FFFC00; color:black;" onclick="shareSocial('snapchat')">سناب</button>
-            <button class="share-btn-sm" style="background:#000; color:white;" onclick="shareSocial('tiktok')">تيك توك</button>
-            <button class="share-btn-sm" style="background:#d62976; color:white;" onclick="shareSocial('instagram')">إنستا</button>
-            <button class="share-btn-sm" style="background:#1877f2; color:white;" onclick="shareSocial('facebook')">فيسبوك</button>
-        </div>
-        <div class="share-strip">
-            <button id="editNowBtn" class="share-btn-sm" style="background:#1f2a48;">✏️ تعديل</button>
-            <button id="saveNowBtn" class="share-btn-sm" style="background:#ff5500;">💾 حفظ</button>
+    <div class="modal" id="aiEditModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;">تعديل ذكي</h3>
+            <textarea id="aiEditRequest" placeholder="اكتب طلب التعديل..." style="width: 100%; min-height: 100px; padding: 1rem; border: 1.5px solid #edf2f7; border-radius: 24px; margin-bottom: 1rem;"></textarea>
+            <div style="display: flex; gap: 1rem;">
+                <button id="sendAiEdit" style="flex: 1; padding: 0.8rem; background: #ff6b4a; color: white; border: none; border-radius: 40px;">إرسال</button>
+                <button id="closeAiEdit" style="flex: 1; padding: 0.8rem; background: #e2e8f0; border: none; border-radius: 40px;">إلغاء</button>
+            </div>
         </div>
     </div>
 
-    <!-- الفوتر القانوني -->
-    <div class="legal-tail">
-        <a href="privacy.html">سياسة الخصوصية</a>
-        <a href="terms.html">شروط الاستخدام</a>
-        <p style="margin-top: 1rem;">© 2025 AdVanta</p>
-    </div>
-</div>
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-<script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js';
-    const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
-    const supabaseKey = 'هون_حط_مفتاحك_الأنون';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+        const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
+        const supabaseKey = 'هون_حط_مفتاحك_الأنون';
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
-    let finalResult = '';
+        // ==================== المتغيرات العامة ====================
+        let currentUser = null;
+        let currentUsername = '';
+        let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
+        let currentDescription = '';
+        let currentContent = '';
 
-    function chipSelector(parentId, single = false) {
-        const container = document.getElementById(parentId);
-        if(!container) return;
-        container.querySelectorAll('.pill-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if(single) {
-                    container.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
+        // عداد الحروف
+        const descTextarea = document.getElementById('userDescription');
+        const charCountSpan = document.getElementById('charCount');
+        
+        function updateCharCount() {
+            charCountSpan.textContent = descTextarea.value.length;
+        }
+        
+        descTextarea.addEventListener('input', updateCharCount);
+        updateCharCount();
+
+        // رسائل ترحيبية متنوعة
+        const welcomeMessages = [
+            (name) => `مرحباً ${name}، شو رح نبدع اليوم؟`,
+            (name) => `أهلاً ${name}، وين رايح نكتب اليوم؟`,
+            (name) => `أهلاً ${name}، فكرتك وين؟`,
+            (name) => `مرحباً ${name}، شو في جديد؟`,
+            (name) => `أهلاً بك ${name}، مستعد نكتب شي مميز؟`,
+            (name) => `مرحباً ${name}، شو رح ننتج اليوم؟`
+        ];
+
+        // ==================== التحقق من الجلسة الحالية ====================
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                currentUser = user;
+                currentUsername = user.user_metadata?.username || user.email?.split('@')[0] || 'صديق';
+                
+                document.getElementById('userInfo').style.display = 'block';
+                document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('authOption').textContent = '🚪 تسجيل الخروج';
+                
+                const randomMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+                document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
+            } else {
+                currentUser = null;
+                currentUsername = '';
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('authOption').textContent = '🔑 تسجيل الدخول';
+                document.getElementById('welcomeMessage').textContent = 'مرحباً بك في AdVanta';
+            }
+        }
+
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            toast.classList.add('show');
+            if (isSuccess) toast.classList.add('success');
+            else toast.classList.remove('success');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ==================== القائمة الجانبية ====================
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const authOption = document.getElementById('authOption');
+        const feedbackOption = document.getElementById('feedbackOption');
+        const savedOption = document.getElementById('savedOption');
+        const authModal = document.getElementById('authModal');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const savedModal = document.getElementById('savedModal');
+        const closeFeedback = document.getElementById('closeFeedback');
+        const closeSaved = document.getElementById('closeSaved');
+        const sendFeedback = document.getElementById('sendFeedback');
+        const feedbackText = document.getElementById('feedbackText');
+        const authEmail = document.getElementById('authEmail');
+        const authPassword = document.getElementById('authPassword');
+        const authUsername = document.getElementById('authUsername');
+        const authAction = document.getElementById('authAction');
+        const authToggle = document.getElementById('authToggle');
+        const authTitle = document.getElementById('authTitle');
+        const signupFields = document.getElementById('signupFields');
+
+        menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
+        closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
+
+        authOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            if (currentUser) {
+                supabase.auth.signOut();
+                checkUser();
+                showToast('تم تسجيل الخروج', true);
+            } else {
+                authModal.style.display = 'flex';
+            }
+        });
+
+        feedbackOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+            feedbackModal.style.display = 'flex';
+        });
+
+        savedOption.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+            displaySavedItems();
+            savedModal.style.display = 'flex';
+        });
+
+        closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+        closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
+
+        // ==================== نافذة تسجيل الدخول ====================
+        let isSignUp = false;
+        authToggle.addEventListener('click', () => {
+            isSignUp = !isSignUp;
+            authTitle.textContent = isSignUp ? 'إنشاء حساب جديد' : 'تسجيل الدخول';
+            authAction.textContent = isSignUp ? 'تسجيل' : 'تسجيل الدخول';
+            authToggle.textContent = isSignUp ? 'لديك حساب؟ سجل دخولك' : 'ليس لديك حساب؟ سجل الآن';
+            signupFields.style.display = isSignUp ? 'block' : 'none';
+        });
+
+        async function handleAuth(email, password, isSignUp, username = '') {
+            try {
+                if (isSignUp) {
+                    if (!username) {
+                        showToast('يرجى إدخال اسم المستخدم', false);
+                        return;
+                    }
+                    const { error } = await supabase.auth.signUp({ 
+                        email, 
+                        password,
+                        options: {
+                            data: {
+                                username: username
+                            }
+                        }
+                    });
+                    if (error) throw error;
+                    showToast('تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني', true);
                 } else {
-                    btn.classList.toggle('selected');
+                    const { error } = await supabase.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    showToast('تم تسجيل الدخول بنجاح', true);
+                    
+                    if (email === 'saeedqasrawi773@gmail.com') {
+                        setTimeout(() => {
+                            window.location.href = 'admin.html';
+                        }, 1000);
+                    }
+                }
+                authModal.style.display = 'none';
+                await checkUser();
+            } catch (e) {
+                showToast(e.message, false);
+            }
+        }
+
+        authAction.addEventListener('click', () => {
+            const email = authEmail.value.trim();
+            const password = authPassword.value.trim();
+            const username = authUsername ? authUsername.value.trim() : '';
+            
+            if (!email || !password) {
+                showToast('يرجى إدخال البريد الإلكتروني وكلمة المرور', false);
+                return;
+            }
+            
+            handleAuth(email, password, isSignUp, username);
+        });
+
+        // ==================== إرسال الملاحظات مع اسم المستخدم ====================
+        sendFeedback.addEventListener('click', async () => {
+            const msg = feedbackText.value.trim();
+            if (!msg) { 
+                showToast('اكتب رسالتك أولاً', false);
+                return; 
+            }
+
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('feelback')
+                    .insert([{ 
+                        message: msg,
+                        user_id: currentUser.id,
+                        username: currentUsername
+                    }]);
+
+                if (error) throw error;
+
+                showToast('تم إرسال رسالتك، شكراً لك', true);
+                feedbackText.value = '';
+                feedbackModal.style.display = 'none';
+            } catch (e) {
+                console.error('Supabase error:', e);
+                showToast('حدث خطأ في الإرسال', false);
+            }
+        });
+
+        // ==================== إدارة الخيارات ====================
+        document.querySelectorAll('.option-chip').forEach(chip => {
+            chip.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const parent = this.parentElement;
+                const isSingle = parent.dataset.single === 'true' || this.dataset.single === 'true';
+                if (isSingle) {
+                    parent.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                } else {
+                    this.classList.toggle('selected');
                 }
             });
         });
-    }
-    chipSelector('goalGroup', true);
-    chipSelector('platformGroup', true);
-    chipSelector('formatGroup', true);
-    chipSelector('contentTypeGroup', true);
-    chipSelector('audienceGroup', false);
-    chipSelector('ageGroup', false);
 
-    function updateDynamicFields(formatVal) {
-        const extra = document.getElementById('extraArea');
-        extra.innerHTML = '';
-        let html = '';
-        const hasCaption = formatVal.includes('كابشن') || formatVal === 'نص' || formatVal === 'فكرة ستوري + نص';
-        const hasDuration = formatVal.includes('سكريبت') || formatVal.includes('فيديو') || formatVal.includes('ستوري');
-        if(hasCaption) html += `<div class="floating-card"><div class="section-label">📝 عدد الأسطر</div><div class="options-cluster" id="capCluster" data-single="true">${[1,2,3,4,5].map(n=>`<div class="pill-btn" data-value="${n}">${n}</div>`).join('')}</div></div>`;
-        if(hasDuration) html += `<div class="floating-card"><div class="section-label">⏱️ المدة (ثانية)</div><div class="options-cluster" id="durCluster" data-single="true">${[10,15,20,25,30,40,50,60].map(n=>`<div class="pill-btn" data-value="${n}">${n}</div>`).join('')}</div></div>`;
-        if(html) {
-            extra.innerHTML = html;
-            document.querySelectorAll('#capCluster .pill-btn, #durCluster .pill-btn').forEach(c => c.addEventListener('click', function(){ this.parentElement.querySelectorAll('.pill-btn').forEach(x=>x.classList.remove('selected')); this.classList.add('selected'); }));
+        function updateExtraOptions(format) {
+            const container = document.getElementById('extraOptionsContainer');
+            container.innerHTML = '';
+            let html = '';
+            const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
+            const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
+            
+            if (hasCaption) {
+                html += `<div class="section-title">عدد أسطر الكابشن</div><div class="options-grid" id="captionLines" data-single="true">` +
+                    [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
+            }
+            if (hasDuration) {
+                html += `<div class="section-title">طول السكريبت (ثانية)</div><div class="options-grid" id="videoDuration" data-single="true">` +
+                    [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true">${n}</div>`).join('') + '</div>';
+            }
+            if (html) {
+                container.innerHTML = html;
+                container.querySelectorAll('.option-chip').forEach(chip => {
+                    chip.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        this.parentElement.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                });
+            }
         }
-    }
-    document.querySelectorAll('#formatGroup .pill-btn').forEach(c => c.addEventListener('click', () => updateDynamicFields(c.dataset.value)));
 
-    const ideaText = document.getElementById('userBrief');
-    const countSpan = document.getElementById('charCount');
-    ideaText.addEventListener('input', () => countSpan.innerText = ideaText.value.length);
-    countSpan.innerText = ideaText.value.length;
+        document.querySelectorAll('#formatOptions .option-chip').forEach(chip => {
+            chip.addEventListener('click', () => updateExtraOptions(chip.dataset.value));
+        });
 
-    document.getElementById('genBtn').addEventListener('click', async () => {
-        const idea = ideaText.value.trim();
-        if(!idea) { alert('أدخل فكرتك'); return; }
-        const goal = [...document.querySelectorAll('#goalGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        const audience = [...document.querySelectorAll('#audienceGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        const age = [...document.querySelectorAll('#ageGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        const platform = [...document.querySelectorAll('#platformGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        const format = [...document.querySelectorAll('#formatGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        const contentType = [...document.querySelectorAll('#contentTypeGroup .pill-btn.selected')].map(c=>c.dataset.value);
-        let capLines = document.querySelector('#capCluster .pill-btn.selected')?.dataset.value || '';
-        let duration = document.querySelector('#durCluster .pill-btn.selected')?.dataset.value || '';
+        // ==================== زر الإنشاء مع تنسيق النتيجة حسب الطلب ====================
+        document.getElementById('generateBtn').addEventListener('click', async function() {
+            const desc = document.getElementById('userDescription').value.trim();
+            if (!desc.trim()) { alert('اكتب فكرتك أولاً'); return; }
 
-        let formatType = format[0] || 'نص';
-        let outputPattern = '', needed = '';
-        switch(formatType){
-            case 'فكرة صورة': needed='فكرة صورة'; outputPattern='فكرة الصورة :\n'; break;
-            case 'فكرة صورة + كابشن': needed='صورة+كابشن'; outputPattern='فكرة الصورة :\n\nالكابشن :\n'; break;
-            case 'نص': needed='نص كامل'; outputPattern=''; break;
-            case 'سكريبت ريل': needed='سيناريو ريل'; outputPattern='السكريبت :\n'; break;
-            case 'سكريبت ريل + كابشن': needed='ريل+كابشن'; outputPattern='السكريبت :\n\nالكابشن :\n'; break;
-            case 'فكرة فيديو': needed='فكرة فيديو'; outputPattern='فكرة الفيديو :\n'; break;
-            case 'فكرة فيديو + كابشن': needed='فيديو+كابشن'; outputPattern='فكرة الفيديو :\n\nالكابشن :\n'; break;
-            case 'فكرة ستوري': needed='فكرة ستوري'; outputPattern='فكرة الستوري :\n'; break;
-            case 'فكرة ستوري + نص': needed='ستوري+نص'; outputPattern='فكرة الستوري :\n\nالنص :\n'; break;
+            const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.dataset.value);
+            const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.dataset.value);
+            const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.dataset.value);
+            const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.dataset.value);
+            const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.dataset.value);
+            const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.dataset.value);
+            
+            let captionLines = document.querySelector('#captionLines .option-chip.selected')?.dataset.value || '';
+            let videoDuration = document.querySelector('#videoDuration .option-chip.selected')?.dataset.value || '';
+
+            const resultContainer = document.getElementById('resultContainer');
+            const resultContent = document.getElementById('resultContent');
+            const shareButtons = document.getElementById('shareButtons');
+            
+            resultContainer.style.display = 'block';
+            shareButtons.style.display = 'flex';
+            resultContent.innerHTML = 'جاري كتابة المحتوى...';
+
+            try {
+                let formatType = formats[0] || 'نص';
+                let contentType = '';
+                let outputFormat = '';
+                
+                switch(formatType) {
+                    case 'فكرة صورة':
+                        contentType = 'فكرة لصورة فقط مع وصف للصورة';
+                        outputFormat = 'فكرة الصورة :\n';
+                        break;
+                    case 'فكرة صورة + كابشن':
+                        contentType = 'فكرة لصورة مع نص كابشن مناسب';
+                        outputFormat = 'فكرة الصورة :\n\nالكابشن :\n';
+                        break;
+                    case 'نص':
+                        contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
+                        outputFormat = '';
+                        break;
+                    case 'سكريبت ريل':
+                        contentType = 'سيناريو مفصل لريل (مشاهد، توقيت، نصوص)';
+                        outputFormat = 'السكريبت :\n';
+                        break;
+                    case 'سكريبت ريل + كابشن':
+                        contentType = 'سيناريو ريل مفصل مع كابشن منفصل';
+                        outputFormat = 'السكريبت :\n\nالكابشن :\n';
+                        break;
+                    case 'فكرة فيديو':
+                        contentType = 'فكرة عامة لفيديو (مشاهد رئيسية)';
+                        outputFormat = 'فكرة الفيديو :\n';
+                        break;
+                    case 'فكرة فيديو + كابشن':
+                        contentType = 'فكرة فيديو مع كابشن مناسب';
+                        outputFormat = 'فكرة الفيديو :\n\nالكابشن :\n';
+                        break;
+                    case 'فكرة ستوري':
+                        contentType = 'فكرة متسلسلة قصيرة للستوري';
+                        outputFormat = 'فكرة الستوري :\n';
+                        break;
+                    case 'فكرة ستوري + نص':
+                        contentType = 'فكرة ستوري مع نص كل مشهد';
+                        outputFormat = 'فكرة الستوري :\n\nالنص :\n';
+                        break;
+                }
+
+                const prompt = `أنت كاتب محتوى محترف. أكتب محتوى واحداً فقط بناءً على:
+الهدف: ${goals.join('، ') || 'غير محدد'}
+الجمهور: ${audiences.join('، ') || 'عام'}
+العمر: ${ages.join('، ') || 'كل الأعمار'}
+المنصة: ${platforms.join('، ') || 'غير محدد'}
+شكل المحتوى: ${formatType}
+نوع المحتوى: ${contentTypes.join('، ') || 'احترافي'}
+${captionLines ? '- عدد أسطر الكابشن: ' + captionLines : ''}
+${videoDuration ? '- طول السكريبت: ' + videoDuration + ' ثانية' : ''}
+
+وصف المستخدم: "${desc}"
+
+المطلوب: ${contentType}
+اكتب محتوى قصيراً قوياً.
+يجب أن يكون الناتج بالصيغة التالية بالضبط:
+${outputFormat}
+مع الحفاظ على العناوين كما هي بالفصحى.`;
+
+                const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+
+                const data = await response.json();
+                if (data.error) { 
+                    resultContent.innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة'; 
+                    return; 
+                }
+
+                let text = data.result.replace(/\n/g, '<br>');
+                resultContent.innerHTML = text;
+                currentDescription = desc;
+                currentContent = data.result;
+                
+            } catch (error) {
+                resultContent.innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة';
+                console.error(error);
+            }
+        });
+
+        window.share = function(platform) {
+            const text = currentContent || document.getElementById('resultContent').innerText;
+            const url = encodeURIComponent(window.location.href);
+            const encodedText = encodeURIComponent(text);
+            const links = {
+                snapchat: `https://www.snapchat.com/scan?attachmentUrl=${url}`,
+                tiktok: `https://www.tiktok.com/upload?reference=${url}`,
+                instagram: `https://www.instagram.com/create/story?text=${encodedText}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodedText}`
+            };
+            window.open(links[platform], '_blank');
+        };
+
+        // ==================== حفظ المحتوى ====================
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            if (!currentUser) {
+                showToast('يرجى تسجيل الدخول أولاً', false);
+                return;
+            }
+            if (!currentDescription || !currentContent) {
+                showToast('لا يوجد محتوى للحفظ', false);
+                return;
+            }
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            
+            userSaved.unshift({
+                id: Date.now(),
+                description: currentDescription.substring(0, 100) + '...',
+                fullDescription: currentDescription,
+                content: currentContent,
+                date: new Date().toLocaleDateString('ar-EG')
+            });
+            
+            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
+            showToast('✅ تم الحفظ بنجاح', true);
+        });
+
+        function displaySavedItems() {
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            const container = document.getElementById('savedItemsContainer');
+            
+            if (userSaved.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #9ca3af;">لا توجد محفوظات بعد</p>';
+                return;
+            }
+            
+            container.innerHTML = userSaved.map(item => `
+                <div class="saved-item">
+                    <div class="desc">📌 ${item.description}</div>
+                    <div class="content">${item.content.substring(0, 100)}...</div>
+                    <div class="saved-item-actions">
+                        <button onclick="loadSavedItem(${item.id})">استعادة</button>
+                        <button onclick="deleteSavedItem(${item.id})">حذف</button>
+                    </div>
+                </div>
+            `).join('');
         }
-        const prompt = `خبير محتوى. اكتب ناتج واحد بالعربية حسب المعطيات:
-الهدف: ${goal.join(',')} | الجمهور: ${audience.join(',')} | العمر: ${age.join(',')} | المنصة: ${platform.join(',')}
-القالب: ${formatType} | النوع: ${contentType.join(',')} ${capLines ? 'أسطر الكابشن:'+capLines : ''} ${duration ? 'المدة:'+duration+'s' : ''}
-فكرة المستخدم: ${idea}
-المطلوب: ${needed}
-الصيغة الدقيقة:
-${outputPattern}`;
 
-        const resultCard = document.getElementById('resultCard');
-        const resultDiv = document.getElementById('resultText');
-        const sharePanel = document.getElementById('sharePanel');
-        resultCard.style.display = 'block';
-        sharePanel.style.display = 'flex';
-        resultDiv.innerHTML = '⏳ جاري الإبداع...';
-        try {
-            const res = await fetch('https://advanta-backend.onrender.com/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({prompt}) });
-            const data = await res.json();
-            if(data.error) throw new Error(data.error);
-            resultDiv.innerHTML = (data.result || '').replace(/\n/g, '<br>');
-            finalResult = data.result;
-        } catch(e) { resultDiv.innerHTML = '❌ خطأ، حاول مجدداً'; }
-    });
+        window.loadSavedItem = function(id) {
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            const item = userSaved.find(i => i.id === id);
+            
+            if (item) {
+                document.getElementById('userDescription').value = item.fullDescription;
+                document.getElementById('resultContent').innerHTML = item.content.replace(/\n/g, '<br>');
+                document.getElementById('resultContainer').style.display = 'block';
+                document.getElementById('shareButtons').style.display = 'flex';
+                currentDescription = item.fullDescription;
+                currentContent = item.content;
+                savedModal.style.display = 'none';
+                showToast('✅ تم استعادة المحتوى', true);
+            }
+        };
 
-    window.shareSocial = (platform) => {
-        const txt = finalResult || document.getElementById('resultText').innerText;
-        const url = encodeURIComponent(window.location.href);
-        const links = { snapchat:`https://www.snapchat.com/scan?attachmentUrl=${url}`, tiktok:`https://www.tiktok.com/upload?reference=${url}`, instagram:`https://www.instagram.com/create/story?text=${encodeURIComponent(txt)}`, facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(txt)}` };
-        window.open(links[platform], '_blank');
-    };
+        window.deleteSavedItem = function(id) {
+            if (!currentUser) return;
+            
+            const userSavedKey = `advanta_saved_${currentUser.id}`;
+            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+            userSaved = userSaved.filter(i => i.id !== id);
+            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
+            displaySavedItems();
+            showToast('✅ تم الحذف', true);
+        };
 
-    document.getElementById('saveNowBtn').addEventListener('click', () => alert('تم حفظ المحتوى محلياً'));
-    document.getElementById('editNowBtn').addEventListener('click', () => alert('محرر التعديل الذكي قريباً'));
-</script>
+        // ==================== تعديل ====================
+        const editBtn = document.getElementById('editBtn');
+        const editModal = document.getElementById('editModal');
+        const manualEditModal = document.getElementById('manualEditModal');
+        const aiEditModal = document.getElementById('aiEditModal');
+        const closeModal = document.getElementById('closeModal');
+        const manualEditOption = document.getElementById('manualEditOption');
+        const aiEditOption = document.getElementById('aiEditOption');
+        const closeManualEdit = document.getElementById('closeManualEdit');
+        const closeAiEdit = document.getElementById('closeAiEdit');
+        const saveManualEdit = document.getElementById('saveManualEdit');
+        const sendAiEdit = document.getElementById('sendAiEdit');
+        const manualEditText = document.getElementById('manualEditText');
+        const aiEditRequest = document.getElementById('aiEditRequest');
+
+        editBtn.addEventListener('click', () => editModal.style.display = 'flex');
+        closeModal.addEventListener('click', () => editModal.style.display = 'none');
+
+        manualEditOption.addEventListener('click', () => {
+            editModal.style.display = 'none';
+            manualEditText.value = document.getElementById('resultContent').innerText;
+            manualEditModal.style.display = 'flex';
+        });
+
+        closeManualEdit.addEventListener('click', () => manualEditModal.style.display = 'none');
+
+        saveManualEdit.addEventListener('click', () => {
+            document.getElementById('resultContent').innerHTML = manualEditText.value.replace(/\n/g, '<br>');
+            manualEditModal.style.display = 'none';
+            showToast('✅ تم التعديل', true);
+        });
+
+        aiEditOption.addEventListener('click', () => {
+            editModal.style.display = 'none';
+            aiEditModal.style.display = 'flex';
+        });
+
+        closeAiEdit.addEventListener('click', () => aiEditModal.style.display = 'none');
+
+        sendAiEdit.addEventListener('click', async () => {
+            const request = aiEditRequest.value.trim();
+            if (!request) { alert('اكتب طلب التعديل'); return; }
+
+            const currentText = document.getElementById('resultContent').innerText;
+            aiEditModal.style.display = 'none';
+            document.getElementById('resultContent').innerHTML = 'جاري التعديل...';
+
+            try {
+                const prompt = `عدل النص التالي بناءً على الطلب: "${request}"\n\nالنص:\n${currentText}\n\nأعد كتابة النص المعدل فقط.`;
+                const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                document.getElementById('resultContent').innerHTML = data.result.replace(/\n/g, '<br>');
+                aiEditRequest.value = '';
+                showToast('✅ تم التعديل الذكي', true);
+            } catch (e) {
+                document.getElementById('resultContent').innerHTML = '❌ حدث خطأ، رجاءً أعد المحاولة';
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+        });
+
+        // التحقق من المستخدم عند تحميل الصفحة
+        checkUser();
+    </script>
 </body>
 </html>
