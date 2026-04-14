@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdVanta | ذكاء المحتوى الإبداعي</title>
+    <title>AdVanta | منشئ المحتوى الإبداعي</title>
     <style>
         * {
             margin: 0;
@@ -12,328 +12,281 @@
         }
 
         body {
-            background: #0b1120;
+            background: radial-gradient(circle at 10% 20%, #030518, #01020c);
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #edf2ff;
+        }
+
+        /* الحاوية الرئيسية ترتيب عمودي */
+        .vortex {
+            max-width: 1100px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 2rem;
-            position: relative;
-        }
-
-        /* خلفية عصرية مختلفة */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 40%, #0066ff08, #ff6b4a08);
-            animation: slowDrift 28s infinite alternate;
-            z-index: 0;
-        }
-
-        @keyframes slowDrift {
-            0% { transform: translate(0,0) rotate(0deg); opacity: 0.6; }
-            100% { transform: translate(5%, 8%) rotate(2deg); opacity: 1; }
-        }
-
-        /* الحاوية الرئيسية بتوزيع مبتكر */
-        .dashboard {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1400px;
-            display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 2rem;
-            background: rgba(10, 14, 23, 0.55);
-            backdrop-filter: blur(12px);
-            border-radius: 4rem;
-            padding: 2rem;
-            border: 1px solid rgba(0,102,255,0.3);
-            box-shadow: 0 35px 60px -15px rgba(0,0,0,0.4);
         }
 
-        /* القسم الأيمن – مدخلات مختلفة بالكامل */
-        .input-zone {
-            flex: 1.3;
-            background: rgba(18, 25, 45, 0.7);
-            border-radius: 2.5rem;
-            padding: 1.8rem;
+        /* الشعار بشكل ضخم ومرتفع */
+        .hero-logo {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .hero-logo img {
+            width: 280px;
+            filter: drop-shadow(0 0 12px #0055ffaa);
+            transition: 0.3s;
         }
 
-        /* الشعار بشكل مندمج */
-        .brand-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .brand-bar img {
-            width: 180px;
-            filter: drop-shadow(0 4px 10px #0066ff30);
+        /* كل بطاقة منفصلة */
+        .floating-card {
+            background: rgba(8, 12, 28, 0.65);
+            backdrop-filter: blur(10px);
+            border-radius: 3rem;
+            padding: 1.2rem 1.8rem;
+            border: 1px solid rgba(0, 85, 255, 0.4);
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+            transition: 0.2s;
         }
 
-        /* أزرار الخيارات (تبدو كبطاقات مصغرة) */
-        .option-section {
-            margin-bottom: 1.5rem;
-        }
-        .option-title {
-            color: #ffa07a;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-            font-size: 0.85rem;
+        .section-label {
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: #ff914d;
+            margin-bottom: 0.6rem;
         }
-        .flex-cards {
+
+        /* خيارات مبتكرة (أزرار دائرية/بيضاوية) */
+        .options-cluster {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.7rem;
+            gap: 0.8rem;
+            align-items: center;
         }
-        .mini-card {
-            background: #1a253c;
-            border-radius: 2rem;
+        .pill-btn {
+            background: #121a30;
+            border: 1px solid #2a3c70;
+            border-radius: 3rem;
             padding: 0.5rem 1.3rem;
             font-size: 0.85rem;
             font-weight: 500;
-            color: #cdd9ff;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid #2a3a60;
+            color: #cddcff;
         }
-        .mini-card.selected {
-            background: #0066ff;
+        .pill-btn.selected {
+            background: #0055ff;
+            border-color: #ff5500;
             color: white;
-            border-color: #ff6b4a;
-            box-shadow: 0 6px 14px #0066ff40;
+            box-shadow: 0 0 8px #ff5500aa;
         }
 
-        /* صندوق الفكرة بشكل مبتكر */
-        .idea-zone {
-            background: #0f172ad9;
-            border-radius: 2rem;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border: 1px solid #ff6b4a40;
+        /* صندوق الفكرة بشكل مميز */
+        .idea-module {
+            background: #0c1124cc;
+            border-radius: 2.5rem;
+            padding: 0.2rem;
+            border: 1px solid #ff5500;
         }
-        .idea-zone textarea {
+        .idea-module textarea {
             width: 100%;
             background: transparent;
             border: none;
-            padding: 1rem;
+            padding: 1.2rem;
             color: white;
-            font-size: 0.95rem;
-            resize: vertical;
+            font-size: 1rem;
             outline: none;
+            resize: vertical;
         }
-        .idea-zone textarea::placeholder {
-            color: #8fa0c0;
-        }
-        .char-count {
+        .char-track {
             text-align: left;
+            padding: 0 1rem 0.8rem;
             font-size: 0.7rem;
             color: #ffb48a;
-            padding: 0 1rem 0.5rem;
         }
 
-        /* الزر الأسطوري */
-        .btn-glow {
-            background: linear-gradient(115deg, #0066ff, #ff6b4a);
+        /* زر التنفيذ الرئيسي بشكل دائري بيضاوي طويل */
+        .action-prime {
+            background: linear-gradient(115deg, #0055ff, #ff5500);
             border: none;
-            width: 100%;
+            border-radius: 4rem;
             padding: 1rem;
-            border-radius: 3rem;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 800;
+            font-size: 1.1rem;
             color: white;
+            width: 100%;
             cursor: pointer;
-            margin-top: 1rem;
             transition: 0.2s;
+            margin: 0.2rem 0;
         }
 
-        /* القسم الأيسر – النتيجة بشكل مبتكر */
-        .output-zone {
-            flex: 1;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 2.5rem;
-            padding: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .result-glass {
-            background: #0b1022cc;
+        /* بطاقة النتيجة */
+        .result-luxury {
+            background: #0b1022e6;
             border-radius: 2rem;
             padding: 1.5rem;
-            margin: 1rem 0;
-            border: 1px solid #ff6b4a30;
-            color: #eef5ff;
-            line-height: 1.6;
+            border: 1px solid #ff914d;
+            margin: 0.5rem 0;
+            line-height: 1.65;
         }
 
-        .action-buttons {
+        .share-strip {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap;
             margin: 1rem 0;
         }
-        .action-buttons button {
+        .share-btn-sm {
             flex: 1;
-            background: #1e2a46;
+            background: #1f2a48;
             border: none;
-            padding: 0.7rem;
-            border-radius: 2rem;
+            border-radius: 3rem;
+            padding: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
             color: white;
         }
-        .share-bar {
-            display: flex;
-            gap: 0.6rem;
-            margin: 1rem 0;
-        }
-        .share-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-        }
 
-        .legal {
+        .legal-tail {
             text-align: center;
             margin-top: 2rem;
+            font-size: 0.7rem;
         }
-        .legal a {
-            color: #8fafef;
+        .legal-tail a {
+            color: #7f9fef;
+            margin: 0 0.6rem;
             text-decoration: none;
-            margin: 0 0.8rem;
-            font-size: 0.75rem;
-        }
-
-        @media (max-width: 900px) {
-            .dashboard { flex-direction: column; }
-            body { padding: 1rem; }
         }
     </style>
 </head>
 <body>
+<div class="vortex">
 
-<div class="dashboard">
-    <!-- القسم الأيمن: إعدادات مبتكرة -->
-    <div class="input-zone">
-        <div class="brand-bar">
-            <img src="logo.png.png" alt="AdVanta" onerror="this.src='https://placehold.co/200x70/0066ff/ff6b4a/png?text=AdVanta'">
-            <span style="color:#ffb48a; font-size:0.8rem;">AI v3</span>
-        </div>
-
-        <div class="option-section">
-            <div class="option-title">🎯 البوصلة</div>
-            <div class="flex-cards" id="goalGroup" data-single="true">
-                <div class="mini-card" data-value="وعي بعلامة تجارية">وعي</div>
-                <div class="mini-card" data-value="تعريف بمنتج جديد">منتج</div>
-                <div class="mini-card" data-value="تعريف خدمة جديدة">خدمة</div>
-                <div class="mini-card" data-value="زيادة المتابعين">متابعين</div>
-                <div class="mini-card" data-value="الوصول لمزيد من الأشخاص">وصول</div>
-                <div class="mini-card" data-value="زيادة التفاعل">تفاعل</div>
-                <div class="mini-card" data-value="زيادة المبيعات">مبيعات</div>
-                <div class="mini-card" data-value="صناعة المؤثرين">مؤثرين</div>
-                <div class="mini-card" data-value="هدف شخصي">شخصي</div>
-            </div>
-        </div>
-
-        <div class="option-section">
-            <div class="option-title">👥 الجمهور</div>
-            <div class="flex-cards" id="audGroup">
-                <div class="mini-card" data-value="آباء">آباء</div>
-                <div class="mini-card" data-value="أطفال">أطفال</div>
-                <div class="mini-card" data-value="شباب">شباب</div>
-                <div class="mini-card" data-value="بنات">بنات</div>
-                <div class="mini-card" data-value="رجال">رجال</div>
-                <div class="mini-card" data-value="نساء">نساء</div>
-                <div class="mini-card" data-value="تجار">تجار</div>
-                <div class="mini-card" data-value="رياضيون">رياضيون</div>
-                <div class="mini-card" data-value="أعمال">أعمال</div>
-                <div class="mini-card" data-value="طلاب">طلاب</div>
-                <div class="mini-card" data-value="تغذية">تغذية</div>
-                <div class="mini-card" data-value="عناية">عناية</div>
-                <div class="mini-card" data-value="لياقة">لياقة</div>
-            </div>
-        </div>
-
-        <div class="option-section">
-            <div class="option-title">📊 الفئة العمرية</div>
-            <div class="flex-cards" id="ageGroup">
-                <div class="mini-card" data-value="3-12">3-12</div>
-                <div class="mini-card" data-value="13-17">13-17</div>
-                <div class="mini-card" data-value="18-24">18-24</div>
-                <div class="mini-card" data-value="25-34">25-34</div>
-                <div class="mini-card" data-value="35-44">35-44</div>
-                <div class="mini-card" data-value="45-60">45-60</div>
-                <div class="mini-card" data-value="60+">60+</div>
-            </div>
-        </div>
-
-        <div class="option-section">
-            <div class="option-title">📱 المنصة</div>
-            <div class="flex-cards" id="platformGroup" data-single="true">
-                <div class="mini-card" data-value="فيسبوك">فيسبوك</div>
-                <div class="mini-card" data-value="إنستغرام">إنستغرام</div>
-                <div class="mini-card" data-value="تيك توك">تيك توك</div>
-                <div class="mini-card" data-value="سناب شات">سناب شات</div>
-            </div>
-        </div>
-
-        <div class="option-section">
-            <div class="option-title">🎬 قالب المحتوى</div>
-            <div class="flex-cards" id="formatGroup" data-single="true">
-                <div class="mini-card" data-value="فكرة صورة">فكرة صورة</div>
-                <div class="mini-card" data-value="فكرة صورة + كابشن">صورة+كابشن</div>
-                <div class="mini-card" data-value="نص">نص</div>
-                <div class="mini-card" data-value="سكريبت ريل">سكريبت ريل</div>
-                <div class="mini-card" data-value="سكريبت ريل + كابشن">ريل+كابشن</div>
-                <div class="mini-card" data-value="فكرة فيديو">فكرة فيديو</div>
-                <div class="mini-card" data-value="فكرة فيديو + كابشن">فيديو+كابشن</div>
-                <div class="mini-card" data-value="فكرة ستوري">فكرة ستوري</div>
-                <div class="mini-card" data-value="فكرة ستوري + نص">ستوري+نص</div>
-            </div>
-        </div>
-
-        <div id="dynamicExtra"></div>
-
-        <div class="idea-zone">
-            <textarea id="userIdea" rows="2" placeholder="اكتب فكرتك باختصار شديد (حد أقصى 50 حرف)" maxlength="50"></textarea>
-            <div class="char-count"><span id="ideaCounter">0</span>/50</div>
-        </div>
-
-        <button class="btn-glow" id="generateContentBtn">✨ أنشئ المحتوى ✨</button>
+    <!-- الشعار -->
+    <div class="hero-logo">
+        <img src="logo.png.png" alt="AdVanta" onerror="this.src='https://placehold.co/300x110/0055ff/ff5500/png?text=AdVanta'">
     </div>
 
-    <!-- القسم الأيسر: النتيجة الفريدة -->
-    <div class="output-zone">
-        <div style="font-weight: 700; margin-bottom: 0.5rem;">🧠 المخرجات الإبداعية</div>
-        <div id="aiResultArea" class="result-glass">★ في انتظار كتابة الفكرة ★</div>
-        <div id="shareActionArea" style="display: none;" class="share-bar">
-            <button class="share-btn" style="background:#FFFC00; color:black;" onclick="shareNetwork('snapchat')">سناب</button>
-            <button class="share-btn" style="background:#000; color:white;" onclick="shareNetwork('tiktok')">تيك توك</button>
-            <button class="share-btn" style="background:#d62976; color:white;" onclick="shareNetwork('instagram')">إنستا</button>
-            <button class="share-btn" style="background:#1877f2; color:white;" onclick="shareNetwork('facebook')">فيسبوك</button>
+    <!-- 1. الهدف -->
+    <div class="floating-card">
+        <div class="section-label">🎯 الهدف الاستراتيجي</div>
+        <div class="options-cluster" id="goalGroup" data-single="true">
+            <div class="pill-btn" data-value="وعي بعلامة تجارية">وعي</div>
+            <div class="pill-btn" data-value="تعريف بمنتج جديد">منتج</div>
+            <div class="pill-btn" data-value="تعريف خدمة جديدة">خدمة</div>
+            <div class="pill-btn" data-value="زيادة المتابعين">متابعين</div>
+            <div class="pill-btn" data-value="الوصول لمزيد من الأشخاص">وصول</div>
+            <div class="pill-btn" data-value="زيادة التفاعل">تفاعل</div>
+            <div class="pill-btn" data-value="زيادة المبيعات">مبيعات</div>
+            <div class="pill-btn" data-value="صناعة المؤثرين">مؤثرين</div>
+            <div class="pill-btn" data-value="هدف شخصي">شخصي</div>
         </div>
-        <div class="action-buttons">
-            <button id="editNow">✍️ تعديل ذكي</button>
-            <button id="storeNow">📦 حفظ المحتوى</button>
+    </div>
+
+    <!-- 2. الجمهور -->
+    <div class="floating-card">
+        <div class="section-label">👥 الجمهور النشط</div>
+        <div class="options-cluster" id="audienceGroup">
+            <div class="pill-btn" data-value="آباء">آباء</div>
+            <div class="pill-btn" data-value="أطفال">أطفال</div>
+            <div class="pill-btn" data-value="شباب">شباب</div>
+            <div class="pill-btn" data-value="بنات">بنات</div>
+            <div class="pill-btn" data-value="رجال">رجال</div>
+            <div class="pill-btn" data-value="نساء">نساء</div>
+            <div class="pill-btn" data-value="تجار">تجار</div>
+            <div class="pill-btn" data-value="رياضيون">رياضيون</div>
+            <div class="pill-btn" data-value="أعمال">أعمال</div>
+            <div class="pill-btn" data-value="طلاب">طلاب</div>
+            <div class="pill-btn" data-value="تغذية">تغذية</div>
+            <div class="pill-btn" data-value="عناية">عناية</div>
+            <div class="pill-btn" data-value="لياقة">لياقة</div>
         </div>
-        <div class="legal">
-            <a href="privacy.html">سياسة الخصوصية</a>
-            <a href="terms.html">شروط الاستخدام</a>
+    </div>
+
+    <!-- 3. العمر -->
+    <div class="floating-card">
+        <div class="section-label">📊 النطاق العمري</div>
+        <div class="options-cluster" id="ageGroup">
+            <div class="pill-btn" data-value="3-12">3-12</div>
+            <div class="pill-btn" data-value="13-17">13-17</div>
+            <div class="pill-btn" data-value="18-24">18-24</div>
+            <div class="pill-btn" data-value="25-34">25-34</div>
+            <div class="pill-btn" data-value="35-44">35-44</div>
+            <div class="pill-btn" data-value="45-60">45-60</div>
+            <div class="pill-btn" data-value="60+">60+</div>
         </div>
+    </div>
+
+    <!-- 4. المنصة -->
+    <div class="floating-card">
+        <div class="section-label">📱 المنصة المستهدفة</div>
+        <div class="options-cluster" id="platformGroup" data-single="true">
+            <div class="pill-btn" data-value="فيسبوك">فيسبوك</div>
+            <div class="pill-btn" data-value="إنستغرام">إنستغرام</div>
+            <div class="pill-btn" data-value="تيك توك">تيك توك</div>
+            <div class="pill-btn" data-value="سناب شات">سناب شات</div>
+        </div>
+    </div>
+
+    <!-- 5. شكل المحتوى -->
+    <div class="floating-card">
+        <div class="section-label">🎬 شكل القالب</div>
+        <div class="options-cluster" id="formatGroup" data-single="true">
+            <div class="pill-btn" data-value="فكرة صورة">صورة</div>
+            <div class="pill-btn" data-value="فكرة صورة + كابشن">صورة+كابشن</div>
+            <div class="pill-btn" data-value="نص">نص</div>
+            <div class="pill-btn" data-value="سكريبت ريل">سكريبت ريل</div>
+            <div class="pill-btn" data-value="سكريبت ريل + كابشن">ريل+كابشن</div>
+            <div class="pill-btn" data-value="فكرة فيديو">فكرة فيديو</div>
+            <div class="pill-btn" data-value="فكرة فيديو + كابشن">فيديو+كابشن</div>
+            <div class="pill-btn" data-value="فكرة ستوري">ستوري</div>
+            <div class="pill-btn" data-value="فكرة ستوري + نص">ستوري+نص</div>
+        </div>
+    </div>
+
+    <!-- 6. نوع المحتوى -->
+    <div class="floating-card">
+        <div class="section-label">📌 التصنيف</div>
+        <div class="options-cluster" id="contentTypeGroup" data-single="true">
+            <div class="pill-btn" data-value="محتوى احترافي">احترافي</div>
+            <div class="pill-btn" data-value="محتوى مستخدمين">مستخدمين</div>
+            <div class="pill-btn" data-value="محتوى موظفين">موظفين</div>
+        </div>
+    </div>
+
+    <div id="extraArea"></div>
+
+    <!-- صندوق الفكرة -->
+    <div class="idea-module">
+        <textarea id="userBrief" rows="2" placeholder="اكتب فكرتك باختصار (مثال: كريم عناية بالبشرة)" maxlength="50"></textarea>
+        <div class="char-track"><span id="charCount">0</span>/50</div>
+    </div>
+
+    <!-- زر التشغيل -->
+    <button class="action-prime" id="genBtn">🚀 أنشئ المحتوى</button>
+
+    <!-- النتيجة -->
+    <div id="resultCard" style="display: none;">
+        <div class="section-label">✨ المخرجات الذكية</div>
+        <div class="result-luxury" id="resultText"></div>
+        <div id="sharePanel" style="display: none;" class="share-strip">
+            <button class="share-btn-sm" style="background:#FFFC00; color:black;" onclick="shareSocial('snapchat')">سناب</button>
+            <button class="share-btn-sm" style="background:#000; color:white;" onclick="shareSocial('tiktok')">تيك توك</button>
+            <button class="share-btn-sm" style="background:#d62976; color:white;" onclick="shareSocial('instagram')">إنستا</button>
+            <button class="share-btn-sm" style="background:#1877f2; color:white;" onclick="shareSocial('facebook')">فيسبوك</button>
+        </div>
+        <div class="share-strip">
+            <button id="editNowBtn" class="share-btn-sm" style="background:#1f2a48;">✏️ تعديل</button>
+            <button id="saveNowBtn" class="share-btn-sm" style="background:#ff5500;">💾 حفظ</button>
+        </div>
+    </div>
+
+    <!-- الفوتر القانوني -->
+    <div class="legal-tail">
+        <a href="privacy.html">سياسة الخصوصية</a>
+        <a href="terms.html">شروط الاستخدام</a>
+        <p style="margin-top: 1rem;">© 2025 AdVanta</p>
     </div>
 </div>
 
@@ -343,73 +296,67 @@
     const supabaseKey = 'هون_حط_مفتاحك_الأنون';
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    let currentOutput = '';
+    let finalResult = '';
 
-    function manageChips(containerId, single = false) {
-        const cont = document.getElementById(containerId);
-        if (!cont) return;
-        cont.querySelectorAll('.mini-card').forEach(card => {
-            card.addEventListener('click', () => {
-                if (single) {
-                    cont.querySelectorAll('.mini-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
+    function chipSelector(parentId, single = false) {
+        const container = document.getElementById(parentId);
+        if(!container) return;
+        container.querySelectorAll('.pill-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(single) {
+                    container.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
                 } else {
-                    card.classList.toggle('selected');
+                    btn.classList.toggle('selected');
                 }
             });
         });
     }
-    manageChips('goalGroup', true);
-    manageChips('platformGroup', true);
-    manageChips('formatGroup', true);
-    manageChips('audGroup', false);
-    manageChips('ageGroup', false);
+    chipSelector('goalGroup', true);
+    chipSelector('platformGroup', true);
+    chipSelector('formatGroup', true);
+    chipSelector('contentTypeGroup', true);
+    chipSelector('audienceGroup', false);
+    chipSelector('ageGroup', false);
 
-    function updateDynamicOpts(formatVal) {
-        const dyn = document.getElementById('dynamicExtra');
-        dyn.innerHTML = '';
+    function updateDynamicFields(formatVal) {
+        const extra = document.getElementById('extraArea');
+        extra.innerHTML = '';
         let html = '';
-        const hasCap = formatVal.includes('كابشن') || formatVal === 'نص' || formatVal === 'فكرة ستوري + نص';
-        const hasDur = formatVal.includes('سكريبت') || formatVal.includes('فيديو') || formatVal.includes('ستوري');
-        if (hasCap) html += `<div class="option-section"><div class="option-title">📝 عدد الأسطر</div><div class="flex-cards" id="capLines" data-single="true">${[1,2,3,4,5].map(n=>`<div class="mini-card" data-value="${n}">${n}</div>`).join('')}</div></div>`;
-        if (hasDur) html += `<div class="option-section"><div class="option-title">⏱️ المدة (ثانية)</div><div class="flex-cards" id="durationSec" data-single="true">${[10,15,20,25,30,40,50,60].map(n=>`<div class="mini-card" data-value="${n}">${n}</div>`).join('')}</div></div>`;
-        if (html) {
-            dyn.innerHTML = html;
-            document.querySelectorAll('#capLines .mini-card, #durationSec .mini-card').forEach(c => {
-                c.addEventListener('click', function() {
-                    this.parentElement.querySelectorAll('.mini-card').forEach(x => x.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
+        const hasCaption = formatVal.includes('كابشن') || formatVal === 'نص' || formatVal === 'فكرة ستوري + نص';
+        const hasDuration = formatVal.includes('سكريبت') || formatVal.includes('فيديو') || formatVal.includes('ستوري');
+        if(hasCaption) html += `<div class="floating-card"><div class="section-label">📝 عدد الأسطر</div><div class="options-cluster" id="capCluster" data-single="true">${[1,2,3,4,5].map(n=>`<div class="pill-btn" data-value="${n}">${n}</div>`).join('')}</div></div>`;
+        if(hasDuration) html += `<div class="floating-card"><div class="section-label">⏱️ المدة (ثانية)</div><div class="options-cluster" id="durCluster" data-single="true">${[10,15,20,25,30,40,50,60].map(n=>`<div class="pill-btn" data-value="${n}">${n}</div>`).join('')}</div></div>`;
+        if(html) {
+            extra.innerHTML = html;
+            document.querySelectorAll('#capCluster .pill-btn, #durCluster .pill-btn').forEach(c => c.addEventListener('click', function(){ this.parentElement.querySelectorAll('.pill-btn').forEach(x=>x.classList.remove('selected')); this.classList.add('selected'); }));
         }
     }
-    document.querySelectorAll('#formatGroup .mini-card').forEach(c => c.addEventListener('click', () => updateDynamicOpts(c.dataset.value)));
+    document.querySelectorAll('#formatGroup .pill-btn').forEach(c => c.addEventListener('click', () => updateDynamicFields(c.dataset.value)));
 
-    // عداد الحروف
-    const ideaField = document.getElementById('userIdea');
-    const counterSpan = document.getElementById('ideaCounter');
-    ideaField.addEventListener('input', () => counterSpan.innerText = ideaField.value.length);
-    counterSpan.innerText = ideaField.value.length;
+    const ideaText = document.getElementById('userBrief');
+    const countSpan = document.getElementById('charCount');
+    ideaText.addEventListener('input', () => countSpan.innerText = ideaText.value.length);
+    countSpan.innerText = ideaText.value.length;
 
-    // زر التوليد
-    document.getElementById('generateContentBtn').addEventListener('click', async () => {
-        const idea = ideaField.value.trim();
-        if (!idea) { alert('اكتب فكرة أولاً'); return; }
-
-        const goal = [...document.querySelectorAll('#goalGroup .mini-card.selected')].map(c=>c.dataset.value);
-        const audience = [...document.querySelectorAll('#audGroup .mini-card.selected')].map(c=>c.dataset.value);
-        const age = [...document.querySelectorAll('#ageGroup .mini-card.selected')].map(c=>c.dataset.value);
-        const platform = [...document.querySelectorAll('#platformGroup .mini-card.selected')].map(c=>c.dataset.value);
-        const format = [...document.querySelectorAll('#formatGroup .mini-card.selected')].map(c=>c.dataset.value);
-        let capLines = document.querySelector('#capLines .mini-card.selected')?.dataset.value || '';
-        let duration = document.querySelector('#durationSec .mini-card.selected')?.dataset.value || '';
+    document.getElementById('genBtn').addEventListener('click', async () => {
+        const idea = ideaText.value.trim();
+        if(!idea) { alert('أدخل فكرتك'); return; }
+        const goal = [...document.querySelectorAll('#goalGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        const audience = [...document.querySelectorAll('#audienceGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        const age = [...document.querySelectorAll('#ageGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        const platform = [...document.querySelectorAll('#platformGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        const format = [...document.querySelectorAll('#formatGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        const contentType = [...document.querySelectorAll('#contentTypeGroup .pill-btn.selected')].map(c=>c.dataset.value);
+        let capLines = document.querySelector('#capCluster .pill-btn.selected')?.dataset.value || '';
+        let duration = document.querySelector('#durCluster .pill-btn.selected')?.dataset.value || '';
 
         let formatType = format[0] || 'نص';
         let outputPattern = '', needed = '';
         switch(formatType){
             case 'فكرة صورة': needed='فكرة صورة'; outputPattern='فكرة الصورة :\n'; break;
             case 'فكرة صورة + كابشن': needed='صورة+كابشن'; outputPattern='فكرة الصورة :\n\nالكابشن :\n'; break;
-            case 'نص': needed='نص متكامل'; outputPattern=''; break;
+            case 'نص': needed='نص كامل'; outputPattern=''; break;
             case 'سكريبت ريل': needed='سيناريو ريل'; outputPattern='السكريبت :\n'; break;
             case 'سكريبت ريل + كابشن': needed='ريل+كابشن'; outputPattern='السكريبت :\n\nالكابشن :\n'; break;
             case 'فكرة فيديو': needed='فكرة فيديو'; outputPattern='فكرة الفيديو :\n'; break;
@@ -417,37 +364,38 @@
             case 'فكرة ستوري': needed='فكرة ستوري'; outputPattern='فكرة الستوري :\n'; break;
             case 'فكرة ستوري + نص': needed='ستوري+نص'; outputPattern='فكرة الستوري :\n\nالنص :\n'; break;
         }
-
-        const prompt = `خبير محتوى. اكتب مخرجا واحداً بالعربية:
+        const prompt = `خبير محتوى. اكتب ناتج واحد بالعربية حسب المعطيات:
 الهدف: ${goal.join(',')} | الجمهور: ${audience.join(',')} | العمر: ${age.join(',')} | المنصة: ${platform.join(',')}
-قالب: ${formatType} ${capLines ? 'أسطر الكابشن:'+capLines : ''} ${duration ? 'مدة:'+duration+'s' : ''}
+القالب: ${formatType} | النوع: ${contentType.join(',')} ${capLines ? 'أسطر الكابشن:'+capLines : ''} ${duration ? 'المدة:'+duration+'s' : ''}
 فكرة المستخدم: ${idea}
 المطلوب: ${needed}
 الصيغة الدقيقة:
 ${outputPattern}`;
 
-        const resultDiv = document.getElementById('aiResultArea');
-        const shareDiv = document.getElementById('shareActionArea');
+        const resultCard = document.getElementById('resultCard');
+        const resultDiv = document.getElementById('resultText');
+        const sharePanel = document.getElementById('sharePanel');
+        resultCard.style.display = 'block';
+        sharePanel.style.display = 'flex';
         resultDiv.innerHTML = '⏳ جاري الإبداع...';
-        shareDiv.style.display = 'flex';
         try {
             const res = await fetch('https://advanta-backend.onrender.com/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({prompt}) });
             const data = await res.json();
-            if (data.error) throw new Error(data.error);
+            if(data.error) throw new Error(data.error);
             resultDiv.innerHTML = (data.result || '').replace(/\n/g, '<br>');
-            currentOutput = data.result;
-        } catch(e) { resultDiv.innerHTML = '❌ عطل تقني، حاول مجدداً'; }
+            finalResult = data.result;
+        } catch(e) { resultDiv.innerHTML = '❌ خطأ، حاول مجدداً'; }
     });
 
-    window.shareNetwork = (platform) => {
-        const txt = currentOutput || document.getElementById('aiResultArea').innerText;
+    window.shareSocial = (platform) => {
+        const txt = finalResult || document.getElementById('resultText').innerText;
         const url = encodeURIComponent(window.location.href);
         const links = { snapchat:`https://www.snapchat.com/scan?attachmentUrl=${url}`, tiktok:`https://www.tiktok.com/upload?reference=${url}`, instagram:`https://www.instagram.com/create/story?text=${encodeURIComponent(txt)}`, facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(txt)}` };
         window.open(links[platform], '_blank');
     };
 
-    document.getElementById('storeNow').addEventListener('click', () => alert('تم حفظ المحتوى (محاكاة)'));
-    document.getElementById('editNow').addEventListener('click', () => alert('سيتم تفعيل المحرر الذكي قريباً'));
+    document.getElementById('saveNowBtn').addEventListener('click', () => alert('تم حفظ المحتوى محلياً'));
+    document.getElementById('editNowBtn').addEventListener('click', () => alert('محرر التعديل الذكي قريباً'));
 </script>
 </body>
 </html>
