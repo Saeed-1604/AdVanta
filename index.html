@@ -149,7 +149,7 @@
         .welcome-message {
             text-align: center;
             font-size: 1.1rem;
-            color: #ff6b4a;
+            color: rgb(184, 72, 1);
             margin-bottom: 1rem;
             background: white;
             padding: 0.5rem 1.5rem;
@@ -207,9 +207,9 @@
         }
 
         .option-chip.selected {
-            background: #ff6b4a;
+            background: rgb(184, 72, 1);
             color: white;
-            border-color: #ff6b4a;
+            border-color: rgb(184, 72, 1);
             box-shadow: 0 8px 15px -5px #9E3E00;
         }
 
@@ -285,7 +285,7 @@
         }
 
         .save-btn {
-            background: #ff6b4a;
+            background: rgb(184, 72, 1);
             color: white;
         }
 
@@ -473,7 +473,7 @@
         }
 
         .footer-card a {
-            color: #ff6b4a;
+            color: rgb(184, 72, 1);
             text-decoration: none;
             font-weight: 500;
         }
@@ -674,7 +674,7 @@
                 <a href="privacy.html" id="privacyLink">سياسة الخصوصية</a>
                 <a href="terms.html" id="termsLink">شروط الاستخدام</a>
             </div>
-            <p id="copyrightText">© 2025 AdVanta - جميع الحقوق محفوظة</p>
+            <p id="copyrightText">© 2026 AdVanta - جميع الحقوق محفوظة</p>
         </div>
     </div>
 
@@ -715,585 +715,586 @@
         </div>
     </div>
 
+
     <script type="module">
-        import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+     import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-        const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdialZjdW5vcXl4ZHQiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTczOTI5NTcxNSwiZXhwIjoyMDU0ODcxNzE1fQ.FXH73h5gYVqGZ0w8cRqTz9JYvLk2b3dLqZ5nS6mB7oM';
-        const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://ynebvuwbjlvcunoqyxdt.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluZWJ2dXdialZjdW5vcXl4ZHQiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTczOTI5NTcxNSwiZXhwIjoyMDU0ODcxNzE1fQ.FXH73h5gYVqGZ0w8cRqTz9JYvLk2b3dLqZ5nS6mB7oM';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-        // ==================== الترجمة ====================
-        let currentLang = localStorage.getItem('advanta_lang') || 'ar';
-        const htmlTag = document.getElementById('mainHtml');
+// ==================== الترجمة ====================
+let currentLang = localStorage.getItem('advanta_lang') || 'ar';
+const htmlTag = document.getElementById('mainHtml');
+
+const translations = {
+    ar: {
+        dir: 'rtl',
+        sidebarTitle: 'القائمة',
+        authOption: 'تسجيل الدخول',
+        feedbackOption: 'اكتب مشكلتك أو اقتراحك',
+        savedOption: 'محفوظاتي',
+        languageOption: 'اللغة / Language',
+        authTitle: 'تسجيل الدخول',
+        authToggle: 'ليس لديك حساب؟ سجل الآن',
+        signupToggle: 'لديك حساب؟ سجل دخولك',
+        authActionLogin: 'تسجيل الدخول',
+        authActionSignup: 'تسجيل',
+        feedbackTitle: 'اكتب مشكلتك أو اقتراحك',
+        sendFeedback: 'إرسال',
+        closeFeedback: 'إلغاء',
+        savedTitle: 'المحفوظات',
+        closeSaved: 'إغلاق',
+        welcomeMessages: [
+            (name) => `مرحباً ${name}، شو رح نبدع اليوم؟`,
+            (name) => `أهلاً ${name}، وين رايح نكتب اليوم؟`,
+            (name) => `أهلاً ${name}، فكرتك وين؟`,
+            (name) => `مرحباً ${name}، شو في جديد؟`,
+            (name) => `أهلاً بك ${name}، مستعد نكتب شي مميز؟`,
+            (name) => `مرحباً ${name}، شو رح ننتج اليوم؟`
+        ],
+        siteDescription: 'موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال ثواني',
+        goalTitle: 'الهدف',
+        audienceTitle: 'الجمهور المستهدف',
+        ageTitle: 'الفئة العمرية',
+        platformTitle: 'المنصة',
+        formatTitle: 'شكل المحتوى',
+        contentTypeTitle: 'نوع المحتوى',
+        charLimitText: '50 حرف',
+        generateBtn: 'ابدأ الكتابة',
+        editTitle: 'تعديل المحتوى',
+        manualEditTitle: 'تعديل يدوي',
+        manualEditDesc: 'عدل النص بنفسك',
+        aiEditTitle: 'تعديل ذكي',
+        aiEditDesc: 'اطلب من الذكاء التعديل',
+        closeModal: 'إلغاء',
+        manualEditModalTitle: 'تعديل يدوي',
+        saveManualEdit: 'حفظ',
+        closeManualEdit: 'إلغاء',
+        aiEditModalTitle: 'تعديل ذكي',
+        sendAiEdit: 'إرسال',
+        closeAiEdit: 'إلغاء',
+        aiEditPlaceholder: 'اكتب طلب التعديل...',
+        footerLinksTitle: 'روابط مهمة',
+        privacyLink: 'سياسة الخصوصية',
+        termsLink: 'شروط الاستخدام',
+        copyrightText: '© 2026 AdVanta - جميع الحقوق محفوظة',
+        toastSaved: 'تم الحفظ بنجاح',
+        toastRestored: 'تم استعادة المحتوى',
+        toastDeleted: 'تم الحذف',
+        toastEdited: 'تم التعديل',
+        toastAiEdited: 'تم التعديل الذكي',
+        errorLoginRequired: 'يرجى تسجيل الدخول أولاً',
+        errorWriteFirst: 'اكتب فكرتك أولاً',
+        errorWriteMessage: 'اكتب رسالتك أولاً',
+        errorGeneric: 'حدث خطأ، رجاءً أعد المحاولة',
+        shareSnapchat: 'سناب شات',
+        shareTiktok: 'تيك توك',
+        shareInstagram: 'إنستغرام',
+        shareFacebook: 'فيسبوك',
+        userDescriptionPlaceholder: 'اكتب فكرتك هنا... (مثلاً: منتج جديد للعناية بالبشرة)',
+        aiEditRequestPlaceholder: 'اكتب طلب التعديل...'
+    },
+    en: {
+        dir: 'ltr',
+        sidebarTitle: 'Menu',
+        authOption: 'Login',
+        feedbackOption: 'Write your problem or suggestion',
+        savedOption: 'Saved',
+        languageOption: 'اللغة / Language',
+        authTitle: 'Login',
+        authToggle: "Don't have an account? Sign up",
+        signupToggle: 'Already have an account? Login',
+        authActionLogin: 'Login',
+        authActionSignup: 'Sign up',
+        feedbackTitle: 'Write your problem or suggestion',
+        sendFeedback: 'Send',
+        closeFeedback: 'Cancel',
+        savedTitle: 'Saved Items',
+        closeSaved: 'Close',
+        welcomeMessages: [
+            (name) => `Welcome ${name}, what shall we create today?`,
+            (name) => `Hello ${name}, what will we write today?`,
+            (name) => `Hi ${name}, what's your idea?`,
+            (name) => `Welcome ${name}, what's new?`,
+            (name) => `Hello ${name}, ready to write something special?`,
+            (name) => `Welcome ${name}, what shall we produce today?`
+        ],
+        siteDescription: 'A smart website specialized in writing content accurately within seconds',
+        goalTitle: 'Goal',
+        audienceTitle: 'Target Audience',
+        ageTitle: 'Age Group',
+        platformTitle: 'Platform',
+        formatTitle: 'Content Format',
+        contentTypeTitle: 'Content Type',
+        charLimitText: 'characters',
+        generateBtn: 'Start Writing',
+        editTitle: 'Edit Content',
+        manualEditTitle: 'Manual Edit',
+        manualEditDesc: 'Edit the text yourself',
+        aiEditTitle: 'AI Edit',
+        aiEditDesc: 'Ask AI to edit',
+        closeModal: 'Cancel',
+        manualEditModalTitle: 'Manual Edit',
+        saveManualEdit: 'Save',
+        closeManualEdit: 'Cancel',
+        aiEditModalTitle: 'AI Edit',
+        sendAiEdit: 'Send',
+        closeAiEdit: 'Cancel',
+        aiEditPlaceholder: 'Write your edit request...',
+        footerLinksTitle: 'Important Links',
+        privacyLink: 'Privacy Policy',
+        termsLink: 'Terms of Use',
+        copyrightText: '© 2026 AdVanta - All rights reserved',
+        toastSaved: 'Saved successfully',
+        toastRestored: 'Content restored',
+        toastDeleted: 'Deleted',
+        toastEdited: 'Edited',
+        toastAiEdited: 'AI edit completed',
+        errorLoginRequired: 'Please login first',
+        errorWriteFirst: 'Write your idea first',
+        errorWriteMessage: 'Write your message first',
+        errorGeneric: 'An error occurred, please try again',
+        shareSnapchat: 'Snapchat',
+        shareTiktok: 'TikTok',
+        shareInstagram: 'Instagram',
+        shareFacebook: 'Facebook',
+        userDescriptionPlaceholder: 'Write your idea here... (e.g., new skincare product)',
+        aiEditRequestPlaceholder: 'Write your edit request...'
+    }
+};
+
+function updateAllOptionsByLanguage() {
+    const lang = currentLang;
+    document.querySelectorAll('.option-chip').forEach(chip => {
+        const newText = chip.getAttribute(`data-${lang}`);
+        if (newText) {
+            chip.textContent = newText;
+        }
+    });
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('advanta_lang', lang);
+    htmlTag.setAttribute('dir', translations[lang].dir);
+    htmlTag.setAttribute('lang', lang === 'ar' ? 'ar' : 'en');
+    
+    // تحديث النصوص العامة
+    document.getElementById('sidebarTitle').textContent = translations[lang].sidebarTitle;
+    document.getElementById('authOption').textContent = translations[lang].authOption;
+    document.getElementById('feedbackOption').textContent = translations[lang].feedbackOption;
+    document.getElementById('savedOption').textContent = translations[lang].savedOption;
+    document.getElementById('languageOption').innerHTML = translations[lang].languageOption;
+    document.getElementById('authTitle').textContent = translations[lang].authTitle;
+    document.getElementById('authToggle').textContent = translations[lang].authToggle;
+    document.getElementById('authAction').textContent = isSignUp ? translations[lang].authActionSignup : translations[lang].authActionLogin;
+    document.getElementById('feedbackTitle').textContent = translations[lang].feedbackTitle;
+    document.getElementById('sendFeedback').textContent = translations[lang].sendFeedback;
+    document.getElementById('closeFeedback').textContent = translations[lang].closeFeedback;
+    document.getElementById('savedTitle').textContent = translations[lang].savedTitle;
+    document.getElementById('closeSaved').textContent = translations[lang].closeSaved;
+    document.getElementById('siteDescription').textContent = translations[lang].siteDescription;
+    document.getElementById('goalTitle').textContent = translations[lang].goalTitle;
+    document.getElementById('audienceTitle').textContent = translations[lang].audienceTitle;
+    document.getElementById('ageTitle').textContent = translations[lang].ageTitle;
+    document.getElementById('platformTitle').textContent = translations[lang].platformTitle;
+    document.getElementById('formatTitle').textContent = translations[lang].formatTitle;
+    document.getElementById('contentTypeTitle').textContent = translations[lang].contentTypeTitle;
+    document.getElementById('charLimitText').textContent = translations[lang].charLimitText;
+    document.getElementById('generateBtn').textContent = translations[lang].generateBtn;
+    document.getElementById('editTitle').textContent = translations[lang].editTitle;
+    document.getElementById('manualEditTitle').textContent = translations[lang].manualEditTitle;
+    document.getElementById('manualEditDesc').textContent = translations[lang].manualEditDesc;
+    document.getElementById('aiEditTitle').textContent = translations[lang].aiEditTitle;
+    document.getElementById('aiEditDesc').textContent = translations[lang].aiEditDesc;
+    document.getElementById('closeModal').textContent = translations[lang].closeModal;
+    document.getElementById('manualEditModalTitle').textContent = translations[lang].manualEditModalTitle;
+    document.getElementById('saveManualEdit').textContent = translations[lang].saveManualEdit;
+    document.getElementById('closeManualEdit').textContent = translations[lang].closeManualEdit;
+    document.getElementById('aiEditModalTitle').textContent = translations[lang].aiEditModalTitle;
+    document.getElementById('sendAiEdit').textContent = translations[lang].sendAiEdit;
+    document.getElementById('closeAiEdit').textContent = translations[lang].closeAiEdit;
+    document.getElementById('footerLinksTitle').textContent = translations[lang].footerLinksTitle;
+    document.getElementById('privacyLink').textContent = translations[lang].privacyLink;
+    document.getElementById('termsLink').textContent = translations[lang].termsLink;
+    document.getElementById('copyrightText').textContent = translations[lang].copyrightText;
+    document.getElementById('shareSnapchat').textContent = translations[lang].shareSnapchat;
+    document.getElementById('shareTiktok').textContent = translations[lang].shareTiktok;
+    document.getElementById('shareInstagram').textContent = translations[lang].shareInstagram;
+    document.getElementById('shareFacebook').textContent = translations[lang].shareFacebook;
+    document.getElementById('userDescription').placeholder = translations[lang].userDescriptionPlaceholder;
+    document.getElementById('aiEditRequest').placeholder = translations[lang].aiEditPlaceholder;
+    
+    // تحديث الخيارات الداخلية
+    updateAllOptionsByLanguage();
+    
+    // تحديث الرسالة الترحيبية
+    if (currentUser) {
+        const randomMsg = translations[lang].welcomeMessages[Math.floor(Math.random() * translations[lang].welcomeMessages.length)];
+        document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
+    } else {
+        document.getElementById('welcomeMessage').textContent = currentLang === 'ar' ? 'مرحباً بك في AdVanta' : 'Welcome to AdVanta';
+    }
+}
+
+function toggleLanguage() {
+    const newLang = currentLang === 'ar' ? 'en' : 'ar';
+    setLanguage(newLang);
+}
+
+document.getElementById('languageOption').addEventListener('click', toggleLanguage);
+
+// ==================== المتغيرات العامة ====================
+let currentUser = null;
+let currentUsername = '';
+let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
+let currentDescription = '';
+let currentContent = '';
+
+// عداد الحروف
+const descTextarea = document.getElementById('userDescription');
+const charCountSpan = document.getElementById('charCount');
+
+function updateCharCount() {
+    charCountSpan.textContent = descTextarea.value.length;
+}
+
+descTextarea.addEventListener('input', updateCharCount);
+updateCharCount();
+
+// ==================== التحقق من الجلسة الحالية ====================
+async function checkUser() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+        currentUser = user;
+        currentUsername = user.user_metadata?.username || user.email?.split('@')[0] || 'friend';
         
-        const translations = {
-            ar: {
-                dir: 'rtl',
-                sidebarTitle: 'القائمة',
-                authOption: 'تسجيل الدخول',
-                feedbackOption: 'اكتب مشكلتك أو اقتراحك',
-                savedOption: 'محفوظاتي',
-                languageOption: 'اللغة / Language',
-                authTitle: 'تسجيل الدخول',
-                authToggle: 'ليس لديك حساب؟ سجل الآن',
-                signupToggle: 'لديك حساب؟ سجل دخولك',
-                authActionLogin: 'تسجيل الدخول',
-                authActionSignup: 'تسجيل',
-                feedbackTitle: 'اكتب مشكلتك أو اقتراحك',
-                sendFeedback: 'إرسال',
-                closeFeedback: 'إلغاء',
-                savedTitle: 'المحفوظات',
-                closeSaved: 'إغلاق',
-                welcomeMessages: [
-                    (name) => `مرحباً ${name}، شو رح نبدع اليوم؟`,
-                    (name) => `أهلاً ${name}، وين رايح نكتب اليوم؟`,
-                    (name) => `أهلاً ${name}، فكرتك وين؟`,
-                    (name) => `مرحباً ${name}، شو في جديد؟`,
-                    (name) => `أهلاً بك ${name}، مستعد نكتب شي مميز؟`,
-                    (name) => `مرحباً ${name}، شو رح ننتج اليوم؟`
-                ],
-                siteDescription: 'موقع ذكي مختص في كتابة المحتوى بشكل دقيق خلال ثواني',
-                goalTitle: 'الهدف',
-                audienceTitle: 'الجمهور المستهدف',
-                ageTitle: 'الفئة العمرية',
-                platformTitle: 'المنصة',
-                formatTitle: 'شكل المحتوى',
-                contentTypeTitle: 'نوع المحتوى',
-                charLimitText: '50 حرف',
-                generateBtn: 'ابدأ الكتابة',
-                editTitle: 'تعديل المحتوى',
-                manualEditTitle: 'تعديل يدوي',
-                manualEditDesc: 'عدل النص بنفسك',
-                aiEditTitle: 'تعديل ذكي',
-                aiEditDesc: 'اطلب من الذكاء التعديل',
-                closeModal: 'إلغاء',
-                manualEditModalTitle: 'تعديل يدوي',
-                saveManualEdit: 'حفظ',
-                closeManualEdit: 'إلغاء',
-                aiEditModalTitle: 'تعديل ذكي',
-                sendAiEdit: 'إرسال',
-                closeAiEdit: 'إلغاء',
-                aiEditPlaceholder: 'اكتب طلب التعديل...',
-                footerLinksTitle: 'روابط مهمة',
-                privacyLink: 'سياسة الخصوصية',
-                termsLink: 'شروط الاستخدام',
-                copyrightText: '© 2025 AdVanta - جميع الحقوق محفوظة',
-                toastSaved: 'تم الحفظ بنجاح',
-                toastRestored: 'تم استعادة المحتوى',
-                toastDeleted: 'تم الحذف',
-                toastEdited: 'تم التعديل',
-                toastAiEdited: 'تم التعديل الذكي',
-                errorLoginRequired: 'يرجى تسجيل الدخول أولاً',
-                errorWriteFirst: 'اكتب فكرتك أولاً',
-                errorWriteMessage: 'اكتب رسالتك أولاً',
-                errorGeneric: 'حدث خطأ، رجاءً أعد المحاولة',
-                shareSnapchat: 'سناب شات',
-                shareTiktok: 'تيك توك',
-                shareInstagram: 'إنستغرام',
-                shareFacebook: 'فيسبوك',
-                userDescriptionPlaceholder: 'اكتب فكرتك هنا... (مثلاً: منتج جديد للعناية بالبشرة)',
-                aiEditRequestPlaceholder: 'اكتب طلب التعديل...'
-            },
-            en: {
-                dir: 'ltr',
-                sidebarTitle: 'Menu',
-                authOption: 'Login',
-                feedbackOption: 'Write your problem or suggestion',
-                savedOption: 'Saved',
-                languageOption: 'اللغة / Language',
-                authTitle: 'Login',
-                authToggle: "Don't have an account? Sign up",
-                signupToggle: 'Already have an account? Login',
-                authActionLogin: 'Login',
-                authActionSignup: 'Sign up',
-                feedbackTitle: 'Write your problem or suggestion',
-                sendFeedback: 'Send',
-                closeFeedback: 'Cancel',
-                savedTitle: 'Saved Items',
-                closeSaved: 'Close',
-                welcomeMessages: [
-                    (name) => `Welcome ${name}, what shall we create today?`,
-                    (name) => `Hello ${name}, what will we write today?`,
-                    (name) => `Hi ${name}, what's your idea?`,
-                    (name) => `Welcome ${name}, what's new?`,
-                    (name) => `Hello ${name}, ready to write something special?`,
-                    (name) => `Welcome ${name}, what shall we produce today?`
-                ],
-                siteDescription: 'A smart website specialized in writing content accurately within seconds',
-                goalTitle: 'Goal',
-                audienceTitle: 'Target Audience',
-                ageTitle: 'Age Group',
-                platformTitle: 'Platform',
-                formatTitle: 'Content Format',
-                contentTypeTitle: 'Content Type',
-                charLimitText: 'characters',
-                generateBtn: 'Start Writing',
-                editTitle: 'Edit Content',
-                manualEditTitle: 'Manual Edit',
-                manualEditDesc: 'Edit the text yourself',
-                aiEditTitle: 'AI Edit',
-                aiEditDesc: 'Ask AI to edit',
-                closeModal: 'Cancel',
-                manualEditModalTitle: 'Manual Edit',
-                saveManualEdit: 'Save',
-                closeManualEdit: 'Cancel',
-                aiEditModalTitle: 'AI Edit',
-                sendAiEdit: 'Send',
-                closeAiEdit: 'Cancel',
-                aiEditPlaceholder: 'Write your edit request...',
-                footerLinksTitle: 'Important Links',
-                privacyLink: 'Privacy Policy',
-                termsLink: 'Terms of Use',
-                copyrightText: '© 2025 AdVanta - All rights reserved',
-                toastSaved: 'Saved successfully',
-                toastRestored: 'Content restored',
-                toastDeleted: 'Deleted',
-                toastEdited: 'Edited',
-                toastAiEdited: 'AI edit completed',
-                errorLoginRequired: 'Please login first',
-                errorWriteFirst: 'Write your idea first',
-                errorWriteMessage: 'Write your message first',
-                errorGeneric: 'An error occurred, please try again',
-                shareSnapchat: 'Snapchat',
-                shareTiktok: 'TikTok',
-                shareInstagram: 'Instagram',
-                shareFacebook: 'Facebook',
-                userDescriptionPlaceholder: 'Write your idea here... (e.g., new skincare product)',
-                aiEditRequestPlaceholder: 'Write your edit request...'
-            }
-        };
+        document.getElementById('userInfo').style.display = 'block';
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('authOption').textContent = currentLang === 'ar' ? 'تسجيل الخروج' : 'Logout';
+        
+        const randomMsg = translations[currentLang].welcomeMessages[Math.floor(Math.random() * translations[currentLang].welcomeMessages.length)];
+        document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
+    } else {
+        currentUser = null;
+        currentUsername = '';
+        document.getElementById('userInfo').style.display = 'none';
+        document.getElementById('authOption').textContent = translations[currentLang].authOption;
+        document.getElementById('welcomeMessage').textContent = currentLang === 'ar' ? 'مرحباً بك في AdVanta' : 'Welcome to AdVanta';
+    }
+}
 
-        function updateAllOptionsByLanguage() {
-            const lang = currentLang;
-            document.querySelectorAll('.option-chip').forEach(chip => {
-                const newText = chip.getAttribute(`data-${lang}`);
-                if (newText) {
-                    chip.textContent = newText;
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('toastMessage');
+    const toastText = document.getElementById('toastText');
+    toastText.textContent = message;
+    toast.classList.add('show');
+    if (isSuccess) toast.classList.add('success');
+    else toast.classList.remove('success');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ==================== القائمة الجانبية ====================
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const closeSidebar = document.getElementById('closeSidebar');
+const authOption = document.getElementById('authOption');
+const feedbackOption = document.getElementById('feedbackOption');
+const savedOption = document.getElementById('savedOption');
+const authModal = document.getElementById('authModal');
+const feedbackModal = document.getElementById('feedbackModal');
+const savedModal = document.getElementById('savedModal');
+const closeFeedback = document.getElementById('closeFeedback');
+const closeSaved = document.getElementById('closeSaved');
+const sendFeedback = document.getElementById('sendFeedback');
+const feedbackText = document.getElementById('feedbackText');
+const authEmail = document.getElementById('authEmail');
+const authPassword = document.getElementById('authPassword');
+const authUsername = document.getElementById('authUsername');
+const authAction = document.getElementById('authAction');
+const authToggle = document.getElementById('authToggle');
+const authTitle = document.getElementById('authTitle');
+const signupFields = document.getElementById('signupFields');
+
+menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
+closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
+
+authOption.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    if (currentUser) {
+        supabase.auth.signOut();
+        checkUser();
+        showToast(translations[currentLang].toastDeleted, true);
+    } else {
+        authModal.style.display = 'flex';
+    }
+});
+
+feedbackOption.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    if (!currentUser) {
+        showToast(translations[currentLang].errorLoginRequired, false);
+        return;
+    }
+    feedbackModal.style.display = 'flex';
+});
+
+savedOption.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    if (!currentUser) {
+        showToast(translations[currentLang].errorLoginRequired, false);
+        return;
+    }
+    displaySavedItems();
+    savedModal.style.display = 'flex';
+});
+
+closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
+
+// ==================== نافذة تسجيل الدخول ====================
+let isSignUp = false;
+authToggle.addEventListener('click', () => {
+    isSignUp = !isSignUp;
+    authTitle.textContent = isSignUp ? (currentLang === 'ar' ? 'إنشاء حساب جديد' : 'Create New Account') : translations[currentLang].authTitle;
+    authAction.textContent = isSignUp ? translations[currentLang].authActionSignup : translations[currentLang].authActionLogin;
+    authToggle.textContent = isSignUp ? translations[currentLang].signupToggle : translations[currentLang].authToggle;
+    signupFields.style.display = isSignUp ? 'block' : 'none';
+});
+
+async function handleAuth(email, password, isSignUp, username = '') {
+    try {
+        if (isSignUp) {
+            if (!username) {
+                showToast(currentLang === 'ar' ? 'يرجى إدخال اسم المستخدم' : 'Please enter username', false);
+                return;
+            }
+            const { error } = await supabase.auth.signUp({ 
+                email, 
+                password,
+                options: {
+                    data: {
+                        username: username
+                    }
                 }
             });
-        }
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('advanta_lang', lang);
-            htmlTag.setAttribute('dir', translations[lang].dir);
-            htmlTag.setAttribute('lang', lang === 'ar' ? 'ar' : 'en');
+            if (error) throw error;
+            showToast(currentLang === 'ar' ? 'تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني' : 'Registration successful, please confirm your email', true);
+        } else {
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            showToast(currentLang === 'ar' ? 'تم تسجيل الدخول بنجاح' : 'Login successful', true);
             
-            // تحديث النصوص العامة
-            document.getElementById('sidebarTitle').textContent = translations[lang].sidebarTitle;
-            document.getElementById('authOption').textContent = translations[lang].authOption;
-            document.getElementById('feedbackOption').textContent = translations[lang].feedbackOption;
-            document.getElementById('savedOption').textContent = translations[lang].savedOption;
-            document.getElementById('languageOption').innerHTML = translations[lang].languageOption;
-            document.getElementById('authTitle').textContent = translations[lang].authTitle;
-            document.getElementById('authToggle').textContent = translations[lang].authToggle;
-            document.getElementById('authAction').textContent = isSignUp ? translations[lang].authActionSignup : translations[lang].authActionLogin;
-            document.getElementById('feedbackTitle').textContent = translations[lang].feedbackTitle;
-            document.getElementById('sendFeedback').textContent = translations[lang].sendFeedback;
-            document.getElementById('closeFeedback').textContent = translations[lang].closeFeedback;
-            document.getElementById('savedTitle').textContent = translations[lang].savedTitle;
-            document.getElementById('closeSaved').textContent = translations[lang].closeSaved;
-            document.getElementById('siteDescription').textContent = translations[lang].siteDescription;
-            document.getElementById('goalTitle').textContent = translations[lang].goalTitle;
-            document.getElementById('audienceTitle').textContent = translations[lang].audienceTitle;
-            document.getElementById('ageTitle').textContent = translations[lang].ageTitle;
-            document.getElementById('platformTitle').textContent = translations[lang].platformTitle;
-            document.getElementById('formatTitle').textContent = translations[lang].formatTitle;
-            document.getElementById('contentTypeTitle').textContent = translations[lang].contentTypeTitle;
-            document.getElementById('charLimitText').textContent = translations[lang].charLimitText;
-            document.getElementById('generateBtn').textContent = translations[lang].generateBtn;
-            document.getElementById('editTitle').textContent = translations[lang].editTitle;
-            document.getElementById('manualEditTitle').textContent = translations[lang].manualEditTitle;
-            document.getElementById('manualEditDesc').textContent = translations[lang].manualEditDesc;
-            document.getElementById('aiEditTitle').textContent = translations[lang].aiEditTitle;
-            document.getElementById('aiEditDesc').textContent = translations[lang].aiEditDesc;
-            document.getElementById('closeModal').textContent = translations[lang].closeModal;
-            document.getElementById('manualEditModalTitle').textContent = translations[lang].manualEditModalTitle;
-            document.getElementById('saveManualEdit').textContent = translations[lang].saveManualEdit;
-            document.getElementById('closeManualEdit').textContent = translations[lang].closeManualEdit;
-            document.getElementById('aiEditModalTitle').textContent = translations[lang].aiEditModalTitle;
-            document.getElementById('sendAiEdit').textContent = translations[lang].sendAiEdit;
-            document.getElementById('closeAiEdit').textContent = translations[lang].closeAiEdit;
-            document.getElementById('footerLinksTitle').textContent = translations[lang].footerLinksTitle;
-            document.getElementById('privacyLink').textContent = translations[lang].privacyLink;
-            document.getElementById('termsLink').textContent = translations[lang].termsLink;
-            document.getElementById('copyrightText').textContent = translations[lang].copyrightText;
-            document.getElementById('shareSnapchat').textContent = translations[lang].shareSnapchat;
-            document.getElementById('shareTiktok').textContent = translations[lang].shareTiktok;
-            document.getElementById('shareInstagram').textContent = translations[lang].shareInstagram;
-            document.getElementById('shareFacebook').textContent = translations[lang].shareFacebook;
-            document.getElementById('userDescription').placeholder = translations[lang].userDescriptionPlaceholder;
-            document.getElementById('aiEditRequest').placeholder = translations[lang].aiEditPlaceholder;
-            
-            // تحديث الخيارات الداخلية
-            updateAllOptionsByLanguage();
-            
-            // تحديث الرسالة الترحيبية
-            if (currentUser) {
-                const randomMsg = translations[lang].welcomeMessages[Math.floor(Math.random() * translations[lang].welcomeMessages.length)];
-                document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
-            } else {
-                document.getElementById('welcomeMessage').textContent = currentLang === 'ar' ? 'مرحباً بك في AdVanta' : 'Welcome to AdVanta';
+            if (email === 'saeedqasrawi773@gmail.com') {
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 1000);
             }
         }
+        authModal.style.display = 'none';
+        await checkUser();
+    } catch (e) {
+        showToast(e.message, false);
+    }
+}
 
-        function toggleLanguage() {
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            setLanguage(newLang);
-        }
+authAction.addEventListener('click', () => {
+    const email = authEmail.value.trim();
+    const password = authPassword.value.trim();
+    const username = authUsername ? authUsername.value.trim() : '';
+    
+    if (!email || !password) {
+        showToast(translations[currentLang].errorWriteFirst, false);
+        return;
+    }
+    
+    handleAuth(email, password, isSignUp, username);
+});
 
-        document.getElementById('languageOption').addEventListener('click', toggleLanguage);
+// ==================== إرسال الملاحظات مع اسم المستخدم ====================
+sendFeedback.addEventListener('click', async () => {
+    const msg = feedbackText.value.trim();
+    if (!msg) { 
+        showToast(translations[currentLang].errorWriteMessage, false);
+        return; 
+    }
 
-        // ==================== المتغيرات العامة ====================
-        let currentUser = null;
-        let currentUsername = '';
-        let savedItems = JSON.parse(localStorage.getItem('advanta_saved')) || [];
-        let currentDescription = '';
-        let currentContent = '';
+    if (!currentUser) {
+        showToast(translations[currentLang].errorLoginRequired, false);
+        return;
+    }
 
-        // عداد الحروف
-        const descTextarea = document.getElementById('userDescription');
-        const charCountSpan = document.getElementById('charCount');
+    try {
+        const { error } = await supabase
+            .from('feelback')
+            .insert([{ 
+                message: msg,
+                user_id: currentUser.id,
+                username: currentUsername
+            }]);
+
+        if (error) throw error;
+
+        showToast(currentLang === 'ar' ? 'تم إرسال رسالتك، شكراً لك' : 'Your message has been sent, thank you', true);
+        feedbackText.value = '';
+        feedbackModal.style.display = 'none';
+    } catch (e) {
+        console.error('Supabase error:', e);
+        showToast(translations[currentLang].errorGeneric, false);
+    }
+});
+
+// ==================== إدارة الخيارات الإضافية ====================
+function updateExtraOptions(format) {
+    const container = document.getElementById('extraOptionsContainer');
+    container.innerHTML = '';
+    let html = '';
+    const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
+    const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
+    
+    if (hasCaption) {
+        html += `<div class="section-title">${currentLang === 'ar' ? 'عدد أسطر الكابشن' : 'Number of caption lines'}</div><div class="options-grid" id="captionLines" data-single="true">` +
+            [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
+    }
+    if (hasDuration) {
+        html += `<div class="section-title">${currentLang === 'ar' ? 'طول السكريبت (ثانية)' : 'Script length (seconds)'}</div><div class="options-grid" id="videoDuration" data-single="true">` +
+            [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
+    }
+    if (html) {
+        container.innerHTML = html;
+        container.querySelectorAll('.option-chip').forEach(chip => {
+            chip.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.parentElement.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    }
+}
+
+document.querySelectorAll('#formatOptions .option-chip').forEach(chip => {
+    chip.addEventListener('click', () => updateExtraOptions(chip.dataset.value));
+});
+
+// ==================== زر الإنشاء مع تنسيق النتيجة حسب الطلب واللغة ====================
+document.getElementById('generateBtn').addEventListener('click', async function() {
+    const desc = document.getElementById('userDescription').value.trim();
+    if (!desc.trim()) { 
+        showToast(translations[currentLang].errorWriteFirst, false);
+        return; 
+    }
+
+    const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
+    
+    let captionLines = document.querySelector('#captionLines .option-chip.selected')?.dataset.value || '';
+    let videoDuration = document.querySelector('#videoDuration .option-chip.selected')?.dataset.value || '';
+
+    const resultContainer = document.getElementById('resultContainer');
+    const resultContent = document.getElementById('resultContent');
+    const shareButtons = document.getElementById('shareButtons');
+    
+    resultContainer.style.display = 'block';
+    shareButtons.style.display = 'flex';
+    resultContent.innerHTML = currentLang === 'ar' ? 'جاري كتابة المحتوى...' : 'Writing content...';
+
+    try {
+        let formatType = formats[0] || (currentLang === 'ar' ? 'نص' : 'Text');
+        let contentType = '';
+        let outputFormat = '';
         
-        function updateCharCount() {
-            charCountSpan.textContent = descTextarea.value.length;
-        }
-        
-        descTextarea.addEventListener('input', updateCharCount);
-        updateCharCount();
-
-        // ==================== التحقق من الجلسة الحالية ====================
-        async function checkUser() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                currentUser = user;
-                currentUsername = user.user_metadata?.username || user.email?.split('@')[0] || 'friend';
-                
-                document.getElementById('userInfo').style.display = 'block';
-                document.getElementById('userEmail').textContent = user.email;
-                document.getElementById('authOption').textContent = currentLang === 'ar' ? 'تسجيل الخروج' : 'Logout';
-                
-                const randomMsg = translations[currentLang].welcomeMessages[Math.floor(Math.random() * translations[currentLang].welcomeMessages.length)];
-                document.getElementById('welcomeMessage').textContent = randomMsg(currentUsername);
-            } else {
-                currentUser = null;
-                currentUsername = '';
-                document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('authOption').textContent = translations[currentLang].authOption;
-                document.getElementById('welcomeMessage').textContent = currentLang === 'ar' ? 'مرحباً بك في AdVanta' : 'Welcome to AdVanta';
+        if (currentLang === 'ar') {
+            switch(formatType) {
+                case 'فكرة صورة':
+                    contentType = 'فكرة لصورة فقط مع وصف للصورة';
+                    outputFormat = 'فكرة الصورة :\n';
+                    break;
+                case 'فكرة صورة + كابشن':
+                    contentType = 'فكرة لصورة مع نص كابشن مناسب';
+                    outputFormat = 'فكرة الصورة :\n\nالكابشن :\n';
+                    break;
+                case 'نص':
+                    contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
+                    outputFormat = '';
+                    break;
+                case 'سكريبت ريل':
+                    contentType = 'سيناريو مفصل لريل (مشاهد، توقيت، نصوص)';
+                    outputFormat = 'السكريبت :\n';
+                    break;
+                case 'سكريبت ريل + كابشن':
+                    contentType = 'سيناريو ريل مفصل مع كابشن منفصل';
+                    outputFormat = 'السكريبت :\n\nالكابشن :\n';
+                    break;
+                case 'فكرة فيديو':
+                    contentType = 'فكرة عامة لفيديو (مشاهد رئيسية)';
+                    outputFormat = 'فكرة الفيديو :\n';
+                    break;
+                case 'فكرة فيديو + كابشن':
+                    contentType = 'فكرة فيديو مع كابشن مناسب';
+                    outputFormat = 'فكرة الفيديو :\n\nالكابشن :\n';
+                    break;
+                case 'فكرة ستوري':
+                    contentType = 'فكرة متسلسلة قصيرة للستوري';
+                    outputFormat = 'فكرة الستوري :\n';
+                    break;
+                case 'فكرة ستوري + نص':
+                    contentType = 'فكرة ستوري مع نص كل مشهد';
+                    outputFormat = 'فكرة الستوري :\n\nالنص :\n';
+                    break;
+                default:
+                    contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
+                    outputFormat = '';
+            }
+        } else {
+            switch(formatType) {
+                case 'Image idea':
+                    contentType = 'Image idea with image description';
+                    outputFormat = 'Image idea :\n';
+                    break;
+                case 'Image idea + caption':
+                    contentType = 'Image idea with caption';
+                    outputFormat = 'Image idea :\n\nCaption :\n';
+                    break;
+                case 'Text':
+                    contentType = 'Complete text (article, post, text ad)';
+                    outputFormat = '';
+                    break;
+                case 'Reel script':
+                    contentType = 'Detailed reel script (scenes, timing, text)';
+                    outputFormat = 'Script :\n';
+                    break;
+                case 'Reel script + caption':
+                    contentType = 'Detailed reel script with separate caption';
+                    outputFormat = 'Script :\n\nCaption :\n';
+                    break;
+                case 'Video idea':
+                    contentType = 'General video idea (main scenes)';
+                    outputFormat = 'Video idea :\n';
+                    break;
+                case 'Video idea + caption':
+                    contentType = 'Video idea with appropriate caption';
+                    outputFormat = 'Video idea :\n\nCaption :\n';
+                    break;
+                case 'Story idea':
+                    contentType = 'Short sequential story idea';
+                    outputFormat = 'Story idea :\n';
+                    break;
+                case 'Story idea + text':
+                    contentType = 'Story idea with text for each scene';
+                    outputFormat = 'Story idea :\n\nText :\n';
+                    break;
+                default:
+                    contentType = 'Complete text (article, post, text ad)';
+                    outputFormat = '';
             }
         }
 
-        function showToast(message, isSuccess = true) {
-            const toast = document.getElementById('toastMessage');
-            const toastText = document.getElementById('toastText');
-            toastText.textContent = message;
-            toast.classList.add('show');
-            if (isSuccess) toast.classList.add('success');
-            else toast.classList.remove('success');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // ==================== القائمة الجانبية ====================
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const authOption = document.getElementById('authOption');
-        const feedbackOption = document.getElementById('feedbackOption');
-        const savedOption = document.getElementById('savedOption');
-        const authModal = document.getElementById('authModal');
-        const feedbackModal = document.getElementById('feedbackModal');
-        const savedModal = document.getElementById('savedModal');
-        const closeFeedback = document.getElementById('closeFeedback');
-        const closeSaved = document.getElementById('closeSaved');
-        const sendFeedback = document.getElementById('sendFeedback');
-        const feedbackText = document.getElementById('feedbackText');
-        const authEmail = document.getElementById('authEmail');
-        const authPassword = document.getElementById('authPassword');
-        const authUsername = document.getElementById('authUsername');
-        const authAction = document.getElementById('authAction');
-        const authToggle = document.getElementById('authToggle');
-        const authTitle = document.getElementById('authTitle');
-        const signupFields = document.getElementById('signupFields');
-
-        menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
-        closeSidebar.addEventListener('click', () => sidebar.classList.remove('open'));
-
-        authOption.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            if (currentUser) {
-                supabase.auth.signOut();
-                checkUser();
-                showToast(translations[currentLang].toastDeleted, true);
-            } else {
-                authModal.style.display = 'flex';
-            }
-        });
-
-        feedbackOption.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            if (!currentUser) {
-                showToast(translations[currentLang].errorLoginRequired, false);
-                return;
-            }
-            feedbackModal.style.display = 'flex';
-        });
-
-        savedOption.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            if (!currentUser) {
-                showToast(translations[currentLang].errorLoginRequired, false);
-                return;
-            }
-            displaySavedItems();
-            savedModal.style.display = 'flex';
-        });
-
-        closeFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
-        closeSaved.addEventListener('click', () => savedModal.style.display = 'none');
-
-        // ==================== نافذة تسجيل الدخول ====================
-        let isSignUp = false;
-        authToggle.addEventListener('click', () => {
-            isSignUp = !isSignUp;
-            authTitle.textContent = isSignUp ? (currentLang === 'ar' ? 'إنشاء حساب جديد' : 'Create New Account') : translations[currentLang].authTitle;
-            authAction.textContent = isSignUp ? translations[currentLang].authActionSignup : translations[currentLang].authActionLogin;
-            authToggle.textContent = isSignUp ? translations[currentLang].signupToggle : translations[currentLang].authToggle;
-            signupFields.style.display = isSignUp ? 'block' : 'none';
-        });
-
-        async function handleAuth(email, password, isSignUp, username = '') {
-            try {
-                if (isSignUp) {
-                    if (!username) {
-                        showToast(currentLang === 'ar' ? 'يرجى إدخال اسم المستخدم' : 'Please enter username', false);
-                        return;
-                    }
-                    const { error } = await supabase.auth.signUp({ 
-                        email, 
-                        password,
-                        options: {
-                            data: {
-                                username: username
-                            }
-                        }
-                    });
-                    if (error) throw error;
-                    showToast(currentLang === 'ar' ? 'تم التسجيل بنجاح، يرجى تأكيد بريدك الإلكتروني' : 'Registration successful, please confirm your email', true);
-                } else {
-                    const { error } = await supabase.auth.signInWithPassword({ email, password });
-                    if (error) throw error;
-                    showToast(currentLang === 'ar' ? 'تم تسجيل الدخول بنجاح' : 'Login successful', true);
-                    
-                    if (email === 'saeedqasrawi773@gmail.com') {
-                        setTimeout(() => {
-                            window.location.href = 'admin.html';
-                        }, 1000);
-                    }
-                }
-                authModal.style.display = 'none';
-                await checkUser();
-            } catch (e) {
-                showToast(e.message, false);
-            }
-        }
-
-        authAction.addEventListener('click', () => {
-            const email = authEmail.value.trim();
-            const password = authPassword.value.trim();
-            const username = authUsername ? authUsername.value.trim() : '';
-            
-            if (!email || !password) {
-                showToast(translations[currentLang].errorWriteFirst, false);
-                return;
-            }
-            
-            handleAuth(email, password, isSignUp, username);
-        });
-
-        // ==================== إرسال الملاحظات مع اسم المستخدم ====================
-        sendFeedback.addEventListener('click', async () => {
-            const msg = feedbackText.value.trim();
-            if (!msg) { 
-                showToast(translations[currentLang].errorWriteMessage, false);
-                return; 
-            }
-
-            if (!currentUser) {
-                showToast(translations[currentLang].errorLoginRequired, false);
-                return;
-            }
-
-            try {
-                const { error } = await supabase
-                    .from('feelback')
-                    .insert([{ 
-                        message: msg,
-                        user_id: currentUser.id,
-                        username: currentUsername
-                    }]);
-
-                if (error) throw error;
-
-                showToast(currentLang === 'ar' ? 'تم إرسال رسالتك، شكراً لك' : 'Your message has been sent, thank you', true);
-                feedbackText.value = '';
-                feedbackModal.style.display = 'none';
-            } catch (e) {
-                console.error('Supabase error:', e);
-                showToast(translations[currentLang].errorGeneric, false);
-            }
-        });
-
-        // ==================== إدارة الخيارات الإضافية ====================
-        function updateExtraOptions(format) {
-            const container = document.getElementById('extraOptionsContainer');
-            container.innerHTML = '';
-            let html = '';
-            const hasCaption = format.includes('كابشن') || format === 'نص' || format === 'فكرة ستوري + نص';
-            const hasDuration = format.includes('سكريبت') || format.includes('فيديو') || format.includes('ستوري');
-            
-            if (hasCaption) {
-                html += `<div class="section-title">${currentLang === 'ar' ? 'عدد أسطر الكابشن' : 'Number of caption lines'}</div><div class="options-grid" id="captionLines" data-single="true">` +
-                    [1,2,3,4,5].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
-            }
-            if (hasDuration) {
-                html += `<div class="section-title">${currentLang === 'ar' ? 'طول السكريبت (ثانية)' : 'Script length (seconds)'}</div><div class="options-grid" id="videoDuration" data-single="true">` +
-                    [10,15,20,25,30,40,50,60].map(n => `<div class="option-chip" data-value="${n}" data-single="true" data-ar="${n}" data-en="${n}">${n}</div>`).join('') + '</div>';
-            }
-            if (html) {
-                container.innerHTML = html;
-                container.querySelectorAll('.option-chip').forEach(chip => {
-                    chip.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        this.parentElement.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
-                        this.classList.add('selected');
-                    });
-                });
-            }
-        }
-
-        document.querySelectorAll('#formatOptions .option-chip').forEach(chip => {
-            chip.addEventListener('click', () => updateExtraOptions(chip.dataset.value));
-        });
-
-        // ==================== زر الإنشاء مع تنسيق النتيجة حسب الطلب واللغة ====================
-        document.getElementById('generateBtn').addEventListener('click', async function() {
-            const desc = document.getElementById('userDescription').value.trim();
-            if (!desc.trim()) { 
-                showToast(translations[currentLang].errorWriteFirst, false);
-                return; 
-            }
-
-            const goals = [...document.querySelectorAll('#goalOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            const audiences = [...document.querySelectorAll('#audienceOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            const ages = [...document.querySelectorAll('#ageOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            const platforms = [...document.querySelectorAll('#platformOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            const formats = [...document.querySelectorAll('#formatOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            const contentTypes = [...document.querySelectorAll('#contentTypeOptions .option-chip.selected')].map(c => c.getAttribute(`data-${currentLang}`) || c.dataset.value);
-            
-            let captionLines = document.querySelector('#captionLines .option-chip.selected')?.dataset.value || '';
-            let videoDuration = document.querySelector('#videoDuration .option-chip.selected')?.dataset.value || '';
-
-            const resultContainer = document.getElementById('resultContainer');
-            const resultContent = document.getElementById('resultContent');
-            const shareButtons = document.getElementById('shareButtons');
-            
-            resultContainer.style.display = 'block';
-            shareButtons.style.display = 'flex';
-            resultContent.innerHTML = currentLang === 'ar' ? 'جاري كتابة المحتوى...' : 'Writing content...';
-
-            try {
-                let formatType = formats[0] || (currentLang === 'ar' ? 'نص' : 'Text');
-                let contentType = '';
-                let outputFormat = '';
-                
-                if (currentLang === 'ar') {
-                    switch(formatType) {
-                        case 'فكرة صورة':
-                            contentType = 'فكرة لصورة فقط مع وصف للصورة';
-                            outputFormat = 'فكرة الصورة :\n';
-                            break;
-                        case 'فكرة صورة + كابشن':
-                            contentType = 'فكرة لصورة مع نص كابشن مناسب';
-                            outputFormat = 'فكرة الصورة :\n\nالكابشن :\n';
-                            break;
-                        case 'نص':
-                            contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
-                            outputFormat = '';
-                            break;
-                        case 'سكريبت ريل':
-                            contentType = 'سيناريو مفصل لريل (مشاهد، توقيت، نصوص)';
-                            outputFormat = 'السكريبت :\n';
-                            break;
-                        case 'سكريبت ريل + كابشن':
-                            contentType = 'سيناريو ريل مفصل مع كابشن منفصل';
-                            outputFormat = 'السكريبت :\n\nالكابشن :\n';
-                            break;
-                        case 'فكرة فيديو':
-                            contentType = 'فكرة عامة لفيديو (مشاهد رئيسية)';
-                            outputFormat = 'فكرة الفيديو :\n';
-                            break;
-                        case 'فكرة فيديو + كابشن':
-                            contentType = 'فكرة فيديو مع كابشن مناسب';
-                            outputFormat = 'فكرة الفيديو :\n\nالكابشن :\n';
-                            break;
-                        case 'فكرة ستوري':
-                            contentType = 'فكرة متسلسلة قصيرة للستوري';
-                            outputFormat = 'فكرة الستوري :\n';
-                            break;
-                        case 'فكرة ستوري + نص':
-                            contentType = 'فكرة ستوري مع نص كل مشهد';
-                            outputFormat = 'فكرة الستوري :\n\nالنص :\n';
-                            break;
-                        default:
-                            contentType = 'نص متكامل (مقال، منشور، إعلان نصي)';
-                            outputFormat = '';
-                    }
-                } else {
-                    switch(formatType) {
-                        case 'Image idea':
-                            contentType = 'Image idea with image description';
-                            outputFormat = 'Image idea :\n';
-                            break;
-                        case 'Image idea + caption':
-                            contentType = 'Image idea with caption';
-                            outputFormat = 'Image idea :\n\nCaption :\n';
-                            break;
-                        case 'Text':
-                            contentType = 'Complete text (article, post, text ad)';
-                            outputFormat = '';
-                            break;
-                        case 'Reel script':
-                            contentType = 'Detailed reel script (scenes, timing, text)';
-                            outputFormat = 'Script :\n';
-                            break;
-                        case 'Reel script + caption':
-                            contentType = 'Detailed reel script with separate caption';
-                            outputFormat = 'Script :\n\nCaption :\n';
-                            break;
-                        case 'Video idea':
-                            contentType = 'General video idea (main scenes)';
-                            outputFormat = 'Video idea :\n';
-                            break;
-                        case 'Video idea + caption':
-                            contentType = 'Video idea with appropriate caption';
-                            outputFormat = 'Video idea :\n\nCaption :\n';
-                            break;
-                        case 'Story idea':
-                            contentType = 'Short sequential story idea';
-                            outputFormat = 'Story idea :\n';
-                            break;
-                        case 'Story idea + text':
-                            contentType = 'Story idea with text for each scene';
-                            outputFormat = 'Story idea :\n\nText :\n';
-                            break;
-                        default:
-                            contentType = 'Complete text (article, post, text ad)';
-                            outputFormat = '';
-                    }
-                }
-
-                const prompt = `You are a professional content writer. Write only one piece of content based on:
+        const prompt = `You are a professional content writer. Write only one piece of content based on:
 Goal: ${goals.join(', ') || 'unspecified'}
 Audience: ${audiences.join(', ') || 'general'}
 Age: ${ages.join(', ') || 'all ages'}
@@ -1311,195 +1312,195 @@ The output must be in the following exact format:
 ${outputFormat}
 Keep the titles as they are.`;
 
-                const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
-                });
-
-                const data = await response.json();
-                if (data.error) { 
-                    resultContent.innerHTML = translations[currentLang].errorGeneric; 
-                    return; 
-                }
-
-                let text = data.result.replace(/\n/g, '<br>');
-                resultContent.innerHTML = text;
-                currentDescription = desc;
-                currentContent = data.result;
-                
-            } catch (error) {
-                resultContent.innerHTML = translations[currentLang].errorGeneric;
-                console.error(error);
-            }
+        const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
         });
 
-        window.share = function(platform) {
-            const text = currentContent || document.getElementById('resultContent').innerText;
-            const url = encodeURIComponent(window.location.href);
-            const encodedText = encodeURIComponent(text);
-            const links = {
-                snapchat: `https://www.snapchat.com/scan?attachmentUrl=${url}`,
-                tiktok: `https://www.tiktok.com/upload?reference=${url}`,
-                instagram: `https://www.instagram.com/create/story?text=${encodedText}`,
-                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodedText}`
-            };
-            window.open(links[platform], '_blank');
-        };
-
-        // ==================== حفظ المحتوى ====================
-        document.getElementById('saveBtn').addEventListener('click', function() {
-            if (!currentUser) {
-                showToast(translations[currentLang].errorLoginRequired, false);
-                return;
-            }
-            if (!currentDescription || !currentContent) {
-                showToast(currentLang === 'ar' ? 'لا يوجد محتوى للحفظ' : 'No content to save', false);
-                return;
-            }
-            
-            const userSavedKey = `advanta_saved_${currentUser.id}`;
-            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
-            
-            userSaved.unshift({
-                id: Date.now(),
-                description: currentDescription.substring(0, 100) + '...',
-                fullDescription: currentDescription,
-                content: currentContent,
-                date: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US')
-            });
-            
-            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
-            showToast(translations[currentLang].toastSaved, true);
-        });
-
-        function displaySavedItems() {
-            if (!currentUser) return;
-            
-            const userSavedKey = `advanta_saved_${currentUser.id}`;
-            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
-            const container = document.getElementById('savedItemsContainer');
-            
-            if (userSaved.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #9ca3af;">' + (currentLang === 'ar' ? 'لا توجد محفوظات بعد' : 'No saved items yet') + '</p>';
-                return;
-            }
-            
-            container.innerHTML = userSaved.map(item => `
-                <div class="saved-item">
-                    <div class="desc">📌 ${item.description}</div>
-                    <div class="content">${item.content.substring(0, 100)}...</div>
-                    <div class="saved-item-actions">
-                        <button onclick="loadSavedItem(${item.id})">${currentLang === 'ar' ? 'استعادة' : 'Restore'}</button>
-                        <button onclick="deleteSavedItem(${item.id})">${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
-                    </div>
-                </div>
-            `).join('');
+        const data = await response.json();
+        if (data.error) { 
+            resultContent.innerHTML = translations[currentLang].errorGeneric; 
+            return; 
         }
 
-        window.loadSavedItem = function(id) {
-            if (!currentUser) return;
-            
-            const userSavedKey = `advanta_saved_${currentUser.id}`;
-            const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
-            const item = userSaved.find(i => i.id === id);
-            
-            if (item) {
-                document.getElementById('userDescription').value = item.fullDescription;
-                document.getElementById('resultContent').innerHTML = item.content.replace(/\n/g, '<br>');
-                document.getElementById('resultContainer').style.display = 'block';
-                document.getElementById('shareButtons').style.display = 'flex';
-                currentDescription = item.fullDescription;
-                currentContent = item.content;
-                savedModal.style.display = 'none';
-                showToast(translations[currentLang].toastRestored, true);
-            }
-        };
+        let text = data.result.replace(/\n/g, '<br>');
+        resultContent.innerHTML = text;
+        currentDescription = desc;
+        currentContent = data.result;
+        
+    } catch (error) {
+        resultContent.innerHTML = translations[currentLang].errorGeneric;
+        console.error(error);
+    }
+});
 
-        window.deleteSavedItem = function(id) {
-            if (!currentUser) return;
-            
-            const userSavedKey = `advanta_saved_${currentUser.id}`;
-            let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
-            userSaved = userSaved.filter(i => i.id !== id);
-            localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
-            displaySavedItems();
-            showToast(translations[currentLang].toastDeleted, true);
-        };
+window.share = function(platform) {
+    const text = currentContent || document.getElementById('resultContent').innerText;
+    const url = encodeURIComponent(window.location.href);
+    const encodedText = encodeURIComponent(text);
+    const links = {
+        snapchat: `https://www.snapchat.com/scan?attachmentUrl=${url}`,
+        tiktok: `https://www.tiktok.com/upload?reference=${url}`,
+        instagram: `https://www.instagram.com/create/story?text=${encodedText}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodedText}`
+    };
+    window.open(links[platform], '_blank');
+};
 
-        // ==================== تعديل ====================
-        const editBtn = document.getElementById('editBtn');
-        const editModal = document.getElementById('editModal');
-        const manualEditModal = document.getElementById('manualEditModal');
-        const aiEditModal = document.getElementById('aiEditModal');
-        const closeModal = document.getElementById('closeModal');
-        const manualEditOption = document.getElementById('manualEditOption');
-        const aiEditOption = document.getElementById('aiEditOption');
-        const closeManualEdit = document.getElementById('closeManualEdit');
-        const closeAiEdit = document.getElementById('closeAiEdit');
-        const saveManualEdit = document.getElementById('saveManualEdit');
-        const sendAiEdit = document.getElementById('sendAiEdit');
-        const manualEditText = document.getElementById('manualEditText');
-        const aiEditRequest = document.getElementById('aiEditRequest');
+// ==================== حفظ المحتوى ====================
+document.getElementById('saveBtn').addEventListener('click', function() {
+    if (!currentUser) {
+        showToast(translations[currentLang].errorLoginRequired, false);
+        return;
+    }
+    if (!currentDescription || !currentContent) {
+        showToast(currentLang === 'ar' ? 'لا يوجد محتوى للحفظ' : 'No content to save', false);
+        return;
+    }
+    
+    const userSavedKey = `advanta_saved_${currentUser.id}`;
+    let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+    
+    userSaved.unshift({
+        id: Date.now(),
+        description: currentDescription.substring(0, 100) + '...',
+        fullDescription: currentDescription,
+        content: currentContent,
+        date: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US')
+    });
+    
+    localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
+    showToast(translations[currentLang].toastSaved, true);
+});
 
-        editBtn.addEventListener('click', () => editModal.style.display = 'flex');
-        closeModal.addEventListener('click', () => editModal.style.display = 'none');
+function displaySavedItems() {
+    if (!currentUser) return;
+    
+    const userSavedKey = `advanta_saved_${currentUser.id}`;
+    const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+    const container = document.getElementById('savedItemsContainer');
+    
+    if (userSaved.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #9ca3af;">' + (currentLang === 'ar' ? 'لا توجد محفوظات بعد' : 'No saved items yet') + '</p>';
+        return;
+    }
+    
+    container.innerHTML = userSaved.map(item => `
+        <div class="saved-item">
+            <div class="desc">📌 ${item.description}</div>
+            <div class="content">${item.content.substring(0, 100)}...</div>
+            <div class="saved-item-actions">
+                <button onclick="loadSavedItem(${item.id})">${currentLang === 'ar' ? 'استعادة' : 'Restore'}</button>
+                <button onclick="deleteSavedItem(${item.id})">${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
+            </div>
+        </div>
+    `).join('');
+}
 
-        manualEditOption.addEventListener('click', () => {
-            editModal.style.display = 'none';
-            manualEditText.value = document.getElementById('resultContent').innerText;
-            manualEditModal.style.display = 'flex';
+window.loadSavedItem = function(id) {
+    if (!currentUser) return;
+    
+    const userSavedKey = `advanta_saved_${currentUser.id}`;
+    const userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+    const item = userSaved.find(i => i.id === id);
+    
+    if (item) {
+        document.getElementById('userDescription').value = item.fullDescription;
+        document.getElementById('resultContent').innerHTML = item.content.replace(/\n/g, '<br>');
+        document.getElementById('resultContainer').style.display = 'block';
+        document.getElementById('shareButtons').style.display = 'flex';
+        currentDescription = item.fullDescription;
+        currentContent = item.content;
+        savedModal.style.display = 'none';
+        showToast(translations[currentLang].toastRestored, true);
+    }
+};
+
+window.deleteSavedItem = function(id) {
+    if (!currentUser) return;
+    
+    const userSavedKey = `advanta_saved_${currentUser.id}`;
+    let userSaved = JSON.parse(localStorage.getItem(userSavedKey)) || [];
+    userSaved = userSaved.filter(i => i.id !== id);
+    localStorage.setItem(userSavedKey, JSON.stringify(userSaved));
+    displaySavedItems();
+    showToast(translations[currentLang].toastDeleted, true);
+};
+
+// ==================== تعديل ====================
+const editBtn = document.getElementById('editBtn');
+const editModal = document.getElementById('editModal');
+const manualEditModal = document.getElementById('manualEditModal');
+const aiEditModal = document.getElementById('aiEditModal');
+const closeModal = document.getElementById('closeModal');
+const manualEditOption = document.getElementById('manualEditOption');
+const aiEditOption = document.getElementById('aiEditOption');
+const closeManualEdit = document.getElementById('closeManualEdit');
+const closeAiEdit = document.getElementById('closeAiEdit');
+const saveManualEdit = document.getElementById('saveManualEdit');
+const sendAiEdit = document.getElementById('sendAiEdit');
+const manualEditText = document.getElementById('manualEditText');
+const aiEditRequest = document.getElementById('aiEditRequest');
+
+editBtn.addEventListener('click', () => editModal.style.display = 'flex');
+closeModal.addEventListener('click', () => editModal.style.display = 'none');
+
+manualEditOption.addEventListener('click', () => {
+    editModal.style.display = 'none';
+    manualEditText.value = document.getElementById('resultContent').innerText;
+    manualEditModal.style.display = 'flex';
+});
+
+closeManualEdit.addEventListener('click', () => manualEditModal.style.display = 'none');
+
+saveManualEdit.addEventListener('click', () => {
+    document.getElementById('resultContent').innerHTML = manualEditText.value.replace(/\n/g, '<br>');
+    manualEditModal.style.display = 'none';
+    showToast(translations[currentLang].toastEdited, true);
+});
+
+aiEditOption.addEventListener('click', () => {
+    editModal.style.display = 'none';
+    aiEditModal.style.display = 'flex';
+});
+
+closeAiEdit.addEventListener('click', () => aiEditModal.style.display = 'none');
+
+sendAiEdit.addEventListener('click', async () => {
+    const request = aiEditRequest.value.trim();
+    if (!request) { 
+        alert(translations[currentLang].errorWriteFirst);
+        return; 
+    }
+
+    const currentText = document.getElementById('resultContent').innerText;
+    aiEditModal.style.display = 'none';
+    document.getElementById('resultContent').innerHTML = currentLang === 'ar' ? 'جاري التعديل...' : 'Editing...';
+
+    try {
+        const prompt = `Edit the following text based on the request: "${request}"\n\nText:\n${currentText}\n\nWrite only the edited text.`;
+        const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
         });
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+        document.getElementById('resultContent').innerHTML = data.result.replace(/\n/g, '<br>');
+        aiEditRequest.value = '';
+        showToast(translations[currentLang].toastAiEdited, true);
+    } catch (e) {
+        document.getElementById('resultContent').innerHTML = translations[currentLang].errorGeneric;
+    }
+});
 
-        closeManualEdit.addEventListener('click', () => manualEditModal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+});
 
-        saveManualEdit.addEventListener('click', () => {
-            document.getElementById('resultContent').innerHTML = manualEditText.value.replace(/\n/g, '<br>');
-            manualEditModal.style.display = 'none';
-            showToast(translations[currentLang].toastEdited, true);
-        });
-
-        aiEditOption.addEventListener('click', () => {
-            editModal.style.display = 'none';
-            aiEditModal.style.display = 'flex';
-        });
-
-        closeAiEdit.addEventListener('click', () => aiEditModal.style.display = 'none');
-
-        sendAiEdit.addEventListener('click', async () => {
-            const request = aiEditRequest.value.trim();
-            if (!request) { 
-                alert(translations[currentLang].errorWriteFirst);
-                return; 
-            }
-
-            const currentText = document.getElementById('resultContent').innerText;
-            aiEditModal.style.display = 'none';
-            document.getElementById('resultContent').innerHTML = currentLang === 'ar' ? 'جاري التعديل...' : 'Editing...';
-
-            try {
-                const prompt = `Edit the following text based on the request: "${request}"\n\nText:\n${currentText}\n\nWrite only the edited text.`;
-                const response = await fetch('https://advanta-backend.onrender.com/api/generate', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
-                });
-                const data = await response.json();
-                if (data.error) throw new Error(data.error);
-                document.getElementById('resultContent').innerHTML = data.result.replace(/\n/g, '<br>');
-                aiEditRequest.value = '';
-                showToast(translations[currentLang].toastAiEdited, true);
-            } catch (e) {
-                document.getElementById('resultContent').innerHTML = translations[currentLang].errorGeneric;
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) e.target.style.display = 'none';
-        });
-
-        // التحقق من المستخدم عند تحميل الصفحة
-        setLanguage(currentLang);
-        checkUser();
+// التحقق من المستخدم عند تحميل الصفحة
+setLanguage(currentLang);
+checkUser();
     </script>
 </body>
 </html>
